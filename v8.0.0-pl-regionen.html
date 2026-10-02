@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regiony: Pressig, Kronach, Ludwigsstadt, Sonneberg, Neustadt bei Coburg · RaumTreu</title>
+<meta name="description" content="RaumTreu – Pressig, Kronach, Ludwigsstadt, Sonneberg, Neustadt bei Coburg, Rödental, Coburg, Burgkunstadt, Lichtenfels, Kulmbach">
+<meta name="theme-color" content="#f5efe4">
+<meta name="view-transition" content="same-origin">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..500;1,6..96,400..500&family=Karla:ital,wght@0,400..700;1,400&display=swap"><style>/* RaumTreu — wygląd v8.0.0 „Exposé" (luksusowy magazyn / broszura nieruchomości premium).
+   Krem papieru + głęboki granat + zgaszona terakota. Kroje lokalne: Bodoni Moda (nagłówki), Karla (tekst). */
+
+
+
+
+
+
+
+
+
+
+:root {
+  --papier: #f5efe4; --papier-2: #ede4d4; --karta: #fbf8f1;
+  --granat: #16213a; --granat-2: #1e2b49; --granat-3: #2a3a5e; --granat-noc: #0f1729;
+  --tusz: #1a2033; --szary: #585d70;
+  --rdza: #a24f34; --rdza-j: #e3a083; --rdza-c: #7f3a25;
+  --kreska: rgba(22, 33, 58, .16); --kreska-2: rgba(22, 33, 58, .32); --kreska-c: rgba(240, 232, 218, .18);
+  --na-ciemnym: #f1e9dc; --na-ciemnym-2: #bcc0cf;
+  --immo: #ee5234; --bau: #a24f34; --netz: #be652d; --dig: #15a1af;
+  /* zmienne wspólnego bloku formularzy */
+  --atrament: #1a2033; --zielen: #16213a; --zielen-2: #2a3a5e; --miedz: #a24f34; --miedz-2: #7f3a25;
+  --bialy: #fdfaf4; --linia: #d6ccba; --linia-2: #e7dfd0;
+  --blad: #a8321f; --ok: #3d6b45;
+  --serif: "Bodoni Moda Variable", "Bodoni Moda", "Didot", "Bodoni 72", "Times New Roman", serif;
+  --disp: var(--serif);
+  --sans: "Karla Variable", "Karla", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+  --mono: var(--sans);
+  --szer: 1280px;
+  --pad: clamp(18px, 4.6vw, 64px);
+  --sek: clamp(68px, 9vw, 132px);
+  --r: 0;
+  --ease: cubic-bezier(.22, .8, .24, 1);
+  --szum: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 .95  0 0 0 0 .86  0 0 0 1.1 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --papier-szum: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .2  0 0 0 .5 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.35'/%3E%3C/svg%3E");
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; background: var(--papier); scroll-padding-top: 90px; }
+body { margin: 0; background: var(--papier) var(--papier-szum); color: var(--tusz); font-family: var(--sans); font-size: 17px; line-height: 1.68; font-weight: 400; overflow-x: clip; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body.menu-otwarte { overflow: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; letter-spacing: -.012em; line-height: 1.04; margin: 0; text-wrap: balance; font-optical-sizing: auto; hyphens: manual; }
+h1 { font-size: clamp(2.35rem, 6vw, 5.4rem); }
+h2 { font-size: clamp(1.95rem, 4.2vw, 3.7rem); line-height: 1.06; }
+h3 { font-size: clamp(1.35rem, 1.9vw, 1.75rem); line-height: 1.15; }
+em { font-style: italic; }
+p { margin: 0 0 1em; }
+.lead { font-size: clamp(1.06rem, 1.3vw, 1.2rem); line-height: 1.62; color: var(--szary); max-width: 46ch; }
+.srodek { text-align: center; margin-top: 3.2rem; }
+.ik { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none; vertical-align: -.18em; }
+.ukryj, .ukryj-tekst { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; left: -9999px; }
+.pomin { position: absolute; left: -9999px; top: 8px; background: var(--granat); color: var(--papier); padding: 10px 16px; z-index: 300; font-weight: 600; }
+.pomin:focus { left: 8px; }
+:focus-visible { outline: 2px solid var(--rdza); outline-offset: 3px; }
+.ciemne :focus-visible, .stopka :focus-visible { outline-color: var(--rdza-j); }
+::selection { background: var(--granat); color: var(--papier); }
+
+/* etykiety: wersaliki z dużym światłem */
+.etykieta { font: 700 .68rem/1.4 var(--sans); letter-spacing: .28em; text-transform: uppercase; color: var(--rdza); display: flex; align-items: center; gap: .85rem; margin: 0 0 1.4rem; }
+.etykieta::before { content: ""; width: 26px; height: 1px; background: currentColor; flex: none; }
+.ciemne .etykieta { color: var(--rdza-j); }
+
+/* ciemne sekcje */
+.ciemne { background: var(--granat); color: var(--na-ciemnym); }
+.ciemne h1, .ciemne h2, .ciemne h3 { color: var(--na-ciemnym); }
+.ciemne p, .ciemne .lead { color: var(--na-ciemnym-2); }
+
+/* rysujące się podkreślenia */
+.podkr, .link-strz, .menu-lista .m-t, .stopka a, .tekst a, .przypis a, .info a, .okruchy a, .spis-inne a > span:first-child, .sp-link, .kolofon a {
+  background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat; transition: background-size .7s var(--ease), color .4s;
+  text-decoration: none; padding-bottom: 2px;
+}
+.podkr:hover, .link-strz:hover, .menu-lista a:hover .m-t, .menu-lista a[aria-current] .m-t, .stopka a:hover, .tekst a:hover, .przypis a:hover, .info a:hover, .okruchy a:hover, .spis-inne a:hover > span:first-child, .spis-poz:hover .sp-link, .kolofon a:hover { background-size: 100% 1px; }
+.tekst a, .przypis a, .info a { text-decoration: underline; text-decoration-color: var(--kreska-2); text-underline-offset: 3px; }
+.tekst a:hover, .przypis a:hover, .info a:hover { text-decoration-color: transparent; }
+
+/* przyciski */
+.btn, .przycisk { display: inline-flex; align-items: center; justify-content: center; gap: .8rem; background: var(--granat); color: var(--papier); border: 1px solid var(--granat); border-radius: 0; padding: 1.05rem 1.6rem; font: 700 .74rem/1.2 var(--sans); letter-spacing: .18em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease); position: relative; }
+.btn:hover, .przycisk:hover { background: var(--rdza-c); border-color: var(--rdza-c); color: #fff; }
+.btn .ik, .przycisk .ik, .link-strz .ik, .sp-link .ik { transition: transform .5s var(--ease); }
+.btn:hover .ik, .przycisk:hover .ik, .link-strz:hover .ik, .spis-poz:hover .sp-link .ik { transform: translateX(5px); }
+.btn-jasny { background: var(--na-ciemnym); color: var(--granat); border-color: var(--na-ciemnym); }
+.btn-jasny:hover { background: var(--rdza-j); border-color: var(--rdza-j); color: var(--granat); }
+.btn-obrys, .przycisk.drugi { background: transparent; color: var(--granat); }
+.btn-obrys:hover, .przycisk.drugi:hover { background: var(--granat); color: var(--papier); border-color: var(--granat); }
+.btn-maly, .przycisk.maly { padding: .8rem 1.1rem; font-size: .68rem; }
+.przycisk.duzy { width: 100%; padding: 1.25rem 1.6rem; font-size: .8rem; margin-top: .6rem; }
+.przycisk[disabled] { opacity: .5; cursor: not-allowed; pointer-events: none; }
+.przycisk.google { background: #fff; color: var(--tusz); border-color: var(--linia); width: 100%; text-transform: none; letter-spacing: .02em; font-size: .95rem; font-weight: 600; }
+.przycisk.google:hover { border-color: var(--granat); background: #fff; color: var(--tusz); }
+.link { background: none; border: 0; padding: 0; font: 600 .9rem var(--sans); color: var(--rdza); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.link-strz { display: inline-flex; align-items: center; gap: .6rem; font: 700 .74rem/1.2 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--granat); }
+.link-strz .ik { order: 2; }
+.ciemne .link-strz { color: var(--na-ciemnym); }
+.cta-rzad { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin-top: 2rem; }
+
+/* ------------------------------------------------------------------ winieta + nagłówek */
+.winieta-pas { background: var(--granat); color: var(--na-ciemnym-2); font: 600 .64rem/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; }
+.winieta-in { max-width: var(--szer); margin: 0 auto; padding: .72rem var(--pad); display: flex; justify-content: space-between; gap: 1rem; }
+.winieta-in b { color: var(--na-ciemnym); font-weight: 700; }
+.w-srodek { display: none; }
+@media (min-width: 980px) { .w-srodek { display: inline; } }
+@media (max-width: 420px) { .winieta-in > span:last-child { display: none; } }
+
+.gora { position: sticky; top: 0; z-index: 60; background: var(--papier); border-bottom: 1px solid var(--granat); box-shadow: 0 4px 0 -3px var(--granat); transition: box-shadow .5s; }
+.gora-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; transition: height .5s var(--ease); }
+body.przewiniete .gora-in { height: 62px; }
+.marka { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; color: #0d3f33; flex: none; }
+.marka .znak { width: 32px; height: 32px; }
+.marka .wm { font: 500 1.6rem/1 var(--serif); letter-spacing: -.02em; color: var(--granat); }
+.postep { position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; pointer-events: none; }
+.postep i { display: block; height: 100%; width: 100%; background: var(--rdza); transform-origin: 0 50%; transform: scaleX(0); }
+
+.menu { display: flex; align-items: center; gap: 1.8rem; }
+.menu-kicker { display: none; }
+.menu-lista { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.45rem; }
+.menu-lista a { text-decoration: none; display: inline-flex; align-items: baseline; gap: .35rem; white-space: nowrap; font: 700 .68rem/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--granat); padding: .5rem 0; }
+.m-nr { font: italic 500 .78rem/1 var(--serif); letter-spacing: 0; color: var(--rdza); }
+.menu-akcje { display: flex; align-items: center; gap: 1.2rem; }
+.link-konto { font: 600 .82rem/1 var(--sans); text-decoration: none; color: var(--szary); }
+.link-konto:hover { color: var(--granat); }
+.jezyk { font: 700 .68rem/1 var(--sans); letter-spacing: .14em; text-decoration: none; border: 1px solid var(--kreska-2); padding: .5rem .55rem; color: var(--granat); transition: background .3s, color .3s; }
+.jezyk:hover { background: var(--granat); color: var(--papier); }
+.menu-btn { display: none; align-items: center; gap: .7rem; background: none; border: 0; padding: .6rem 0; cursor: pointer; color: var(--granat); font: 700 .7rem/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+.menu-btn-k { display: inline-grid; gap: 6px; width: 26px; }
+.menu-btn-k i { display: block; height: 1.5px; background: currentColor; transition: transform .45s var(--ease); }
+.menu-btn[aria-expanded="true"] .menu-btn-k i:first-child { transform: translateY(3.75px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] .menu-btn-k i:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+
+@media (max-width: 1219px) {
+  .menu-btn { display: inline-flex; }
+  .menu { position: fixed; inset: 0; z-index: -1; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 2rem; background: var(--papier) var(--papier-szum); padding: 176px var(--pad) 40px; overflow-y: auto; visibility: hidden; opacity: 0; transform: translateY(-12px); transition: opacity .5s var(--ease), transform .6s var(--ease), visibility 0s .6s; }
+  .menu.otwarte { visibility: visible; opacity: 1; transform: none; transition: opacity .5s var(--ease), transform .6s var(--ease), visibility 0s; }
+  .menu-kicker { display: flex; font: 700 .68rem/1 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--rdza); margin: 0; max-width: 760px; width: 100%; margin-inline: auto; }
+  .menu-lista { flex-direction: column; gap: 0; max-width: 760px; width: 100%; margin: 0 auto; border-top: 1px solid var(--granat); }
+  .menu-lista li { border-bottom: 1px solid var(--kreska); }
+  .menu-lista a { display: flex; align-items: baseline; gap: 1.2rem; padding: 1.05rem 0; font: 400 clamp(1.7rem, 5.4vw, 2.6rem)/1.05 var(--serif); letter-spacing: -.01em; text-transform: none; }
+  .m-nr { font-size: 1rem; width: 2rem; flex: none; }
+  .menu-akcje { max-width: 760px; width: 100%; margin: 0 auto; flex-wrap: wrap; gap: 1rem 1.4rem; }
+}
+@media (max-width: 480px) { .menu-btn-t { display: none; } .marka .wm { font-size: 1.4rem; } }
+
+/* ------------------------------------------------------------------ pagina, sekcje */
+.sek { padding: var(--sek) 0; position: relative; }
+.sek.papier { background: var(--papier-2); }
+.sek-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); }
+.sek-in.wasko { max-width: calc(900px + 2 * var(--pad)); padding-top: clamp(40px, 6vw, 72px); }
+.pagina { display: flex; align-items: center; gap: 1rem; font: 700 .64rem/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--szary); margin: 0 0 clamp(2.4rem, 5vw, 4.4rem); }
+.pagina .p-linia { flex: 1; height: 1px; background: var(--kreska-2); }
+.pagina span:last-child { font: italic 500 .9rem/1 var(--serif); letter-spacing: .02em; text-transform: none; color: var(--rdza); }
+.pagina.jasna { color: var(--na-ciemnym-2); }
+.pagina.jasna .p-linia { background: var(--kreska-c); }
+.pagina.jasna span:last-child { color: var(--rdza-j); }
+.sek-nag { margin-bottom: clamp(2.2rem, 4.5vw, 3.8rem); }
+.sek-nag h2 { max-width: 19ch; }
+.sek-nag.maly h2 { font-size: clamp(1.6rem, 3vw, 2.5rem); }
+
+/* ------------------------------------------------------------------ ilustracje */
+.ilu { margin: 0; }
+.ilu-ramka { position: relative; overflow: hidden; aspect-ratio: 5 / 6; background: var(--granat); isolation: isolate; }
+.ilu-ramka::before { content: ""; position: absolute; inset: 0; background-image: var(--szum); mix-blend-mode: overlay; opacity: .55; z-index: 2; pointer-events: none; }
+.ilu-ramka::after { content: ""; position: absolute; inset: 0; background: var(--papier); z-index: 3; transform: scaleX(0); transform-origin: 100% 50%; pointer-events: none; }
+.ilu-in { position: absolute; inset: -6% 0; will-change: transform; }
+.ilu-in svg, .ilu-ramka > img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.ilu figcaption, .panorama figcaption, .portret-foto figcaption { font: italic 400 .8rem/1.5 var(--sans); color: var(--szary); padding-top: .7rem; margin-top: .7rem; border-top: 1px solid var(--kreska); max-width: 60ch; }
+.ilu figcaption b, .panorama figcaption b { font: normal 700 .64rem/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--rdza); margin-right: .45rem; }
+
+/* ------------------------------------------------------------------ okładka (strona główna) */
+.okladka { padding: clamp(18px, 3vw, 40px) 0 clamp(56px, 8vw, 110px); }
+.okladka-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); }
+.tytul-pisma { margin: 0; text-align: center; font: 500 clamp(3.9rem, 17.2vw, 14.2rem)/.8 var(--serif); letter-spacing: -.045em; color: var(--granat); font-variation-settings: "opsz" 96; padding: .06em 0 .1em; white-space: nowrap; }
+.tytul-pisma span { display: inline-block; }
+.okladka-pasek { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--granat); border-bottom: 1px solid var(--granat); box-shadow: 0 -4px 0 -3px var(--granat); margin-top: .35em; padding: .7rem 0; font: 700 .64rem/1.3 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--granat); }
+.op-srodek { text-align: center; }
+@media (max-width: 700px) { .op-srodek { display: none; } }
+.okladka-siatka { display: grid; gap: clamp(28px, 4vw, 56px); margin-top: clamp(28px, 4vw, 52px); }
+.okladka-tekst { align-self: center; }
+.hero-tytul { font-size: clamp(2.3rem, 4.1vw, 3.5rem); line-height: 1.02; letter-spacing: -.02em; }
+.hero-tytul .wiersz { display: block; }
+.hero-tytul em { color: var(--rdza); font-weight: 400; }
+.okladka-tekst .lead { margin-top: 1.6rem; }
+.okladka-linie { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--granat); }
+.okladka-linie li { border-bottom: 1px solid var(--kreska); }
+.okladka-linie li:nth-child(odd) { border-right: 1px solid var(--kreska); }
+.okladka-linie a { display: grid; grid-template-columns: auto 1fr; gap: .1rem .8rem; padding: 1rem .9rem 1.1rem 0; text-decoration: none; }
+.okladka-linie li:nth-child(even) a { padding-left: .9rem; }
+.ol-nr { font: italic 500 1.5rem/1 var(--serif); color: var(--rdza); grid-row: span 2; }
+.ol-t { font: 500 1.25rem/1.15 var(--serif); color: var(--granat); transition: color .4s; }
+.ol-p { font: 600 .66rem/1.5 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--szary); }
+.okladka-linie a:hover .ol-t { color: var(--rdza); }
+@media (max-width: 559px) {
+  .okladka-linie { grid-template-columns: 1fr; }
+  .okladka-linie li:nth-child(odd) { border-right: 0; }
+  .okladka-linie li:nth-child(even) a { padding-left: 0; }
+  .okladka-linie a { padding: .9rem 0; }
+}
+@media (min-width: 760px) {
+  .okladka-siatka { grid-template-columns: 1.05fr 1fr; }
+  .okladka-linie { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .okladka-linie { grid-template-columns: repeat(4, 1fr); }
+  .okladka-linie li:nth-child(odd) { border-right: 0; }
+  .okladka-linie li + li { border-left: 1px solid var(--kreska); }
+  .okladka-linie li a, .okladka-linie li:nth-child(even) a { padding: 1.1rem 1rem 1.2rem; }
+  .okladka-linie li:first-child a { padding-left: 0; }
+}
+@media (min-width: 1220px) {
+  .okladka-siatka { grid-template-columns: 1.5fr 1fr .66fr; align-items: stretch; }
+  .okladka-linie { grid-column: auto; grid-template-columns: 1fr; border-top: 1px solid var(--granat); align-self: start; }
+  .okladka-linie li + li { border-left: 0; }
+  .okladka-linie li a, .okladka-linie li:nth-child(even) a, .okladka-linie li:first-child a { padding: 1.15rem 0 1.25rem; }
+}
+.okladka-ilu .ilu-ramka { max-height: 78vh; }
+@media (max-width: 759px) { .okladka-ilu .ilu-ramka { aspect-ratio: 4 / 4.2; } }
+
+/* wejście okładki — tylko CSS, kończy się zawsze widocznym stanem */
+@keyframes wejscie { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+@keyframes pismo { from { opacity: 0; letter-spacing: .02em; } to { opacity: 1; letter-spacing: -.045em; } }
+@keyframes zaslona { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+html.ruch .tytul-pisma span { animation: pismo 1.6s var(--ease) both; }
+html.ruch .okladka-pasek, html.ruch .okladka-tekst > * { animation: wejscie 1.1s var(--ease) both; }
+html.ruch .okladka-tekst > :nth-child(1) { animation-delay: .25s; } html.ruch .okladka-tekst > :nth-child(2) { animation-delay: .35s; }
+html.ruch .okladka-tekst > :nth-child(3) { animation-delay: .5s; } html.ruch .okladka-tekst > :nth-child(4) { animation-delay: .62s; }
+html.ruch .okladka-ilu .ilu-ramka::after, html.ruch .nag-ilu .ilu-ramka::after { animation: zaslona 1.4s .2s var(--ease) both; }
+html.ruch .okladka-linie li { animation: wejscie 1s var(--ease) both; }
+html.ruch .okladka-linie li:nth-child(2) { animation-delay: .1s; } html.ruch .okladka-linie li:nth-child(3) { animation-delay: .2s; } html.ruch .okladka-linie li:nth-child(4) { animation-delay: .3s; }
+
+/* ------------------------------------------------------------------ spis treści */
+.spis-uklad { display: grid; gap: clamp(32px, 5vw, 72px); }
+@media (min-width: 1100px) { .spis-uklad { grid-template-columns: 1fr 2.1fr; } .spis-nag { position: sticky; top: 110px; align-self: start; } }
+.spis-nag h2 { margin-bottom: 2rem; }
+.spis-inne { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--granat); max-width: 420px; }
+.spis-inne li { border-bottom: 1px solid var(--kreska); }
+.spis-inne a { display: flex; align-items: baseline; gap: .6rem; text-decoration: none; padding: .8rem 0; font: 500 1.08rem/1.2 var(--serif); color: var(--granat); }
+.spis-inne .kropki { flex: 1; border-bottom: 1px dotted var(--kreska-2); transform: translateY(-4px); }
+.spis-inne .s { font: italic 500 .95rem/1 var(--serif); color: var(--rdza); }
+.spis-lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--granat); }
+.spis-lista > li { border-bottom: 1px solid var(--kreska-2); }
+.spis-poz { display: grid; grid-template-columns: auto 1fr; gap: 1rem 1.3rem; padding: clamp(1.4rem, 3vw, 2.2rem) 0; text-decoration: none; align-items: start; }
+.sp-nr { font: 400 clamp(3rem, 7vw, 5.6rem)/.8 var(--serif); color: var(--granat); letter-spacing: -.04em; font-variation-settings: "opsz" 96; min-width: 1.25em; transition: color .5s var(--ease); }
+.spis-poz:hover .sp-nr { color: var(--rdza); }
+.sp-ilu { display: none; }
+.sp-ilu .ilu-ramka { aspect-ratio: 4 / 3; }
+.sp-ilu .ilu-in { inset: 0; transition: transform 1.2s var(--ease); }
+.spis-poz:hover .sp-ilu .ilu-in { transform: scale(1.06); }
+.sp-tekst { display: flex; flex-direction: column; gap: .45rem; }
+.sp-kap { font: 700 .62rem/1.3 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--rdza); }
+.sp-tyt { font: 400 clamp(1.6rem, 3vw, 2.4rem)/1.05 var(--serif); color: var(--granat); letter-spacing: -.015em; }
+.sp-op { color: var(--szary); font-size: .98rem; max-width: 52ch; }
+.sp-link { align-self: flex-start; display: inline-flex; gap: .5rem; align-items: center; font: 700 .68rem/1.2 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--granat); margin-top: .3rem; }
+@media (min-width: 640px) { .spis-poz { grid-template-columns: auto 190px 1fr; } .sp-ilu { display: block; } }
+@media (min-width: 1100px) { .spis-poz { grid-template-columns: auto 170px 1fr; } }
+
+/* ------------------------------------------------------------------ editorial: kolumny, inicjał, cytat */
+.editorial { background: var(--papier-2); }
+.edit-uklad { display: grid; gap: clamp(28px, 4vw, 56px); }
+.edit-nag h2 { max-width: 18ch; font-size: clamp(2.2rem, 5vw, 4.4rem); }
+.kolumny p { font-size: 1.04rem; line-height: 1.72; }
+@media (min-width: 760px) { .kolumny { columns: 2; column-gap: clamp(28px, 4vw, 52px); column-rule: 1px solid var(--kreska); } .kolumny p { break-inside: avoid-column; } }
+@media (min-width: 1100px) { .edit-uklad { grid-template-columns: 2fr 1fr; align-items: start; } .edit-nag { grid-column: 1 / -1; } }
+.inicjal::first-letter { font-family: var(--serif); font-weight: 500; color: var(--granat); float: left; font-size: 4.6em; line-height: .78; padding: .06em .12em 0 0; font-variation-settings: "opsz" 96; }
+@supports (initial-letter: 3) or (-webkit-initial-letter: 3) {
+  .inicjal::first-letter { float: none; font-size: inherit; line-height: inherit; padding: 0; -webkit-initial-letter: 3; initial-letter: 3; margin-right: .5rem; color: var(--rdza); }
+}
+.podpis-autora { font: italic 400 1.02rem/1.4 var(--serif); color: var(--granat); margin-top: 1.4rem; }
+.cytat { margin: 0; padding: 1.8rem 0 1.6rem; border-top: 1px solid var(--granat); border-bottom: 1px solid var(--granat); position: relative; }
+.cytat::before { content: ""; position: absolute; top: -2px; left: 0; width: 72px; height: 3px; background: var(--rdza); }
+.cytat p { font: italic 400 clamp(1.6rem, 2.6vw, 2.3rem)/1.18 var(--serif); color: var(--granat); margin: 0; letter-spacing: -.01em; }
+.cytat footer { margin-top: 1rem; font: 700 .64rem/1.3 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--rdza); }
+.cytat.maly p { font-size: clamp(1.35rem, 2vw, 1.75rem); }
+@media (min-width: 1100px) { .editorial .cytat { margin-top: .4rem; } }
+
+/* ------------------------------------------------------------------ portret */
+.portret-uklad { display: grid; gap: clamp(32px, 5vw, 64px); }
+.portret-lewa { display: grid; gap: 1.8rem; align-content: start; }
+@media (min-width: 640px) and (max-width: 1099px) { .portret-lewa { grid-template-columns: 1fr 1.1fr; align-items: end; } }
+@media (min-width: 1100px) { .portret-uklad { grid-template-columns: 1fr 2fr; } }
+.portret-foto { margin: 0; }
+.portret-foto img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: grayscale(1) sepia(.25) contrast(1.05); }
+.monogram { position: relative; aspect-ratio: 4 / 5; background: var(--granat); color: var(--na-ciemnym); display: grid; place-items: center; overflow: hidden; isolation: isolate; }
+.monogram::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 70% 25%, rgba(226, 190, 163, .35), transparent 55%), var(--szum); mix-blend-mode: screen; opacity: .6; }
+.monogram::after { content: ""; position: absolute; inset: 14px; border: 1px solid var(--kreska-c); }
+.monogram .znak { position: absolute; top: 28px; left: 28px; width: 42px; height: 42px; color: var(--na-ciemnym); }
+.monogram span { font: italic 400 clamp(4.2rem, 11vw, 7.6rem)/1 var(--serif); letter-spacing: -.02em; position: relative; }
+.steckbrief dl { margin: 0; border-top: 1px solid var(--granat); }
+.steckbrief dl div { display: grid; grid-template-columns: 7.5rem 1fr; gap: .8rem; padding: .8rem 0; border-bottom: 1px solid var(--kreska); }
+.steckbrief dt { font: 700 .64rem/1.6 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--szary); }
+.steckbrief dd { margin: 0; font: 500 1.02rem/1.4 var(--serif); color: var(--granat); }
+.portret-tekst header { margin-bottom: 2rem; }
+.portret-tekst h2 { max-width: 20ch; }
+.portret-tekst .cytat { margin-top: 2rem; max-width: 40rem; }
+
+/* ------------------------------------------------------------------ przebieg (granat) */
+.ablauf-sek { background: var(--granat) var(--szum); background-blend-mode: soft-light; }
+.kroki { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--kreska-c); }
+.kroki li { padding: 1.8rem 0 2rem; border-bottom: 1px solid var(--kreska-c); display: grid; grid-template-columns: 3.4rem 1fr; gap: .2rem 1rem; }
+.kroki .k-nr { font: italic 400 2.2rem/1 var(--serif); color: var(--rdza-j); grid-row: span 2; }
+.kroki h3 { margin-bottom: .5rem; }
+.kroki p { margin: 0; font-size: .98rem; }
+@media (min-width: 640px) { .kroki { grid-template-columns: 1fr 1fr; column-gap: clamp(24px, 4vw, 56px); } .kroki li { grid-template-columns: 1fr; } .kroki .k-nr { grid-row: auto; font-size: 2.8rem; margin-bottom: .8rem; } }
+@media (min-width: 1000px) { .kroki { grid-template-columns: repeat(3, 1fr); } .kroki.cztery { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 640px) and (max-width: 999px) { .kroki.cztery { grid-template-columns: 1fr 1fr; } }
+
+/* ------------------------------------------------------------------ zasady */
+.haltung { display: grid; gap: clamp(24px, 4vw, 56px); }
+@media (min-width: 760px) { .haltung { grid-template-columns: 1fr 1fr; } }
+.haltung > div { border-top: 3px double var(--granat); padding-top: 1.6rem; }
+.ciemne .haltung > div { border-top-color: var(--na-ciemnym-2); }
+.haltung h3 { margin-bottom: 1.2rem; }
+.haltung ul { list-style: none; margin: 0; padding: 0; }
+.haltung li { position: relative; padding: .95rem 0 .95rem 2.2rem; border-bottom: 1px solid var(--kreska); }
+.ciemne .haltung li { border-bottom-color: var(--kreska-c); color: var(--na-ciemnym-2); }
+.haltung .h-tak li::before { content: ""; position: absolute; left: 2px; top: 1.3rem; width: 14px; height: 7px; border-left: 1.5px solid var(--rdza); border-bottom: 1.5px solid var(--rdza); transform: rotate(-45deg); }
+.ciemne .haltung .h-tak li::before { border-color: var(--rdza-j); }
+.haltung .h-nie li::before { content: ""; position: absolute; left: 0; top: 1.62rem; width: 16px; height: 1.5px; background: currentColor; opacity: .55; }
+
+/* ------------------------------------------------------------------ region, mapa, panorama */
+.region { display: grid; gap: clamp(32px, 5vw, 64px); align-items: center; }
+@media (min-width: 900px) { .region { grid-template-columns: 1fr 1fr; } }
+.region .sek-nag h2 { font-size: clamp(1.8rem, 3.4vw, 2.9rem); }
+.miejsca { list-style: none; margin: 1.6rem 0; padding: 0; display: flex; flex-wrap: wrap; gap: .3rem 0; }
+.miejsca li { font: italic 400 1.12rem/1.5 var(--serif); color: var(--granat); }
+.miejsca li:not(:last-child)::after { content: "·"; margin: 0 .6rem; color: var(--rdza); font-style: normal; }
+.mapa { margin: 0 auto; max-width: 560px; }
+.mapa svg { width: 100%; height: auto; display: block; }
+.puls { transform-origin: center; transform-box: fill-box; }
+html.ruch .puls { animation: puls 3.2s ease-out infinite; }
+@keyframes puls { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.4); opacity: 0; } }
+.panorama { margin: clamp(48px, 7vw, 96px) 0 0; }
+.panorama .pan-in { position: relative; aspect-ratio: 1200 / 420; overflow: hidden; background: var(--granat); isolation: isolate; }
+.panorama .pan-in::before { content: ""; position: absolute; inset: 0; background-image: var(--szum); mix-blend-mode: overlay; opacity: .5; z-index: 2; pointer-events: none; }
+.panorama svg { width: 100%; height: 100%; display: block; }
+@media (max-width: 640px) { .panorama .pan-in { aspect-ratio: 4 / 3; } }
+
+/* ------------------------------------------------------------------ CTA — tylna okładka */
+.cta-pas { padding: var(--sek) 0; background: var(--granat-noc) var(--szum); background-blend-mode: soft-light; }
+.cta-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); }
+.cta-siatka { display: grid; gap: clamp(36px, 5vw, 72px); align-items: center; }
+@media (min-width: 900px) { .cta-siatka { grid-template-columns: 1.25fr 1fr; } }
+.cta-tekst h2 { font-size: clamp(2.2rem, 5vw, 4.4rem); max-width: 16ch; }
+.cta-tekst .lead { margin-top: 1.4rem; }
+.numer-karta { background: var(--papier) var(--papier-szum); color: var(--tusz); padding: clamp(24px, 3.4vw, 40px); position: relative; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .6); }
+.numer-karta::before { content: ""; position: absolute; inset: 8px; border: 1px solid var(--kreska); pointer-events: none; }
+.numer-karta p { color: var(--tusz); }
+.nk-gora { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font: 700 .64rem/1.3 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--szary) !important; margin: 0 0 1.2rem; }
+.stempel { border: 1.5px solid var(--rdza); color: var(--rdza); padding: .35rem .6rem; transform: rotate(-5deg); letter-spacing: .2em; }
+.nk-numer { font: 700 clamp(1.5rem, 3vw, 2.1rem)/1.1 var(--sans); letter-spacing: .06em; color: var(--granat) !important; font-variant-numeric: lining-nums tabular-nums; margin: 0 0 .8rem; overflow-wrap: anywhere; }
+.nk-tekst { font-size: .95rem; color: var(--szary) !important; border-bottom: 1px solid var(--kreska); padding-bottom: 1.4rem; margin-bottom: 1.4rem; }
+.nk-osoba { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
+.nk-osoba .znak { color: #0d3f33; width: 40px; height: 40px; }
+.nk-osoba p { margin: 0; }
+.w-imie { font: 500 1.2rem/1.3 var(--serif); color: var(--granat) !important; }
+.w-rola { font: 700 .62rem/1.6 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--rdza) !important; margin-bottom: .5rem !important; }
+.w-adres { font-size: .92rem; color: var(--szary) !important; }
+
+/* ------------------------------------------------------------------ podstrony: otwarcie rozdziału */
+.nag { padding: clamp(28px, 4vw, 56px) 0 clamp(56px, 8vw, 110px); }
+.nag-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); }
+.nag-siatka { display: grid; gap: clamp(32px, 5vw, 72px); align-items: end; }
+.nag.z-ilu .nag-siatka { align-items: center; }
+@media (min-width: 900px) { .nag.z-ilu .nag-siatka { grid-template-columns: 1.3fr 1fr; } }
+.nag-nr { font: 400 clamp(5rem, 14vw, 11rem)/.78 var(--serif); letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1px var(--rdza); margin: 0 0 1.4rem; font-variation-settings: "opsz" 96; }
+.nag-tytul { font-size: clamp(2.2rem, 5.2vw, 4.7rem); max-width: 16ch; letter-spacing: -.02em; }
+.nag .lead { margin-top: 1.6rem; }
+.nag-ilu .ilu-ramka { max-height: 72vh; }
+@media (max-width: 899px) { .nag-ilu .ilu-ramka { aspect-ratio: 5 / 4; } }
+html.ruch .nag-tekst > * { animation: wejscie 1.1s var(--ease) both; }
+html.ruch .nag-tekst > :nth-child(2) { animation-delay: .12s; } html.ruch .nag-tekst > :nth-child(3) { animation-delay: .24s; } html.ruch .nag-tekst > :nth-child(4) { animation-delay: .36s; }
+
+.dwie { display: grid; gap: clamp(28px, 4vw, 64px); }
+@media (min-width: 900px) { .dwie { grid-template-columns: 5fr 7fr; } .dwie-l { position: sticky; top: 120px; align-self: start; } }
+.dwie-l h2 { max-width: 14ch; }
+.linie { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--granat); }
+.linie li { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.05rem 0; border-bottom: 1px solid var(--kreska); font-size: 1.04rem; align-items: baseline; }
+.l-nr { font: italic 500 1.05rem/1 var(--serif); color: var(--rdza); }
+.uslugi { display: grid; gap: clamp(28px, 4vw, 48px) clamp(24px, 3.4vw, 44px); grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.usluga { border-top: 1px solid var(--granat); padding-top: 1.4rem; }
+.u-nr { display: block; font: italic 400 2.6rem/1 var(--serif); color: var(--rdza); margin-bottom: 1rem; }
+.usluga h3 { margin-bottom: .7rem; }
+.usluga p { color: var(--szary); margin: 0; }
+.uwaga { margin-top: clamp(40px, 6vw, 72px); background: var(--karta); border: 1px solid var(--linia); border-left: 3px solid var(--rdza); padding: clamp(20px, 3vw, 32px) clamp(20px, 3.4vw, 40px); display: grid; gap: .2rem; }
+.uwaga .etykieta { margin-bottom: .6rem; }
+.uwaga p { margin: 0; font: italic 400 clamp(1.1rem, 1.6vw, 1.3rem)/1.45 var(--serif); color: var(--granat); }
+.sek-in.wasko .uwaga { margin-top: 0; }
+
+/* ------------------------------------------------------------------ exposé — pakiety */
+.pakiety-sek .lead { margin-bottom: clamp(32px, 5vw, 56px); }
+.expose-siatka { display: grid; gap: clamp(20px, 3vw, 36px); }
+@media (min-width: 760px) { .expose-siatka { grid-template-columns: 1fr 1fr; } }
+.expose { background: var(--karta); border: 1px solid var(--linia); display: flex; flex-direction: column; transition: box-shadow .6s var(--ease), transform .6s var(--ease); }
+.expose:hover { box-shadow: 0 28px 50px -34px rgba(22, 33, 58, .55); }
+.expose.wyr { border-color: var(--granat); box-shadow: inset 0 0 0 1px var(--granat); }
+.ex-ilu { position: relative; aspect-ratio: 600 / 340; overflow: hidden; background: #efe5d4; }
+.ex-ilu::before { content: ""; position: absolute; inset: 0; background-image: var(--papier-szum); opacity: .8; pointer-events: none; }
+.ex-ilu svg { width: 100%; height: 100%; display: block; transition: transform 1.2s var(--ease); }
+.expose:hover .ex-ilu svg { transform: scale(1.04); }
+.ex-abb { position: absolute; left: 0; bottom: 0; background: var(--karta); font: italic 400 .72rem/1 var(--sans); color: var(--szary); padding: .45rem .7rem; }
+.ex-tresc { padding: clamp(20px, 3vw, 34px); display: flex; flex-direction: column; flex: 1; }
+.ex-kicker { display: flex; justify-content: space-between; gap: 1rem; font: 700 .62rem/1.3 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--rdza); margin: 0 0 .9rem; padding-bottom: .9rem; border-bottom: 1px solid var(--kreska); }
+.ex-nazwa { font: italic 400 clamp(2.4rem, 4.4vw, 3.4rem)/1 var(--serif); color: var(--granat); letter-spacing: -.02em; }
+.ex-pod { font: 700 .66rem/1.4 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--szary); margin: .5rem 0 1.4rem; }
+.ex-dane { width: 100%; border-collapse: collapse; margin-bottom: 1.4rem; font-size: .92rem; }
+.ex-dane caption { text-align: left; font: 700 .6rem/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--granat); padding-bottom: .6rem; border-bottom: 1px solid var(--granat); }
+.ex-dane th, .ex-dane td { padding: .55rem 0; border-bottom: 1px dotted var(--kreska-2); vertical-align: top; }
+.ex-dane th { text-align: left; font: 600 .78rem/1.5 var(--sans); color: var(--szary); padding-right: 1rem; white-space: nowrap; }
+.ex-dane td { text-align: right; font: 500 1rem/1.35 var(--serif); color: var(--granat); }
+.ex-neu { font: 700 .6rem/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--granat); margin: 0 0 .5rem; }
+.ex-lista { list-style: none; margin: 0 0 1.8rem; padding: 0; }
+.ex-lista li { display: flex; gap: .7rem; align-items: baseline; padding: .35rem 0; font-size: .95rem; }
+.ex-lista .ik { color: var(--rdza); width: 1em; height: 1em; transform: translateY(2px); }
+.ex-tresc .btn { margin-top: auto; align-self: flex-start; }
+
+.porownanie { background: var(--papier-2); }
+.pakiety-tab { overflow-x: auto; border: 1px solid var(--linia); background: var(--karta); -webkit-overflow-scrolling: touch; }
+.pakiety-tab table { width: 100%; min-width: 660px; border-collapse: collapse; font-size: .92rem; }
+.pakiety-tab th, .pakiety-tab td { padding: .8rem 1rem; border-bottom: 1px solid var(--linia-2); text-align: center; }
+.pakiety-tab thead th { border-bottom: 1px solid var(--granat); vertical-align: bottom; padding-top: 1.2rem; }
+.pakiety-tab thead th:first-child { text-align: left; font: 700 .62rem/1 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--szary); }
+.pakiety-tab tbody th { text-align: left; font-weight: 500; color: var(--tusz); position: sticky; left: 0; background: var(--karta); min-width: 13rem; }
+.p-nazwa { display: block; font: italic 400 1.5rem/1 var(--serif); color: var(--granat); }
+.p-pod { display: block; font: 700 .58rem/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--szary); margin-top: .35rem; }
+.pakiety-tab .wyr { background: rgba(22, 33, 58, .045); }
+.tak { color: var(--rdza); } .tak .ik { width: 1.2em; height: 1.2em; stroke-width: 1.8; }
+.pakiety-tab .nie { color: #b3ab9c; }
+.pozniej th, .pozniej td { color: var(--szary); font-style: italic; background: var(--papier-2) !important; }
+
+/* ------------------------------------------------------------------ o nas: indeks działów */
+.indeks { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--granat); }
+.indeks li { border-bottom: 1px solid var(--kreska-2); }
+.indeks-wiersz { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1.2rem; padding: 1.5rem 0; text-decoration: none; align-items: baseline; }
+.i-nr { font: 400 2.8rem/.9 var(--serif); color: var(--granat); grid-row: span 3; transition: color .4s; }
+.i-tyt { font: 400 clamp(1.5rem, 2.8vw, 2.2rem)/1.1 var(--serif); color: var(--granat); }
+.i-op { color: var(--szary); font-size: .96rem; }
+.i-strz { font: italic 500 .95rem/1 var(--serif); color: var(--rdza); display: inline-flex; align-items: center; gap: .5rem; }
+.indeks-wiersz:hover .i-nr { color: var(--rdza); }
+@media (min-width: 900px) { .indeks-wiersz { grid-template-columns: 5rem 1fr 1.4fr auto; } .i-nr { grid-row: auto; } }
+
+/* ------------------------------------------------------------------ stopka — kolofon */
+.stopka { background: var(--granat-noc); color: var(--na-ciemnym-2); padding: clamp(56px, 8vw, 100px) 0 0; overflow: hidden; }
+.stopka-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); display: grid; gap: 2.4rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .stopka-in { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .stopka-in { grid-template-columns: 1.5fr 1fr 1fr 1.4fr; } }
+.stopka .marka { color: var(--na-ciemnym); }
+.stopka .marka .wm { color: var(--na-ciemnym); }
+.stopka-marka p { margin-top: 1.2rem; max-width: 34ch; font-size: .95rem; }
+.stopka h4 { font: 700 .64rem/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--rdza-j); margin: .6rem 0 1.2rem; }
+.stopka ul { list-style: none; margin: 0; padding: 0; }
+.stopka li { padding: .3rem 0; }
+.stopka a { color: var(--na-ciemnym); font-size: .95rem; }
+.s-nr { font: italic 500 .85rem/1 var(--serif); color: var(--rdza-j); margin-right: .6rem; }
+.kolofon { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .45rem 1rem; font-size: .92rem; }
+.kolofon dt { font: 700 .6rem/1.9 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--na-ciemnym-2); opacity: .8; }
+.kolofon dd { margin: 0; color: var(--na-ciemnym); overflow-wrap: anywhere; }
+.stopka-wielki { margin: clamp(40px, 6vw, 80px) 0 0; text-align: center; font: italic 400 clamp(4rem, 21vw, 19rem)/.78 var(--serif); letter-spacing: -.05em; color: var(--na-ciemnym); opacity: .09; white-space: nowrap; user-select: none; transform: translateY(.16em); margin-bottom: -.04em; position: relative; z-index: 0; }
+.stopka-dol { position: relative; z-index: 1; background: var(--granat-noc); max-width: var(--szer); margin: 0 auto; padding: 1.3rem var(--pad) 1.6rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 1.4rem; font-size: .8rem; border-top: 1px solid var(--kreska-c); }
+.stopka-dol a { font-size: .8rem; }
+
+/* ------------------------------------------------------------------ formularze (wspólny blok, zmienne powyżej) */
+.sekcja { max-width: var(--szer); margin: 0 auto; padding: clamp(40px, 6vw, 80px) var(--pad) clamp(64px, 9vw, 120px); }
+.sekcja.waska { max-width: calc(880px + 2 * var(--pad)); }
+.sekcja.waziutka { max-width: calc(480px + 2 * var(--pad)); padding-top: clamp(56px, 8vw, 110px); }
+.sekcja h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); margin-bottom: 1.4rem; }
+.sekcja h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); margin: 2.4rem 0 1rem; }
+.potwierdzenie { text-align: center; padding-top: clamp(64px, 9vw, 120px); }
+.potwierdzenie h1 { max-width: 20ch; margin-inline: auto; }
+.tekst p { max-width: 70ch; }
+.tekst h2 { font-size: 1.35rem !important; margin: 2rem 0 .6rem !important; }
+.okruchy { font: 700 .66rem/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--szary); margin-bottom: 1.6rem; }
+.opis { white-space: pre-wrap; background: var(--karta); border: 1px solid var(--linia); padding: 1rem 1.2rem; }
+.decyzja { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1.6rem 0; }
+.uwaga-robocza { background: #fbecc8; border: 1px solid #e4c77f; color: #5b4510; padding: .9rem 1.1rem; font-size: .9rem; margin-bottom: 2rem; }
+.blok { background: var(--bialy); border: 1px solid var(--linia); padding: clamp(20px, 3vw, 36px); margin-bottom: 1.2rem; }
+.blok h2 { font-size: 1.45rem; margin: 0 0 1.2rem; }
+.blok-gora { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.blok-gora h1, .blok-gora h2 { margin-bottom: 1rem; }
+.pole { display: block; margin-bottom: 1.1rem; }
+.pole > span, .tematy legend { display: block; font-family: var(--mono); font-size: .66rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--szary); margin-bottom: .45rem; }
+input, textarea, select { width: 100%; font: 500 1rem/1.4 var(--sans); color: var(--atrament); padding: .85rem .95rem; border: 1px solid var(--linia); border-radius: var(--r); background: #fff; transition: border-color .2s, box-shadow .2s; }
+input:hover, textarea:hover, select:hover { border-color: #b7ab96; }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--granat); box-shadow: 0 0 0 3px rgba(22, 33, 58, .14); }
+textarea { resize: vertical; }
+.siatka { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+@media (max-width: 600px) { .siatka { grid-template-columns: 1fr; } }
+.rodzaje { border: 0; padding: 0; margin: 0 0 1.4rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--linia); background: var(--bialy); }
+@media (max-width: 760px) { .rodzaje { grid-template-columns: 1fr; } }
+.rodzaj { cursor: pointer; position: relative; }
+.rodzaj + .rodzaj { border-left: 1px solid var(--linia); }
+@media (max-width: 760px) { .rodzaj + .rodzaj { border-left: 0; border-top: 1px solid var(--linia); } }
+.rodzaj input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.rodzaj span { display: block; padding: 1.4rem 1.4rem 1.5rem; height: 100%; position: relative; transition: background .2s; }
+.rodzaj span::before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: transparent; }
+.rodzaj b { display: block; font-family: var(--disp); font-size: 1.25rem; font-weight: 500; margin-bottom: .4rem; color: var(--granat); }
+.rodzaj small { color: var(--szary); font-size: .87rem; line-height: 1.5; display: block; }
+.rodzaj input:checked + span { background: var(--papier); }
+.rodzaj input:checked + span::before { background: var(--bau); }
+.rodzaj input:focus-visible + span { outline: 2px solid var(--miedz); outline-offset: -2px; }
+.tabela-wpis { width: 100%; border-collapse: collapse; margin-bottom: .8rem; }
+.tabela-wpis th { text-align: left; font-family: var(--mono); font-size: .64rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--szary); padding: 0 .35rem .4rem; }
+.tabela-wpis td { padding: .25rem .35rem; }
+.tabela-wpis td:nth-child(2) { width: 7rem; } .tabela-wpis td:nth-child(3) { width: 8rem; } .tabela-wpis td:nth-child(4) { width: 2.4rem; }
+.tabela-wpis input, .tabela-wpis select { padding: .65rem .7rem; }
+.usun { background: none; border: 0; color: #a79f91; font-size: 1.4rem; cursor: pointer; line-height: 1; }
+.usun:hover { color: var(--blad); }
+@media (max-width: 600px) {
+  .tabela-wpis thead { display: none; }
+  .tabela-wpis tr { display: grid; grid-template-columns: 1fr 5rem 6rem 2rem; border-bottom: 1px solid var(--linia-2); padding: .4rem 0; }
+  .tabela-wpis td:first-child { grid-column: 1 / -1; }
+  .tabela-wpis td { width: auto !important; }
+}
+.upuszcz { display: block; border: 1px dashed #b3a78f; padding: 2rem 1.4rem; text-align: center; color: var(--szary); cursor: pointer; background: var(--papier); transition: border-color .2s, background .2s; }
+.upuszcz.nad { border-color: var(--granat); background: var(--papier-2); }
+.upuszcz input { display: block; margin: 0 auto .8rem; max-width: 100%; border: 0; padding: 0; background: transparent; }
+.lista-plikow { list-style: none; padding: 0; margin: .8rem 0 0; }
+.lista-plikow li { padding: .6rem .8rem; border-bottom: 1px solid var(--linia-2); font-size: .92rem; overflow-wrap: anywhere; }
+.zgoda { display: flex; gap: .7rem; align-items: flex-start; font-size: .92rem; margin: 1rem 0; color: var(--szary); }
+.zgoda input { width: auto; margin-top: .3rem; accent-color: var(--granat); }
+.blad { border-left: 3px solid var(--blad); background: #faeeea; color: var(--blad); padding: .9rem 1.1rem; }
+.info { border-left: 3px solid var(--granat); background: var(--papier); padding: .9rem 1.1rem; }
+.info.ok { border-left-color: var(--ok); color: var(--ok); }
+.komunikat { border-left: 3px solid var(--miedz); background: var(--papier); padding: 1rem 1.2rem; display: flex; gap: .8rem; }
+.lub { text-align: center; color: var(--szary); position: relative; margin: 1.4rem 0; font-family: var(--mono); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; }
+.lub::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--linia); }
+.lub span { background: var(--papier); padding: 0 1rem; position: relative; }
+.przypis { color: var(--szary); font-size: .9rem; margin-top: 1.4rem; }
+.tematy { border: 0; padding: 0; margin: 0 0 1.4rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+.temat { position: relative; }
+.temat input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.temat span { display: inline-block; padding: .6rem 1rem; border: 1px solid var(--linia); cursor: pointer; font-size: .92rem; font-weight: 600; background: #fff; transition: border-color .2s, background .2s; }
+.temat input:checked + span { border-color: var(--granat); background: var(--papier); box-shadow: inset 0 -3px 0 var(--kd); }
+.temat input:focus-visible + span { outline: 2px solid var(--miedz); }
+.ok-ik { width: 64px; height: 64px; border: 1px solid var(--ok); color: var(--ok); display: grid; place-items: center; margin: 0 auto 1.6rem; border-radius: 50%; }
+.ok-ik .ik { width: 28px; height: 28px; }
+.numery { display: grid; grid-template-columns: 1fr 1fr; margin: 2.4rem auto; max-width: 640px; border: 1px solid var(--linia); }
+.numery div { padding: 1.4rem; background: var(--bialy); }
+.numery div + div { border-left: 1px solid var(--linia); }
+.numery span { display: block; font-family: var(--mono); font-size: .66rem; font-weight: 700; color: var(--szary); text-transform: uppercase; letter-spacing: .16em; margin-bottom: .4rem; }
+.numer { font-family: var(--sans); font-weight: 700; font-size: 1.4rem; letter-spacing: .05em; color: var(--atrament); font-variant-numeric: lining-nums tabular-nums; }
+td .numer { font-size: 1rem; }
+@media (max-width: 560px) { .numery { grid-template-columns: 1fr; } .numery div + div { border-left: 0; border-top: 1px solid var(--linia); } }
+.karta-zam { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--linia); margin-bottom: 2rem; background: var(--bialy); }
+.karta-zam div { padding: 1.2rem; }
+.karta-zam div + div { border-left: 1px solid var(--linia-2); }
+.karta-zam span { display: block; font-family: var(--mono); font-size: .64rem; font-weight: 700; color: var(--szary); text-transform: uppercase; letter-spacing: .16em; margin-bottom: .35rem; }
+@media (max-width: 700px) { .karta-zam { grid-template-columns: 1fr 1fr; } .karta-zam div:nth-child(3) { border-left: 0; } .karta-zam div:nth-child(n + 3) { border-top: 1px solid var(--linia-2); } }
+.status { font-family: var(--mono); font-size: .76rem; letter-spacing: .04em; padding: .2rem .55rem; border: 1px solid var(--linia); background: var(--papier); display: inline-block; font-weight: 600; }
+.s-zaakceptowane, .s-zamowione, .s-dostarczone { border-color: #9cc3a6; color: var(--ok); background: #eef5ef; }
+.s-oferta_wyslana, .s-ceny_otrzymane { border-color: #e0b39c; color: var(--miedz-2); background: #faf0e9; }
+.s-odrzucone, .s-anulowane { border-color: #e2a99d; color: var(--blad); background: #faeeea; }
+.tabela { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--bialy); border: 1px solid var(--linia); display: block; overflow-x: auto; }
+.tabela thead, .tabela tbody, .tabela tfoot { display: table; width: 100%; }
+.tabela th, .tabela td { padding: .85rem 1rem; border-bottom: 1px solid var(--linia-2); text-align: left; }
+.tabela th { font-family: var(--mono); font-size: .64rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--szary); border-bottom-color: var(--atrament); }
+.tabela .l { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tabela tfoot td { font-weight: 600; }
+.tabela .razem td { font-family: var(--serif); font-size: 1.1rem; color: var(--granat); border-top: 1px solid var(--granat); }
+
+/* ------------------------------------------------------------------ ruch: odsłanianie (tylko to, czego nie widać na starcie) */
+html.ruch .odslon { transition: opacity 1.2s var(--ease), transform 1.2s var(--ease); }
+html.ruch .odslon.przed { opacity: 0; transform: translateY(30px); }
+html.ruch .kolumny.odslon.przed { opacity: 1; transform: none; }
+html.ruch .kolumny.odslon > * { transition: opacity 1.1s var(--ease), transform 1.1s var(--ease); }
+html.ruch .kolumny.odslon.przed > * { opacity: 0; transform: translateY(26px); }
+html.ruch .kolumny.odslon > :nth-child(2) { transition-delay: .14s; } html.ruch .kolumny.odslon > :nth-child(3) { transition-delay: .28s; }
+html.ruch .kolumny.odslon > :nth-child(4) { transition-delay: .42s; } html.ruch .kolumny.odslon > :nth-child(5) { transition-delay: .56s; }
+html.ruch .odslon .ilu-ramka::after, html.ruch .panorama.odslon .pan-in::after { transition: transform 1.5s .15s var(--ease); }
+html.ruch .odslon.przed .ilu-ramka::after { transform: scaleX(1); }
+.panorama .pan-in::after { content: ""; position: absolute; inset: 0; background: var(--papier); z-index: 3; transform: scaleX(0); transform-origin: 100% 50%; pointer-events: none; }
+html.ruch .panorama.odslon.przed .pan-in::after { transform: scaleX(1); }
+html.ruch .expose.odslon .ex-ilu svg { transition: transform 1.6s var(--ease); }
+html.ruch .expose.odslon.przed .ex-ilu svg { transform: scale(1.12); }
+
+/* przewracanie stron między podstronami (View Transitions, gdzie przeglądarka to wspiera) */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: kartka-precz .75s cubic-bezier(.55, .05, .35, 1) both; transform-origin: 0 50%; }
+::view-transition-new(root) { animation: kartka-wchodzi .75s cubic-bezier(.25, .8, .3, 1) both; }
+::view-transition-group(root) { background: var(--granat-noc); }
+@keyframes kartka-precz { to { transform: perspective(2200px) rotateY(-26deg) translateX(-8%); opacity: 0; filter: brightness(.7); } }
+@keyframes kartka-wchodzi { from { transform: translateX(10%); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  html { scroll-behavior: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
+  [data-paralaksa] { transform: none !important; }
+}
+@media print { .gora, .winieta-pas, .stopka-wielki, .postep { display: none; } body { background: #fff; } }
+.nag:not(.z-ilu) { padding-bottom: clamp(12px, 2vw, 28px); }
+.nag:not(.z-ilu) + .sekcja { padding-top: clamp(24px, 4vw, 48px); }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"RaumTreu","founder":"Jakub Mateusz Woloszczuk","address":{"@type":"PostalAddress","streetAddress":"Martin-Luther-Ring 10","postalCode":"96332","addressLocality":"Pressig","addressRegion":"Bayern","addressCountry":"DE"},"areaServed":["Pressig","Kronach","Ludwigsstadt","Sonneberg","Neustadt bei Coburg","Rödental","Coburg","Burgkunstadt","Lichtenfels","Kulmbach"],"knowsLanguage":["de","pl"]}</script>
+<script>document.documentElement.classList.add("js")</script>
+<script>document.addEventListener("DOMContentLoaded",function(){'use strict';
+/* v8.0.0 „Exposé": ruch jak w magazynie — spokojny, papierowy.
+   - menu (hamburger) jako rozkładany spis treści,
+   - pasek postępu czytania pod nagłówkiem,
+   - lekka paralaksa ilustracji (ramka + warstwy SVG: niebo, wzgórza, pierwszy plan),
+   - odsłanianie kolumn tekstu i „zasłona" zdejmowana z ilustracji — tylko dla elementów poniżej pierwszego ekranu,
+   - przewracanie stron między podstronami robi CSS (View Transitions),
+   - to, co widać od razu, NIGDY nie jest ukrywane przez skrypt; wszystko wyłączone przy „ogranicz ruch". */
+(function () {
+  const bezRuchu = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const body = document.body;
+
+  // menu
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  if (btn && menu) {
+    const ustaw = (otw) => { btn.setAttribute('aria-expanded', String(otw)); menu.classList.toggle('otwarte', otw); body.classList.toggle('menu-otwarte', otw); };
+    btn.addEventListener('click', () => ustaw(btn.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { ustaw(false); btn.focus(); } });
+    menu.addEventListener('click', (e) => { if (e.target.closest('a')) ustaw(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 1220) ustaw(false); });
+  }
+
+  const postep = document.getElementById('postep');
+  const paralaksa = [...document.querySelectorAll('[data-paralaksa]')];
+  const warstwy = [...document.querySelectorAll('svg [data-warstwa]')].map((g) => ({ g, svg: g.ownerSVGElement, f: Number(g.dataset.warstwa) }));
+  let tik = false;
+  function klatka() {
+    tik = false;
+    const yy = window.scrollY; const h = window.innerHeight;
+    const H = document.documentElement.scrollHeight - h;
+    body.classList.toggle('przewiniete', yy > 40);
+    if (postep) postep.style.transform = `scaleX(${H > 0 ? Math.min(1, yy / H).toFixed(4) : 0})`;
+    if (bezRuchu) return;
+    paralaksa.forEach((el) => {
+      const r = el.parentElement.getBoundingClientRect();
+      if (r.bottom < -80 || r.top > h + 80) return;
+      const o = (r.top + r.height / 2 - h / 2) * Number(el.dataset.paralaksa);
+      el.style.transform = `translate3d(0, ${o.toFixed(1)}px, 0)`;
+    });
+    warstwy.forEach((w) => {
+      if (!w.svg) return;
+      const r = w.svg.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > h) return;
+      const o = ((r.top + r.height / 2 - h / 2) / h) * 40 * w.f;
+      w.g.setAttribute('transform', `translate(0 ${o.toFixed(1)})`);
+    });
+  }
+  const zlec = () => { if (!tik) { tik = true; requestAnimationFrame(klatka); } };
+  window.addEventListener('scroll', zlec, { passive: true });
+  window.addEventListener('resize', zlec);
+  window.addEventListener('load', klatka);
+  if (bezRuchu) { klatka(); return; }
+  document.documentElement.classList.add('ruch');
+  klatka();
+
+  // odsłanianie: wyłącznie to, czego nie widać na starcie
+  const wys = window.innerHeight;
+  const ukryte = [...document.querySelectorAll('.odslon')].filter((el) => el.getBoundingClientRect().top > wys * 0.92);
+  document.querySelectorAll('section').forEach((s) => {
+    let i = 0;
+    s.querySelectorAll('.odslon').forEach((el) => { if (ukryte.includes(el) && !el.classList.contains('kolumny')) el.style.transitionDelay = `${Math.min(i++, 5) * 100}ms`; });
+  });
+  if ('IntersectionObserver' in window) {
+    ukryte.forEach((el) => el.classList.add('przed'));
+    const io = new IntersectionObserver((wpisy) => wpisy.forEach((w) => {
+      if (w.isIntersecting) { w.target.classList.remove('przed'); io.unobserve(w.target); }
+    }), { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    ukryte.forEach((el) => io.observe(el));
+  }
+
+  // okładka: lekka głębia warstw ilustracji pod kursorem (tylko mysz)
+  const mysz = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const okl = document.querySelector('.okladka-ilu .ilu-ramka');
+  if (mysz && okl) {
+    const svg = okl.querySelector('svg');
+    okl.addEventListener('pointermove', (e) => {
+      const r = okl.getBoundingClientRect();
+      const dx = (e.clientX - r.left) / r.width - 0.5;
+      if (svg) svg.style.transform = `translateX(${(-dx * 10).toFixed(1)}px) scale(1.03)`;
+    });
+    okl.addEventListener('pointerleave', () => { if (svg) svg.style.transform = ''; });
+    if (svg) svg.style.transition = 'transform 1.2s cubic-bezier(.22,.8,.24,1)';
+  }
+})();
+});</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <linearGradient id="g8-niebo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121b31"/><stop offset=".5" stop-color="#2b3b62"/><stop offset=".82" stop-color="#8d7f8c"/><stop offset="1" stop-color="#e2bea3"/></linearGradient>
+  <linearGradient id="g8-niebo-dz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3a60"/><stop offset=".55" stop-color="#6d7894"/><stop offset="1" stop-color="#ecd9c2"/></linearGradient>
+  <linearGradient id="g8-sciana" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e9d8"/><stop offset=".7" stop-color="#e2d2b8"/><stop offset="1" stop-color="#cbb694"/></linearGradient>
+  <linearGradient id="g8-cien" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0d1426" stop-opacity="0"/><stop offset=".6" stop-color="#0d1426" stop-opacity=".05"/><stop offset="1" stop-color="#0d1426" stop-opacity=".35"/></linearGradient>
+  <linearGradient id="g8-okno" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6e2c4"/><stop offset="1" stop-color="#d98d64"/></linearGradient>
+  <linearGradient id="g8-szyba" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d4f7a"/><stop offset="1" stop-color="#18223b"/></linearGradient>
+  <linearGradient id="g8-ziemia" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2745"/><stop offset="1" stop-color="#0c1224"/></linearGradient>
+  <linearGradient id="g8-dach" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c26a47"/><stop offset=".6" stop-color="#9b4d33"/><stop offset="1" stop-color="#5e2f25"/></linearGradient>
+  <radialGradient id="g8-winieta" cx=".5" cy=".45" r=".75"><stop offset=".55" stop-color="#0d1426" stop-opacity="0"/><stop offset="1" stop-color="#0d1426" stop-opacity=".55"/></radialGradient>
+  <radialGradient id="g8-blask" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f7d7b0" stop-opacity=".75"/><stop offset="1" stop-color="#f7d7b0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="g8-ksiezyc" cx=".5" cy=".5" r=".5"><stop offset=".3" stop-color="#f4e4cf" stop-opacity=".55"/><stop offset="1" stop-color="#f4e4cf" stop-opacity="0"/></radialGradient>
+  <pattern id="p8-lupek" width="16" height="12" patternUnits="userSpaceOnUse"><rect width="16" height="12" fill="#26345a"/><path d="M0 12 A8 8 0 0 1 16 12 M-8 6 A8 8 0 0 1 8 6 M8 6 A8 8 0 0 1 24 6" fill="none" stroke="#3f5185" stroke-width="1.2"/></pattern>
+  <pattern id="p8-dachowka" width="22" height="16" patternUnits="userSpaceOnUse"><rect width="22" height="16" fill="#a9573b"/><path d="M0 16 V9 A11 7 0 0 1 22 9 V16" fill="#b8633f" stroke="#6e3526" stroke-width="1.2"/><path d="M11 8 V0" stroke="#6e3526" stroke-width="1" opacity=".6"/></pattern>
+  <pattern id="p8-siatka" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0 H0 V24" fill="none" stroke="#e9dcc6" stroke-opacity=".09" stroke-width="1"/></pattern>
+</defs></svg>
+<a class="pomin" href="#tresc">Do treści</a>
+<div class="winieta-pas"><div class="winieta-in"><span><b>RaumTreu</b> — Nr 01</span><span class="w-srodek">Immobilien · Baumaterialien · BauNetzwerk · Digitalisierung</span><span>Pressig · Górna Frankonia · DE / PL</span></div></div>
+<header class="gora" id="gora">
+  <div class="gora-in">
+    <a class="marka" href="v8.0.0-pl-index.html" aria-label="RaumTreu – Start"><svg class="znak " viewBox="-4 -4 108 108" width="34" height="34" aria-hidden="true">
+  <path fill="#ee5234" d="M0 34 H12 V88 H22 L10 100 H4 Q0 100 0 96 Z"/><path fill="#15a1af" d="M30 88 H57 V100 H18 Z"/>
+  <path fill="#eaa312" d="M50 0 H96 Q100 0 100 4 V26 H88 V12 H62 Z"/><path fill="#be652d" d="M88 55 H100 V96 Q100 100 96 100 H81 V88 H88 Z"/>
+  <path fill="currentColor" d="M0 26 V4 Q0 0 4 0 H30 A18 26 0 0 1 30 52 L50 80 H37 L18 52 V40 H30 A8 14 0 0 0 30 12 H12 V26 Z"/>
+  <path fill="currentColor" d="M55 34 H100 V45 H76 V100 H64 V45 H52 Z"/></svg><span class="wm">RaumTreu</span></a>
+    <nav class="menu" id="menu" aria-label="Menu">
+      <p class="menu-kicker">Spis treści · Nr 01</p>
+      <ul class="menu-lista"><li><a href="v8.0.0-pl-immobilien.html" style="--kd:#ee5234"><span class="m-nr">01</span><span class="m-t">Nieruchomości</span></a></li><li><a href="v8.0.0-pl-baumaterialien.html" style="--kd:#eaa312"><span class="m-nr">02</span><span class="m-t">Materiały</span></a></li><li><a href="v8.0.0-pl-baunetzwerk.html" style="--kd:#be652d"><span class="m-nr">03</span><span class="m-t">Sieć wykonawców</span></a></li><li><a href="v8.0.0-pl-digitalisierung.html" style="--kd:#15a1af"><span class="m-nr">04</span><span class="m-t">Digitalizacja</span></a></li><li><a href="v8.0.0-pl-ueber-uns.html"><span class="m-nr">05</span><span class="m-t">O nas</span></a></li></ul>
+      <div class="menu-akcje">
+        <a class="link-konto" href="v8.0.0-pl-anmelden.html">Zaloguj</a>
+        <a class="jezyk" href="v8.0.0-de-regionen.html" hreflang="de" aria-label="Deutsch">DE</a>
+        <a class="btn btn-maly" href="v8.0.0-pl-kontakt.html">Kontakt</a>
+      </div>
+    </nav>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu"><span class="menu-btn-t">Menu</span><span class="menu-btn-k" aria-hidden="true"><i></i><i></i></span></button>
+  </div>
+  <div class="postep" aria-hidden="true"><i id="postep"></i></div>
+</header>
+<main id="tresc"><section class="nag">
+  <div class="nag-in">
+    <div class="pagina"><span>RaumTreu · Nr 01</span><span class="p-linia"></span><span></span></div>
+    <div class="nag-siatka">
+      <div class="nag-tekst">
+        
+        <h1 class="nag-tytul">Regiony</h1>
+        <p class="lead">Siedziba w Pressig. Na co dzień w promieniu ok. 50 km; projekty dalej po uzgodnieniu. Materiały z Polski w całych Niemczech.</p>
+        
+      </div>
+      
+    </div>
+  </div>
+</section>
+  <section class="sek region-sek"><div class="sek-in"><div class="pagina"><span>Mapa</span><span class="p-linia"></span><span>s. 01</span></div><div class="region"><div><p class="lead odslon">Siedziba w Pressig. Na co dzień działamy w:</p><ul class="miejsca odslon"><li>Pressig</li><li>Kronach</li><li>Ludwigsstadt</li><li>Sonneberg</li><li>Neustadt bei Coburg</li><li>Rödental</li><li>Coburg</li><li>Burgkunstadt</li><li>Lichtenfels</li><li>Kulmbach</li></ul><p class="odslon">Projekty poza regionem po uzgodnieniu. Materiały z Polski dostarczamy w całych Niemczech.</p></div><div class="odslon"><figure class="mapa"><svg viewBox="0 0 560 500" role="img" aria-label="promień ok. 50 km">
+  <circle cx="280" cy="240" r="229.99999999999997" fill="#16213a" fill-opacity=".045" stroke="#a9573b" stroke-width="1.2"/>
+  <circle cx="280" cy="240" r="114.99999999999999" fill="none" stroke="#16213a" stroke-opacity=".18" stroke-dasharray="2 5"/>
+  <path d="M50.00000000000003 240 H510 M280 10.000000000000028 V470" stroke="#16213a" stroke-opacity=".08"/>
+  <g><circle class="puls" cx="280.0" cy="240.0" r="12" fill="none" stroke="#a9573b"/><circle cx="280.0" cy="240.0" r="5" fill="#a9573b"/><text x="296.0" y="244.0" text-anchor="start" font-family="Bodoni Moda Variable, serif" font-size="22" font-style="italic" fill="#16213a">Pressig</text></g><g><circle cx="285.9" cy="296.8" r="2.6" fill="#16213a"/><text x="294.9" y="300.8" text-anchor="start" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Kronach</text></g><g><circle cx="305.5" cy="170.9" r="2.6" fill="#16213a"/><text x="314.5" y="174.9" text-anchor="start" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Ludwigsstadt</text></g><g><circle cx="235.5" cy="236.4" r="2.6" fill="#16213a"/><text x="226.5" y="240.4" text-anchor="end" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Sonneberg</text></g><g><circle cx="217.9" cy="251.3" r="2.6" fill="#16213a"/><text x="208.9" y="255.3" text-anchor="end" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Neustadt b. Coburg</text></g><g><circle cx="191.7" cy="269.2" r="2.6" fill="#16213a"/><text x="182.7" y="273.2" text-anchor="end" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Rödental</text></g><g><circle cx="166.8" cy="287.6" r="2.6" fill="#16213a"/><text x="157.8" y="291.6" text-anchor="end" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Coburg</text></g><g><circle cx="260.4" cy="349.0" r="2.6" fill="#16213a"/><text x="269.4" y="353.0" text-anchor="start" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Burgkunstadt</text></g><g><circle cx="197.9" cy="345.9" r="2.6" fill="#16213a"/><text x="188.9" y="349.9" text-anchor="end" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Lichtenfels</text></g><g><circle cx="326.8" cy="366.9" r="2.6" fill="#16213a"/><text x="335.8" y="370.9" text-anchor="start" font-family="Karla Variable, sans-serif" font-size="12.5" font-style="normal" fill="#16213a">Kulmbach</text></g>
+  <g font-family="Karla Variable, sans-serif" font-size="10.5" letter-spacing="2" fill="#16213a" fill-opacity=".75"><path d="M395 486 h114.99999999999999" stroke="#16213a" stroke-opacity=".6"/><text x="510" y="478" text-anchor="end">25 KM</text><text x="50.00000000000003" y="488">PROMIEŃ OK. 50 KM</text></g>
+</svg></figure></div></div>
+    <figure class="panorama odslon"><div class="pan-in" data-paralaksa="0.04"><svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="1200" height="420" fill="url(#g8-niebo)"/>
+  <circle cx="930" cy="92" r="110" fill="url(#g8-ksiezyc)"/><circle cx="930" cy="92" r="26" fill="#f4e4cf" opacity=".9"/>
+  <g data-warstwa="0.3"><path d="M0 250 C200 190 380 240 560 200 S900 160 1200 220 V420 H0 Z" fill="#2a3862"/><path d="M-16.3 221.0 L-10.4 232.3 L-13.2 232.3 L-7.0 243.2 L-11.1 243.2 L-4.4 254.1 L-28.2 254.1 L-21.6 243.2 L-25.6 243.2 L-19.4 232.3 L-22.3 232.3 Z" fill="#223057"/><path d="M12.5 220.5 L19.2 233.1 L16.0 233.1 L22.9 245.3 L18.4 245.3 L25.8 257.5 L-0.8 257.5 L6.7 245.3 L2.1 245.3 L9.1 233.1 L5.9 233.1 Z" fill="#223057"/><path d="M41.7 210.2 L50.6 227.0 L46.3 227.0 L55.6 243.3 L49.5 243.3 L59.5 259.6 L23.9 259.6 L33.9 243.3 L27.8 243.3 L37.1 227.0 L32.8 227.0 Z" fill="#223057"/><path d="M63.1 201.7 L72.8 220.0 L68.1 220.0 L78.2 237.8 L71.6 237.8 L82.5 255.6 L43.7 255.6 L54.6 237.8 L48.0 237.8 L58.0 220.0 L53.4 220.0 Z" fill="#223057"/><path d="M96.5 222.7 L102.7 234.4 L99.7 234.4 L106.1 245.7 L101.9 245.7 L108.9 257.0 L84.2 257.0 L91.1 245.7 L86.9 245.7 L93.3 234.4 L90.3 234.4 Z" fill="#223057"/><path d="M119.8 228.8 L125.2 239.1 L122.6 239.1 L128.2 249.1 L124.5 249.1 L130.6 259.0 L108.9 259.0 L115.0 249.1 L111.3 249.1 L116.9 239.1 L114.3 239.1 Z" fill="#223057"/><path d="M152.7 203.8 L162.3 221.9 L157.7 221.9 L167.7 239.4 L161.1 239.4 L171.9 257.0 L133.6 257.0 L144.3 239.4 L137.8 239.4 L147.7 221.9 L143.1 221.9 Z" fill="#223057"/><path d="M173.2 223.3 L178.8 233.8 L176.1 233.8 L181.9 244.1 L178.1 244.1 L184.4 254.3 L162.0 254.3 L168.3 244.1 L164.5 244.1 L170.3 233.8 L167.6 233.8 Z" fill="#223057"/><path d="M201.0 222.9 L206.7 233.6 L204.0 233.6 L209.8 243.9 L206.0 243.9 L212.3 254.3 L189.7 254.3 L196.1 243.9 L192.2 243.9 L198.1 233.6 L195.4 233.6 Z" fill="#223057"/><path d="M228.1 214.3 L234.9 227.2 L231.6 227.2 L238.7 239.7 L234.1 239.7 L241.7 252.2 L214.4 252.2 L222.1 239.7 L217.4 239.7 L224.5 227.2 L221.2 227.2 Z" fill="#223057"/><path d="M246.1 225.3 L252.3 236.9 L249.3 236.9 L255.7 248.2 L251.5 248.2 L258.4 259.4 L233.8 259.4 L240.7 248.2 L236.5 248.2 L242.9 236.9 L239.9 236.9 Z" fill="#223057"/><path d="M275.0 223.4 L280.8 234.2 L278.0 234.2 L284.0 244.8 L280.1 244.8 L286.5 255.3 L263.5 255.3 L269.9 244.8 L266.0 244.8 L272.0 234.2 L269.2 234.2 Z" fill="#223057"/><path d="M306.6 216.3 L314.3 230.9 L310.6 230.9 L318.7 245.1 L313.4 245.1 L322.1 259.2 L291.1 259.2 L299.8 245.1 L294.5 245.1 L302.6 230.9 L298.9 230.9 Z" fill="#223057"/><path d="M332.7 207.7 L341.8 224.9 L337.5 224.9 L347.0 241.7 L340.7 241.7 L351.0 258.4 L314.4 258.4 L324.7 241.7 L318.5 241.7 L328.0 224.9 L323.6 224.9 Z" fill="#223057"/><path d="M359.2 217.2 L366.2 230.5 L362.8 230.5 L370.1 243.4 L365.4 243.4 L373.2 256.3 L345.1 256.3 L353.0 243.4 L348.2 243.4 L355.5 230.5 L352.2 230.5 Z" fill="#223057"/><path d="M377.8 208.6 L386.4 224.8 L382.3 224.8 L391.2 240.4 L385.4 240.4 L394.9 256.1 L360.8 256.1 L370.3 240.4 L364.5 240.4 L373.4 224.8 L369.3 224.8 Z" fill="#223057"/><path d="M408.5 221.5 L414.2 232.3 L411.5 232.3 L417.4 242.8 L413.6 242.8 L420.0 253.2 L397.1 253.2 L403.5 242.8 L399.6 242.8 L405.6 232.3 L402.8 232.3 Z" fill="#223057"/><path d="M429.1 227.5 L434.7 238.2 L432.0 238.2 L437.9 248.6 L434.1 248.6 L440.4 259.0 L417.7 259.0 L424.1 248.6 L420.2 248.6 L426.1 238.2 L423.4 238.2 Z" fill="#223057"/><path d="M459.3 222.4 L464.8 232.7 L462.1 232.7 L467.8 242.8 L464.1 242.8 L470.2 252.8 L448.4 252.8 L454.5 242.8 L450.8 242.8 L456.5 232.7 L453.8 232.7 Z" fill="#223057"/><path d="M477.1 213.7 L484.3 227.4 L480.8 227.4 L488.3 240.6 L483.4 240.6 L491.5 253.9 L462.6 253.9 L470.7 240.6 L465.8 240.6 L473.3 227.4 L469.8 227.4 Z" fill="#223057"/><path d="M502.2 213.2 L510.1 228.3 L506.3 228.3 L514.6 243.0 L509.2 243.0 L518.1 257.6 L486.2 257.6 L495.1 243.0 L489.7 243.0 L498.0 228.3 L494.2 228.3 Z" fill="#223057"/><path d="M540.5 232.6 L545.3 241.7 L543.0 241.7 L548.0 250.5 L544.7 250.5 L550.1 259.3 L530.8 259.3 L536.2 250.5 L533.0 250.5 L538.0 241.7 L535.6 241.7 Z" fill="#223057"/><path d="M555.8 227.4 L560.6 236.6 L558.3 236.6 L563.4 245.5 L560.1 245.5 L565.5 254.3 L546.1 254.3 L551.5 245.5 L548.2 245.5 L553.3 236.6 L550.9 236.6 Z" fill="#223057"/><path d="M582.0 225.4 L587.1 235.1 L584.6 235.1 L590.0 244.6 L586.5 244.6 L592.3 254.0 L571.7 254.0 L577.4 244.6 L573.9 244.6 L579.3 235.1 L576.8 235.1 Z" fill="#223057"/><path d="M610.8 210.2 L618.7 225.0 L614.9 225.0 L623.1 239.3 L617.7 239.3 L626.5 253.7 L595.2 253.7 L603.9 239.3 L598.6 239.3 L606.8 225.0 L603.0 225.0 Z" fill="#223057"/><path d="M634.2 229.5 L639.1 238.7 L636.8 238.7 L641.9 247.7 L638.5 247.7 L644.0 256.7 L624.4 256.7 L629.9 247.7 L626.6 247.7 L631.7 238.7 L629.3 238.7 Z" fill="#223057"/><path d="M658.0 210.9 L666.5 227.0 L662.4 227.0 L671.3 242.6 L665.5 242.6 L675.0 258.3 L640.9 258.3 L650.5 242.6 L644.7 242.6 L653.5 227.0 L649.5 227.0 Z" fill="#223057"/><path d="M687.9 222.2 L693.6 233.0 L690.9 233.0 L696.8 243.4 L692.9 243.4 L699.3 253.9 L676.5 253.9 L682.9 243.4 L679.0 243.4 L685.0 233.0 L682.2 233.0 Z" fill="#223057"/><path d="M715.9 207.0 L724.5 223.2 L720.4 223.2 L729.3 239.0 L723.5 239.0 L733.1 254.8 L698.7 254.8 L708.3 239.0 L702.4 239.0 L711.4 223.2 L707.3 223.2 Z" fill="#223057"/><path d="M747.7 204.9 L757.0 222.4 L752.5 222.4 L762.2 239.4 L755.9 239.4 L766.2 256.4 L729.2 256.4 L739.5 239.4 L733.2 239.4 L742.9 222.4 L738.4 222.4 Z" fill="#223057"/><path d="M775.2 227.6 L779.9 236.6 L777.7 236.6 L782.6 245.2 L779.4 245.2 L784.7 253.9 L765.7 253.9 L771.0 245.2 L767.8 245.2 L772.7 236.6 L770.5 236.6 Z" fill="#223057"/><path d="M790.2 218.9 L797.4 232.4 L794.0 232.4 L801.4 245.6 L796.6 245.6 L804.6 258.8 L775.9 258.8 L783.9 245.6 L779.0 245.6 L786.5 232.4 L783.1 232.4 Z" fill="#223057"/><path d="M826.6 210.3 L835.3 226.6 L831.1 226.6 L840.1 242.4 L834.2 242.4 L843.9 258.3 L809.3 258.3 L819.0 242.4 L813.1 242.4 L822.1 226.6 L818.0 226.6 Z" fill="#223057"/><path d="M848.2 221.5 L854.4 233.1 L851.4 233.1 L857.8 244.5 L853.6 244.5 L860.6 255.8 L835.9 255.8 L842.8 244.5 L838.6 244.5 L845.0 233.1 L842.0 233.1 Z" fill="#223057"/><path d="M874.8 216.2 L881.7 229.2 L878.4 229.2 L885.6 241.9 L880.9 241.9 L888.6 254.6 L861.0 254.6 L868.7 241.9 L864.0 241.9 L871.2 229.2 L867.9 229.2 Z" fill="#223057"/><path d="M898.3 214.0 L906.2 229.0 L902.4 229.0 L910.6 243.5 L905.2 243.5 L914.1 258.0 L882.4 258.0 L891.3 243.5 L885.9 243.5 L894.2 229.0 L890.4 229.0 Z" fill="#223057"/><path d="M924.4 218.7 L930.7 230.5 L927.7 230.5 L934.2 242.0 L929.9 242.0 L936.9 253.5 L911.9 253.5 L918.9 242.0 L914.7 242.0 L921.2 230.5 L918.2 230.5 Z" fill="#223057"/><path d="M945.1 201.9 L954.1 219.0 L949.8 219.0 L959.2 235.6 L953.1 235.6 L963.2 252.2 L927.0 252.2 L937.1 235.6 L931.0 235.6 L940.4 219.0 L936.0 219.0 Z" fill="#223057"/><path d="M980.1 211.3 L988.5 227.0 L984.5 227.0 L993.1 242.3 L987.5 242.3 L996.8 257.6 L963.4 257.6 L972.8 242.3 L967.1 242.3 L975.8 227.0 L971.8 227.0 Z" fill="#223057"/><path d="M1007.3 222.4 L1013.6 234.2 L1010.6 234.2 L1017.0 245.6 L1012.8 245.6 L1019.8 257.0 L994.9 257.0 L1001.9 245.6 L997.6 245.6 L1004.1 234.2 L1001.1 234.2 Z" fill="#223057"/><path d="M1032.6 227.1 L1037.4 236.1 L1035.1 236.1 L1040.0 244.9 L1036.8 244.9 L1042.2 253.7 L1023.0 253.7 L1028.4 244.9 L1025.1 244.9 L1030.1 236.1 L1027.8 236.1 Z" fill="#223057"/><path d="M1047.7 224.9 L1053.8 236.5 L1050.9 236.5 L1057.3 247.8 L1053.1 247.8 L1060.0 259.0 L1035.4 259.0 L1042.3 247.8 L1038.1 247.8 L1044.5 236.5 L1041.5 236.5 Z" fill="#223057"/><path d="M1086.5 211.5 L1093.8 225.4 L1090.3 225.4 L1097.9 238.9 L1092.9 238.9 L1101.2 252.4 L1071.8 252.4 L1080.0 238.9 L1075.0 238.9 L1082.6 225.4 L1079.1 225.4 Z" fill="#223057"/><path d="M1112.8 222.7 L1118.2 233.0 L1115.6 233.0 L1121.3 243.0 L1117.6 243.0 L1123.7 253.0 L1101.8 253.0 L1108.0 243.0 L1104.2 243.0 L1109.9 233.0 L1107.3 233.0 Z" fill="#223057"/><path d="M1132.4 213.9 L1140.1 228.3 L1136.4 228.3 L1144.3 242.3 L1139.1 242.3 L1147.7 256.3 L1117.2 256.3 L1125.7 242.3 L1120.5 242.3 L1128.5 228.3 L1124.8 228.3 Z" fill="#223057"/><path d="M1151.3 225.0 L1157.1 236.1 L1154.3 236.1 L1160.4 246.8 L1156.4 246.8 L1163.0 257.6 L1139.6 257.6 L1146.1 246.8 L1142.2 246.8 L1148.2 236.1 L1145.4 236.1 Z" fill="#223057"/><path d="M1189.2 211.6 L1196.5 225.4 L1193.0 225.4 L1200.5 238.8 L1195.6 238.8 L1203.7 252.1 L1174.6 252.1 L1182.8 238.8 L1177.8 238.8 L1185.4 225.4 L1181.9 225.4 Z" fill="#223057"/><path d="M1209.9 209.4 L1218.9 226.4 L1214.6 226.4 L1223.9 242.9 L1217.8 242.9 L1227.9 259.4 L1191.9 259.4 L1202.0 242.9 L1195.9 242.9 L1205.2 226.4 L1200.9 226.4 Z" fill="#223057"/></g>
+  <g data-warstwa="0.15"><path d="M0 300 C250 270 420 300 640 270 S1000 250 1200 280 V420 H0 Z" fill="#1c2848"/>
+  <g transform="translate(610 150)"><rect x="-14" y="40" width="28" height="120" fill="#16213a"/><path d="M-18 44 L0 -30 L18 44 Z" fill="#101830"/><rect x="-5" y="70" width="10" height="16" fill="url(#g8-okno)"/><path d="M0 -30 v-16 M-6 -40 h12" stroke="#16213a" stroke-width="2.5"/></g>
+  <g transform="translate(470 330) scale(0.2) translate(-300 -650)"><g class="dom">
+  <ellipse cx="300" cy="650" rx="270" ry="20" fill="#0b1122" opacity=".55"/>
+  <rect x="334" y="150" width="26" height="100" fill="#1b2744"/><rect x="330" y="146" width="34" height="8" fill="#0f1830"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-sciana)"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-cien)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#p8-lupek)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#g8-cien)"/>
+  <path d="M80 394 L300 174 L520 394 L498 400 L300 202 L102 400 Z" fill="#101830"/>
+  <rect x="122" y="378" width="356" height="9" fill="#1b2744"/>
+  <circle cx="300" cy="262" r="15" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="3.5"/>
+  <g><ellipse cx="256" cy="327" rx="52" ry="59.400000000000006" fill="url(#g8-blask)"/>
+  
+  <rect x="236" y="300" width="40" height="54" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M256 300 v54 M236 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="231" y="355" width="50" height="6" fill="#d7c5a6"/></g><g>
+  
+  <rect x="324" y="300" width="40" height="54" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M344 300 v54 M324 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="319" y="355" width="50" height="6" fill="#d7c5a6"/></g>
+  <g><ellipse cx="195" cy="445" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="146" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M146 426.5 h21 M146 445 h21 M146 463.5 h21 M223 426.5 h21 M223 445 h21 M223 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="408" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 408 v74 M170 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="483" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="251" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="328" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M251 426.5 h21 M251 445 h21 M251 463.5 h21 M328 426.5 h21 M328 445 h21 M328 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="275" y="408" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M300 408 v74 M275 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="270" y="483" width="60" height="6" fill="#d7c5a6"/></g><g><ellipse cx="405" cy="445" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="356" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M356 426.5 h21 M356 445 h21 M356 463.5 h21 M433 426.5 h21 M433 445 h21 M433 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="408" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 408 v74 M380 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="483" width="60" height="6" fill="#d7c5a6"/></g>
+  <g>
+  <rect x="146" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M146 542.5 h21 M146 561 h21 M146 579.5 h21 M223 542.5 h21 M223 561 h21 M223 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="524" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 524 v74 M170 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="599" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="356" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M356 542.5 h21 M356 561 h21 M356 579.5 h21 M433 542.5 h21 M433 561 h21 M433 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="524" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 524 v74 M380 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="599" width="60" height="6" fill="#d7c5a6"/></g>
+  <ellipse cx="300" cy="590" rx="60" ry="50" fill="url(#g8-blask)" opacity=".6"/>
+  <path d="M272 620 V548 a28 28 0 0 1 56 0 V620 Z" fill="#1b2744"/><path d="M280 548 a20 20 0 0 1 40 0 Z" fill="url(#g8-okno)"/>
+  <path d="M300 528 v92" stroke="#2a3a5e" stroke-width="2"/><circle cx="314" cy="586" r="2.5" fill="#e2bea3"/>
+  <rect x="124" y="618" width="352" height="26" fill="#cdb99a"/><path d="M124 631 H476 M170 618 v13 M230 631 v13 M290 618 v13 M350 631 v13 M410 618 v13" stroke="#b09a78" stroke-width="1.5"/>
+  <rect x="262" y="620" width="76" height="10" fill="#e4d6bd"/><rect x="254" y="630" width="92" height="12" fill="#d3c2a2"/>
+</g></g><g transform="translate(560 340) scale(0.17) translate(-300 -650)"><g class="dom">
+  <ellipse cx="300" cy="650" rx="270" ry="20" fill="#0b1122" opacity=".55"/>
+  <rect x="334" y="150" width="26" height="100" fill="#1b2744"/><rect x="330" y="146" width="34" height="8" fill="#0f1830"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-sciana)"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-cien)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#p8-lupek)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#g8-cien)"/>
+  <path d="M80 394 L300 174 L520 394 L498 400 L300 202 L102 400 Z" fill="#101830"/>
+  <rect x="122" y="378" width="356" height="9" fill="#1b2744"/>
+  <circle cx="300" cy="262" r="15" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="3.5"/>
+  <g>
+  
+  <rect x="236" y="300" width="40" height="54" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M256 300 v54 M236 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="231" y="355" width="50" height="6" fill="#d7c5a6"/></g><g>
+  
+  <rect x="324" y="300" width="40" height="54" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M344 300 v54 M324 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="319" y="355" width="50" height="6" fill="#d7c5a6"/></g>
+  <g>
+  <rect x="146" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M146 426.5 h21 M146 445 h21 M146 463.5 h21 M223 426.5 h21 M223 445 h21 M223 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="408" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 408 v74 M170 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="483" width="60" height="6" fill="#d7c5a6"/></g><g><ellipse cx="300" cy="445" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="251" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="328" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M251 426.5 h21 M251 445 h21 M251 463.5 h21 M328 426.5 h21 M328 445 h21 M328 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="275" y="408" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M300 408 v74 M275 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="270" y="483" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="356" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M356 426.5 h21 M356 445 h21 M356 463.5 h21 M433 426.5 h21 M433 445 h21 M433 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="408" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 408 v74 M380 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="483" width="60" height="6" fill="#d7c5a6"/></g>
+  <g><ellipse cx="195" cy="561" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="146" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M146 542.5 h21 M146 561 h21 M146 579.5 h21 M223 542.5 h21 M223 561 h21 M223 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="524" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 524 v74 M170 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="599" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="356" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M356 542.5 h21 M356 561 h21 M356 579.5 h21 M433 542.5 h21 M433 561 h21 M433 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="524" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 524 v74 M380 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="599" width="60" height="6" fill="#d7c5a6"/></g>
+  <ellipse cx="300" cy="590" rx="60" ry="50" fill="url(#g8-blask)" opacity=".6"/>
+  <path d="M272 620 V548 a28 28 0 0 1 56 0 V620 Z" fill="#1b2744"/><path d="M280 548 a20 20 0 0 1 40 0 Z" fill="url(#g8-okno)"/>
+  <path d="M300 528 v92" stroke="#2a3a5e" stroke-width="2"/><circle cx="314" cy="586" r="2.5" fill="#e2bea3"/>
+  <rect x="124" y="618" width="352" height="26" fill="#cdb99a"/><path d="M124 631 H476 M170 618 v13 M230 631 v13 M290 618 v13 M350 631 v13 M410 618 v13" stroke="#b09a78" stroke-width="1.5"/>
+  <rect x="262" y="620" width="76" height="10" fill="#e4d6bd"/><rect x="254" y="630" width="92" height="12" fill="#d3c2a2"/>
+</g></g><g transform="translate(700 334) scale(0.22) translate(-300 -650)"><g class="dom">
+  <ellipse cx="300" cy="650" rx="270" ry="20" fill="#0b1122" opacity=".55"/>
+  <rect x="334" y="150" width="26" height="100" fill="#1b2744"/><rect x="330" y="146" width="34" height="8" fill="#0f1830"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-sciana)"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-cien)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#p8-lupek)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#g8-cien)"/>
+  <path d="M80 394 L300 174 L520 394 L498 400 L300 202 L102 400 Z" fill="#101830"/>
+  <rect x="122" y="378" width="356" height="9" fill="#1b2744"/>
+  <circle cx="300" cy="262" r="15" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="3.5"/>
+  <g>
+  
+  <rect x="236" y="300" width="40" height="54" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M256 300 v54 M236 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="231" y="355" width="50" height="6" fill="#d7c5a6"/></g><g><ellipse cx="344" cy="327" rx="52" ry="59.400000000000006" fill="url(#g8-blask)"/>
+  
+  <rect x="324" y="300" width="40" height="54" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M344 300 v54 M324 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="319" y="355" width="50" height="6" fill="#d7c5a6"/></g>
+  <g><ellipse cx="195" cy="445" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="146" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M146 426.5 h21 M146 445 h21 M146 463.5 h21 M223 426.5 h21 M223 445 h21 M223 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="408" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 408 v74 M170 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="483" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="251" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="328" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M251 426.5 h21 M251 445 h21 M251 463.5 h21 M328 426.5 h21 M328 445 h21 M328 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="275" y="408" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M300 408 v74 M275 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="270" y="483" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="356" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M356 426.5 h21 M356 445 h21 M356 463.5 h21 M433 426.5 h21 M433 445 h21 M433 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="408" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 408 v74 M380 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="483" width="60" height="6" fill="#d7c5a6"/></g>
+  <g><ellipse cx="195" cy="561" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="146" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M146 542.5 h21 M146 561 h21 M146 579.5 h21 M223 542.5 h21 M223 561 h21 M223 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="524" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 524 v74 M170 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="599" width="60" height="6" fill="#d7c5a6"/></g><g><ellipse cx="405" cy="561" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="356" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M356 542.5 h21 M356 561 h21 M356 579.5 h21 M433 542.5 h21 M433 561 h21 M433 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="524" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 524 v74 M380 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="599" width="60" height="6" fill="#d7c5a6"/></g>
+  <ellipse cx="300" cy="590" rx="60" ry="50" fill="url(#g8-blask)" opacity=".6"/>
+  <path d="M272 620 V548 a28 28 0 0 1 56 0 V620 Z" fill="#1b2744"/><path d="M280 548 a20 20 0 0 1 40 0 Z" fill="url(#g8-okno)"/>
+  <path d="M300 528 v92" stroke="#2a3a5e" stroke-width="2"/><circle cx="314" cy="586" r="2.5" fill="#e2bea3"/>
+  <rect x="124" y="618" width="352" height="26" fill="#cdb99a"/><path d="M124 631 H476 M170 618 v13 M230 631 v13 M290 618 v13 M350 631 v13 M410 618 v13" stroke="#b09a78" stroke-width="1.5"/>
+  <rect x="262" y="620" width="76" height="10" fill="#e4d6bd"/><rect x="254" y="630" width="92" height="12" fill="#d3c2a2"/>
+</g></g><g transform="translate(800 346) scale(0.16) translate(-300 -650)"><g class="dom">
+  <ellipse cx="300" cy="650" rx="270" ry="20" fill="#0b1122" opacity=".55"/>
+  <rect x="334" y="150" width="26" height="100" fill="#1b2744"/><rect x="330" y="146" width="34" height="8" fill="#0f1830"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-sciana)"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-cien)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#p8-lupek)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#g8-cien)"/>
+  <path d="M80 394 L300 174 L520 394 L498 400 L300 202 L102 400 Z" fill="#101830"/>
+  <rect x="122" y="378" width="356" height="9" fill="#1b2744"/>
+  <circle cx="300" cy="262" r="15" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="3.5"/>
+  <g>
+  
+  <rect x="236" y="300" width="40" height="54" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M256 300 v54 M236 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="231" y="355" width="50" height="6" fill="#d7c5a6"/></g><g>
+  
+  <rect x="324" y="300" width="40" height="54" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M344 300 v54 M324 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="319" y="355" width="50" height="6" fill="#d7c5a6"/></g>
+  <g>
+  <rect x="146" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M146 426.5 h21 M146 445 h21 M146 463.5 h21 M223 426.5 h21 M223 445 h21 M223 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="408" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 408 v74 M170 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="483" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="251" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="328" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M251 426.5 h21 M251 445 h21 M251 463.5 h21 M328 426.5 h21 M328 445 h21 M328 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="275" y="408" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M300 408 v74 M275 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="270" y="483" width="60" height="6" fill="#d7c5a6"/></g><g><ellipse cx="405" cy="445" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="356" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M356 426.5 h21 M356 445 h21 M356 463.5 h21 M433 426.5 h21 M433 445 h21 M433 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="408" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 408 v74 M380 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="483" width="60" height="6" fill="#d7c5a6"/></g>
+  <g>
+  <rect x="146" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M146 542.5 h21 M146 561 h21 M146 579.5 h21 M223 542.5 h21 M223 561 h21 M223 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="524" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 524 v74 M170 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="599" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="356" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M356 542.5 h21 M356 561 h21 M356 579.5 h21 M433 542.5 h21 M433 561 h21 M433 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="524" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 524 v74 M380 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="599" width="60" height="6" fill="#d7c5a6"/></g>
+  <ellipse cx="300" cy="590" rx="60" ry="50" fill="url(#g8-blask)" opacity=".6"/>
+  <path d="M272 620 V548 a28 28 0 0 1 56 0 V620 Z" fill="#1b2744"/><path d="M280 548 a20 20 0 0 1 40 0 Z" fill="url(#g8-okno)"/>
+  <path d="M300 528 v92" stroke="#2a3a5e" stroke-width="2"/><circle cx="314" cy="586" r="2.5" fill="#e2bea3"/>
+  <rect x="124" y="618" width="352" height="26" fill="#cdb99a"/><path d="M124 631 H476 M170 618 v13 M230 631 v13 M290 618 v13 M350 631 v13 M410 618 v13" stroke="#b09a78" stroke-width="1.5"/>
+  <rect x="262" y="620" width="76" height="10" fill="#e4d6bd"/><rect x="254" y="630" width="92" height="12" fill="#d3c2a2"/>
+</g></g><g transform="translate(360 348) scale(0.15) translate(-300 -650)"><g class="dom">
+  <ellipse cx="300" cy="650" rx="270" ry="20" fill="#0b1122" opacity=".55"/>
+  <rect x="334" y="150" width="26" height="100" fill="#1b2744"/><rect x="330" y="146" width="34" height="8" fill="#0f1830"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-sciana)"/>
+  <rect x="130" y="372" width="340" height="272" fill="url(#g8-cien)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#p8-lupek)"/>
+  <path d="M118 382 L300 200 L482 382 Z" fill="url(#g8-cien)"/>
+  <path d="M80 394 L300 174 L520 394 L498 400 L300 202 L102 400 Z" fill="#101830"/>
+  <rect x="122" y="378" width="356" height="9" fill="#1b2744"/>
+  <circle cx="300" cy="262" r="15" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="3.5"/>
+  <g>
+  
+  <rect x="236" y="300" width="40" height="54" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M256 300 v54 M236 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="231" y="355" width="50" height="6" fill="#d7c5a6"/></g><g>
+  
+  <rect x="324" y="300" width="40" height="54" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M344 300 v54 M324 321.6 h40" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="319" y="355" width="50" height="6" fill="#d7c5a6"/></g>
+  <g><ellipse cx="195" cy="445" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="146" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M146 426.5 h21 M146 445 h21 M146 463.5 h21 M223 426.5 h21 M223 445 h21 M223 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="408" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 408 v74 M170 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="483" width="60" height="6" fill="#d7c5a6"/></g><g><ellipse cx="300" cy="445" rx="65" ry="81.4" fill="url(#g8-blask)"/>
+  <rect x="251" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="328" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M251 426.5 h21 M251 445 h21 M251 463.5 h21 M328 426.5 h21 M328 445 h21 M328 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="275" y="408" width="50" height="74" fill="url(#g8-okno)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M300 408 v74 M275 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="270" y="483" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="356" y="408" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="408" width="21" height="74" fill="#2a3a5e"/><path d="M356 426.5 h21 M356 445 h21 M356 463.5 h21 M433 426.5 h21 M433 445 h21 M433 463.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="408" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 408 v74 M380 437.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="483" width="60" height="6" fill="#d7c5a6"/></g>
+  <g>
+  <rect x="146" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="223" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M146 542.5 h21 M146 561 h21 M146 579.5 h21 M223 542.5 h21 M223 561 h21 M223 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="170" y="524" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M195 524 v74 M170 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="165" y="599" width="60" height="6" fill="#d7c5a6"/></g><g>
+  <rect x="356" y="524" width="21" height="74" fill="#2a3a5e"/><rect x="433" y="524" width="21" height="74" fill="#2a3a5e"/><path d="M356 542.5 h21 M356 561 h21 M356 579.5 h21 M433 542.5 h21 M433 561 h21 M433 579.5 h21" stroke="#1b2744" stroke-width="1.5"/>
+  <rect x="380" y="524" width="50" height="74" fill="url(#g8-szyba)" stroke="#f6eee0" stroke-width="4"/>
+  <path d="M405 524 v74 M380 553.6 h50" stroke="#f6eee0" stroke-width="3"/>
+  <rect x="375" y="599" width="60" height="6" fill="#d7c5a6"/></g>
+  <ellipse cx="300" cy="590" rx="60" ry="50" fill="url(#g8-blask)" opacity=".6"/>
+  <path d="M272 620 V548 a28 28 0 0 1 56 0 V620 Z" fill="#1b2744"/><path d="M280 548 a20 20 0 0 1 40 0 Z" fill="url(#g8-okno)"/>
+  <path d="M300 528 v92" stroke="#2a3a5e" stroke-width="2"/><circle cx="314" cy="586" r="2.5" fill="#e2bea3"/>
+  <rect x="124" y="618" width="352" height="26" fill="#cdb99a"/><path d="M124 631 H476 M170 618 v13 M230 631 v13 M290 618 v13 M350 631 v13 M410 618 v13" stroke="#b09a78" stroke-width="1.5"/>
+  <rect x="262" y="620" width="76" height="10" fill="#e4d6bd"/><rect x="254" y="630" width="92" height="12" fill="#d3c2a2"/>
+</g></g></g>
+  <g data-warstwa="-0.2"><path d="M0 360 C300 330 500 370 800 340 S1100 330 1200 350 V420 H0 Z" fill="#0f172d"/><path d="M-1.3 277.6 L17.0 312.1 L8.2 312.1 L27.2 345.6 L14.8 345.6 L35.3 379.1 L-37.8 379.1 L-17.3 345.6 L-29.7 345.6 L-10.7 312.1 L-19.5 312.1 Z" fill="#0c1328"/><path d="M51.9 283.6 L68.6 315.2 L60.6 315.2 L78.0 345.8 L66.6 345.8 L85.3 376.4 L18.5 376.4 L37.2 345.8 L25.8 345.8 L43.2 315.2 L35.2 315.2 Z" fill="#0c1328"/><path d="M88.3 244.3 L111.5 288.1 L100.4 288.1 L124.5 330.7 L108.7 330.7 L134.7 373.2 L41.9 373.2 L67.9 330.7 L52.1 330.7 L76.2 288.1 L65.1 288.1 Z" fill="#0c1328"/><path d="M141.8 257.9 L162.5 297.0 L152.5 297.0 L174.1 335.0 L160.0 335.0 L183.2 372.9 L100.3 372.9 L123.5 335.0 L109.5 335.0 L131.0 297.0 L121.1 297.0 Z" fill="#0c1328"/><path d="M190.1 302.9 L203.8 328.7 L197.2 328.7 L211.5 353.8 L202.2 353.8 L217.5 378.8 L162.8 378.8 L178.1 353.8 L168.8 353.8 L183.0 328.7 L176.5 328.7 Z" fill="#0c1328"/><path d="M239.3 281.6 L256.7 314.5 L248.3 314.5 L266.4 346.4 L254.6 346.4 L274.1 378.3 L204.5 378.3 L223.9 346.4 L212.1 346.4 L230.2 314.5 L221.9 314.5 Z" fill="#0c1328"/><path d="M281.0 292.3 L295.8 320.3 L288.7 320.3 L304.1 347.4 L294.0 347.4 L310.6 374.6 L251.3 374.6 L267.9 347.4 L257.9 347.4 L273.3 320.3 L266.2 320.3 Z" fill="#0c1328"/><path d="M335.1 261.3 L356.3 301.4 L346.1 301.4 L368.2 340.2 L353.8 340.2 L377.5 379.1 L292.7 379.1 L316.4 340.2 L302.0 340.2 L324.1 301.4 L313.9 301.4 Z" fill="#0c1328"/><path d="M379.5 271.0 L398.9 307.8 L389.6 307.8 L409.8 343.5 L396.6 343.5 L418.4 379.2 L340.5 379.2 L362.3 343.5 L349.1 343.5 L369.3 307.8 L360.0 307.8 Z" fill="#0c1328"/><path d="M881.0 275.5 L899.4 310.3 L890.6 310.3 L909.7 344.1 L897.2 344.1 L917.8 377.9 L844.1 377.9 L864.8 344.1 L852.2 344.1 L871.4 310.3 L862.6 310.3 Z" fill="#0c1328"/><path d="M928.2 280.7 L945.8 314.0 L937.3 314.0 L955.7 346.4 L943.7 346.4 L963.4 378.7 L892.9 378.7 L912.6 346.4 L900.6 346.4 L919.0 314.0 L910.5 314.0 Z" fill="#0c1328"/><path d="M966.3 309.1 L979.3 333.5 L973.1 333.5 L986.5 357.1 L977.7 357.1 L992.2 380.8 L940.5 380.8 L955.0 357.1 L946.2 357.1 L959.6 333.5 L953.4 333.5 Z" fill="#0c1328"/><path d="M1015.4 270.9 L1035.0 307.9 L1025.6 307.9 L1045.9 343.7 L1032.6 343.7 L1054.5 379.6 L976.2 379.6 L998.2 343.7 L984.9 343.7 L1005.2 307.9 L995.8 307.9 Z" fill="#0c1328"/><path d="M1067.1 264.5 L1087.6 303.2 L1077.8 303.2 L1099.1 340.8 L1085.2 340.8 L1108.1 378.4 L1026.1 378.4 L1049.1 340.8 L1035.1 340.8 L1056.5 303.2 L1046.6 303.2 Z" fill="#0c1328"/><path d="M1113.4 268.2 L1133.6 306.4 L1123.9 306.4 L1144.9 343.4 L1131.2 343.4 L1153.8 380.5 L1073.0 380.5 L1095.6 343.4 L1081.9 343.4 L1102.9 306.4 L1093.2 306.4 Z" fill="#0c1328"/><path d="M1160.0 312.4 L1172.4 335.8 L1166.4 335.8 L1179.3 358.5 L1170.9 358.5 L1184.8 381.2 L1135.2 381.2 L1149.1 358.5 L1140.7 358.5 L1153.6 335.8 L1147.6 335.8 Z" fill="#0c1328"/><path d="M1198.8 315.3 L1211.2 338.7 L1205.2 338.7 L1218.1 361.3 L1209.7 361.3 L1223.5 383.9 L1174.1 383.9 L1188.0 361.3 L1179.6 361.3 L1192.4 338.7 L1186.5 338.7 Z" fill="#0c1328"/></g>
+  <rect width="1200" height="420" fill="url(#g8-winieta)"/></svg></div><figcaption><b>Ryc. 1</b> Ilustracja: dachy Frankenwaldu – rysunek swobodny.</figcaption></figure></div></section>
+  <section class="cta-pas ciemne">
+  <div class="cta-in">
+    <div class="pagina jasna"><span>Twoje zapytanie</span><span class="p-linia"></span><span>s. 02</span></div>
+    <div class="cta-siatka">
+      <div class="cta-tekst odslon"><p class="etykieta">Twoje zapytanie</p><h2>Opowiedz, o co chodzi.</h2><p class="lead">Wystarczy kilka zdań. Od razu dostaniesz numer sprawy – a od nas konkretny następny krok.</p>
+        <div class="cta-rzad"><a class="btn btn-jasny" href="v8.0.0-pl-kontakt.html">Umów pierwszą rozmowę <svg class="ik " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a><a class="link-strz" href="v8.0.0-pl-bestellen.html">Zamów materiały bezpośrednio <svg class="ik " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div></div>
+      <aside class="numer-karta odslon">
+        <p class="nk-gora"><span>Numer sprawy</span><span class="stempel">Przykład</span></p>
+        <p class="nk-numer">RT-2026-0042-K</p>
+        <p class="nk-tekst">Tak wygląda Twój numer – dostajesz go od razu po wysłaniu.</p>
+        <div class="nk-osoba"><svg class="znak " viewBox="-4 -4 108 108" width="40" height="40" aria-hidden="true">
+  <path fill="#ee5234" d="M0 34 H12 V88 H22 L10 100 H4 Q0 100 0 96 Z"/><path fill="#15a1af" d="M30 88 H57 V100 H18 Z"/>
+  <path fill="#eaa312" d="M50 0 H96 Q100 0 100 4 V26 H88 V12 H62 Z"/><path fill="#be652d" d="M88 55 H100 V96 Q100 100 96 100 H81 V88 H88 Z"/>
+  <path fill="currentColor" d="M0 26 V4 Q0 0 4 0 H30 A18 26 0 0 1 30 52 L50 80 H37 L18 52 V40 H30 A8 14 0 0 0 30 12 H12 V26 Z"/>
+  <path fill="currentColor" d="M55 34 H100 V45 H76 V100 H64 V45 H52 Z"/></svg><div><p class="w-imie">Jakub Mateusz Woloszczuk</p><p class="w-rola">Właściciel, RaumTreu</p>
+          <p class="w-adres">Martin-Luther-Ring 10 · 96332 Pressig</p></div></div>
+      </aside>
+    </div>
+  </div>
+</section></main>
+<footer class="stopka">
+  <div class="stopka-in">
+    <div class="stopka-marka"><a class="marka" href="v8.0.0-pl-index.html" aria-label="RaumTreu – Start"><svg class="znak " viewBox="-4 -4 108 108" width="34" height="34" aria-hidden="true">
+  <path fill="#ee5234" d="M0 34 H12 V88 H22 L10 100 H4 Q0 100 0 96 Z"/><path fill="#15a1af" d="M30 88 H57 V100 H18 Z"/>
+  <path fill="#eaa312" d="M50 0 H96 Q100 0 100 4 V26 H88 V12 H62 Z"/><path fill="#be652d" d="M88 55 H100 V96 Q100 100 96 100 H81 V88 H88 Z"/>
+  <path fill="currentColor" d="M0 26 V4 Q0 0 4 0 H30 A18 26 0 0 1 30 52 L50 80 H37 L18 52 V40 H30 A8 14 0 0 0 30 12 H12 V26 Z"/>
+  <path fill="currentColor" d="M55 34 H100 V45 H76 V100 H64 V45 H52 Z"/></svg><span class="wm">RaumTreu</span></a><p>Nieruchomości, materiały budowlane, sieć wykonawców i digitalizacja – lokalnie z Pressig.</p></div>
+    <div><h4>Obszary</h4><ul><li><a href="v8.0.0-pl-immobilien.html"><span class="s-nr">01</span>Nieruchomości</a></li><li><a href="v8.0.0-pl-baumaterialien.html"><span class="s-nr">02</span>Materiały budowlane</a></li><li><a href="v8.0.0-pl-baunetzwerk.html"><span class="s-nr">03</span>Sieć wykonawców</a></li><li><a href="v8.0.0-pl-digitalisierung.html"><span class="s-nr">04</span>Digitalizacja</a></li></ul></div>
+    <div><h4>Firma</h4><ul><li><a href="v8.0.0-pl-ueber-uns.html">O nas</a></li><li><a href="v8.0.0-pl-regionen.html">Regiony</a></li><li><a href="v8.0.0-pl-kontakt.html">Kontakt</a></li><li><a href="v8.0.0-pl-bestellen.html">Zamów materiały</a></li></ul></div>
+    <div><h4>Stopka redakcyjna</h4><dl class="kolofon"><dt>Wydawca</dt><dd>Jakub Mateusz Woloszczuk</dd><dt>Adres</dt><dd>Martin-Luther-Ring 10, 96332 Pressig</dd><dt>Języki</dt><dd>niemiecki · polski</dd></dl></div>
+  </div>
+  <p class="stopka-wielki" aria-hidden="true">RaumTreu</p>
+  <div class="stopka-dol"><span>© 2026 RaumTreu · Jakub Mateusz Woloszczuk · Nr 01</span><span><a href="v8.0.0-pl-impressum.html">Impressum</a> · <a href="v8.0.0-pl-datenschutz.html">Ochrona danych</a> · <a href="v8.0.0-pl-anmelden.html">Konto klienta</a></span></div>
+</footer>
+<div class="rt-podglad" style="position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:999;display:flex;gap:10px;align-items:center;background:#0b2e26;color:#f6f2ea;border:1px solid rgba(246,242,234,.18);font:600 13px/1.2 system-ui,sans-serif;padding:10px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.25);white-space:nowrap"><span>Vorschau v8.0.0 · PL</span><a href="index.html" style="color:#f0b25a;text-decoration:none">&larr; wersje</a></div><script>document.addEventListener("submit",function(e){e.preventDefault();var b=document.createElement("div");b.textContent="Podgląd: formularz działa dopiero w prawdziwej aplikacji (lokalnie albo na Hostingerze).";b.style.cssText="position:fixed;left:16px;right:16px;top:90px;z-index:1000;background:#fff;border-left:4px solid #b8622b;padding:14px 16px;font:500 15px system-ui;box-shadow:0 10px 30px rgba(0,0,0,.2);border-radius:10px";document.body.appendChild(b);setTimeout(function(){b.remove()},4500)},true);</script></body></html>

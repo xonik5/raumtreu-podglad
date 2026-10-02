@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fenster anfragen · RaumTreu</title>
+<meta name="description" content="Stellen Sie Ihr Fenster zusammen und sehen Sie jede Änderung sofort in 3D und im Querschnitt. Jede Anfrage bekommt eine eigene Auftragsnummer – wir holen Angebote aus Deutschland und Polen ein.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@300..800&display=swap"><style>/* RaumTreu — strona publiczna. Czcionki systemowe (nic z zewnętrznych serwerów). */
+/* RaumTreu — strona publiczna. Kolory z logo: Raum ciemna zieleń, Treu miedź, rama w 4 kolorach działów.
+   Czcionki systemowe (nic z zewnętrznych serwerów). */
+:root {
+  --granat: #0d3f33;      /* ciemna zieleń „Raum" */
+  --granat-2: #082b23;
+  --mosiadz: #be652d;     /* miedź „Treu" */
+  --mosiadz-2: #a4541f;
+  --immo: #ee5234; --bau: #eaa312; --netz: #be652d; --dig: #15a1af;
+  --krem: #fcf7ef;
+  --papier: #ffffff;
+  --tekst: #17231f;
+  --szary: #56655f;
+  --linia: #e6e0d6;
+  --blad: #b3261e;
+  --ok: #2f7a3f;
+  --r: 12px;
+  --cien: 0 1px 2px rgba(13, 63, 51, .05), 0 8px 24px rgba(13, 63, 51, .07);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--tekst);
+  background: var(--krem);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--krem); line-height: 1.55; font-size: 16px; }
+a { color: var(--granat); }
+h1, h2, h3 { line-height: 1.2; letter-spacing: -.01em; color: var(--granat); font-weight: 750; }
+h1 { font-size: clamp(1.8rem, 4.2vw, 3rem); margin: 0 0 .7rem; }
+h2 { font-size: clamp(1.3rem, 2.4vw, 1.75rem); margin: 0 0 1.2rem; }
+h3 { font-size: 1.1rem; margin: .5rem 0 .4rem; }
+.ik { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.2em; flex: none; }
+.ukryj { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; overflow: hidden; }
+.srodek { text-align: center; margin-top: 1.5rem; }
+
+/* nagłówek — jasny, żeby zielone „Raum" i znak były czytelne */
+.gora { background: rgba(252, 247, 239, .96); backdrop-filter: blur(6px); position: sticky; top: 0; z-index: 10; }
+.gora-in { max-width: 1180px; margin: 0 auto; padding: .6rem 16px; display: flex; align-items: center; gap: 1rem; position: relative; }
+.rama-pasek { display: flex; height: 4px; }
+.rama-pasek i { display: block; }
+.marka { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+.marka img { width: 40px; height: 40px; }
+.wm { font-size: 1.45rem; font-weight: 800; letter-spacing: -.02em; line-height: 1; }
+.wm .raum { color: var(--granat); } .wm .treu { color: var(--mosiadz); }
+.marka.jasna .wm .raum { color: #fff; }
+.menu { margin-left: auto; display: flex; align-items: center; gap: 0; flex-wrap: nowrap; white-space: nowrap; }
+.menu a { color: var(--granat); text-decoration: none; padding: .45rem .55rem; border-radius: 8px; font-size: .95rem; font-weight: 550; border-bottom: 3px solid transparent; }
+.menu a:hover { background: rgba(13, 63, 51, .06); }
+.menu a[aria-current] { border-bottom-color: var(--kd, var(--mosiadz)); border-radius: 8px 8px 0 0; }
+.menu a.jezyk { border: 1px solid rgba(13, 63, 51, .3); font-size: .8rem; padding: .25rem .5rem; margin-left: .3rem; }
+.menu-t, .menu-btn { display: none; }
+@media (max-width: 1260px) {
+  .menu-btn { display: flex; flex-direction: column; gap: 5px; margin-left: auto; cursor: pointer; padding: 8px; }
+  .menu-btn span { width: 24px; height: 2px; background: var(--granat); display: block; }
+  .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--krem); flex-direction: column; align-items: stretch; padding: .5rem 16px 1rem; box-shadow: 0 12px 24px rgba(0,0,0,.08); }
+  .menu-t:checked ~ .menu { display: flex; }
+  .menu a { padding: .75rem .6rem; }
+  .menu a.jezyk { align-self: flex-start; margin: .4rem 0 0; }
+  .menu .przycisk.maly { margin: .4rem 0; }
+}
+
+/* przyciski */
+.przycisk { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; background: var(--granat); color: #fff;
+  border: 0; border-radius: 10px; padding: .8rem 1.3rem; font-weight: 650; font-size: 1rem; text-decoration: none; cursor: pointer; font-family: inherit; }
+.przycisk:hover { background: var(--granat-2); }
+.cta-pas .przycisk { background: var(--mosiadz); }
+.cta-pas .przycisk:hover { background: var(--mosiadz-2); }
+.przycisk.drugi { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
+.przycisk.drugi:hover { background: rgba(18, 63, 74, .06); }
+.przycisk.maly { padding: .45rem .85rem; font-size: .9rem; }
+.menu .przycisk.maly { color: #fff; background: var(--mosiadz); margin-left: .4rem; }
+.menu .przycisk.maly:hover { background: var(--mosiadz-2); }
+.przycisk.duzy { width: 100%; padding: 1rem; font-size: 1.05rem; margin-top: 1rem; }
+.przycisk.google { width: 100%; background: #fff; color: #222; box-shadow: inset 0 0 0 1px #c9cfd1; }
+.przycisk[disabled] { opacity: .6; cursor: wait; }
+.link { background: none; border: 0; color: var(--granat); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+
+/* hero */
+.hero { background: var(--krem); }
+.hero-in { max-width: 1180px; margin: 0 auto; padding: clamp(2.5rem, 7vw, 5rem) 16px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: center; }
+.hero h1 { max-width: 16ch; }
+.hero .lead { color: var(--szary); max-width: 56ch; font-size: 1.12rem; }
+.znacznik { color: var(--mosiadz); text-transform: uppercase; letter-spacing: .14em; font-size: .74rem; font-weight: 700; margin: 0 0 1rem; }
+.cta { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.6rem; }
+.hero-region { color: var(--szary); font-size: .92rem; margin-top: 1.4rem; display: flex; gap: .4rem; align-items: center; }
+.hero-znak { justify-self: center; }
+.hero-znak img { width: min(320px, 100%); height: auto; }
+@media (max-width: 820px) { .hero-in { grid-template-columns: 1fr; } .hero-znak { display: none; } }
+
+/* sekcje */
+.sekcja { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 5vw, 3.5rem) 16px; }
+.sekcja.tlo { max-width: none; background: #fff; }
+.sekcja.tlo > * { max-width: 1148px; margin-left: auto; margin-right: auto; }
+.sekcja.waska { max-width: 820px; }
+.sekcja.waziutka { max-width: 440px; }
+.naglowek-strony { background: #fff; padding: clamp(2rem, 5vw, 3.5rem) 16px; border-left: 0; box-shadow: inset 0 -1px 0 var(--linia); }
+.naglowek-strony > div { max-width: 1148px; margin-left: auto; margin-right: auto; border-left: 6px solid var(--kd, var(--granat)); padding-left: clamp(1rem, 3vw, 1.6rem); }
+.naglowek-strony .lead { color: var(--szary); font-size: 1.1rem; margin-bottom: 1.2rem; max-width: 62ch; }
+.dzial-etykieta { color: var(--kd); font-weight: 750; text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; margin: 0 0 .6rem; }
+.sekcja.waska-g { padding-bottom: 0; }
+.lead { font-size: 1.08rem; }
+
+.filary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+@media (max-width: 980px) { .filary { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .filary { grid-template-columns: 1fr; } }
+.filar { background: #fff; border-radius: var(--r); padding: 1.4rem; text-decoration: none; color: inherit; box-shadow: var(--cien); display: flex; flex-direction: column; border-top: 6px solid var(--kd); transition: transform .15s; }
+.filar:hover { transform: translateY(-3px); }
+.filar h3 { font-size: 1.2rem; }
+.filar p { color: var(--szary); margin: 0 0 .8rem; }
+.filar ul { list-style: none; padding: 0; margin: 0 0 1rem; flex: 1; display: flex; flex-wrap: wrap; gap: .35rem; align-content: flex-start; align-items: flex-start; }
+.filar li { font-size: .8rem; background: var(--krem); border-radius: 6px; padding: .15rem .5rem; color: var(--granat); }
+.wiecej { color: var(--granat); font-weight: 650; font-size: .95rem; }
+.karty { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+.karta-usl { background: #fff; border-radius: var(--r); padding: 1.3rem; box-shadow: var(--cien); border-left: 5px solid var(--kd); }
+.karta-usl p { color: var(--szary); margin: 0; }
+.komunikat { background: #fff; border-radius: var(--r); padding: 1rem 1.2rem; display: flex; gap: .7rem; align-items: flex-start; margin-top: 1.2rem; box-shadow: inset 0 0 0 1px var(--linia); }
+.komunikat .ik { color: var(--mosiadz); margin-top: .15rem; }
+.kolumny3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 900px) { .kolumny3 { grid-template-columns: 1fr; } }
+.kolumny3 h2 { font-size: 1.2rem; }
+.wyr { border-top: 3px solid var(--granat); padding-top: .8rem; }
+.region { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; align-items: start; }
+@media (max-width: 760px) { .region { grid-template-columns: 1fr; } }
+.miejsca { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: .4rem; }
+.miejsca li { display: flex; gap: .4rem; align-items: center; background: var(--krem); border-radius: 8px; padding: .5rem .7rem; }
+.miejsca.duze li { background: #fff; box-shadow: var(--cien); }
+.miejsca .ik { color: var(--mosiadz); }
+.cta-pas { background: var(--granat); color: #fff; border-radius: 16px; padding: clamp(1.4rem, 4vw, 2.4rem); display: flex; gap: 1.5rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.cta-pas h2 { color: #fff; margin-bottom: .4rem; }
+.cta-pas p { color: #cfe0da; margin: 0; max-width: 56ch; }
+.tematy { border: 0; padding: 0; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+.tematy legend { font-size: .88rem; font-weight: 600; margin-bottom: .5rem; color: var(--granat); }
+.temat { position: relative; }
+.temat input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.temat span { display: inline-block; padding: .5rem .9rem; border-radius: 999px; background: var(--krem); border: 2px solid transparent; cursor: pointer; font-size: .92rem; }
+.temat input:checked + span { border-color: var(--kd); background: #fff; font-weight: 600; }
+.temat input:focus-visible + span { outline: 2px solid var(--granat); }
+.pakiet li.pozniej { color: var(--szary); font-style: italic; border-bottom: 0; }
+.pakiet li.pozniej .ik { color: var(--mosiadz); }
+.trzy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 760px) { .trzy { grid-template-columns: 1fr; } }
+.trzy p { color: var(--szary); margin: 0; }
+
+.kroki { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.kroki.szesc { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) { .kroki { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .kroki { grid-template-columns: 1fr; } }
+.kroki li { background: #fff; border-radius: var(--r); padding: 1.3rem; box-shadow: var(--cien); }
+.kroki p { color: var(--szary); margin: 0; }
+.nr { display: inline-grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--granat); color: #fff; font-weight: 700; }
+
+.punkty { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; gap: .7rem; }
+.punkty li { background: #fff; border-radius: 12px; padding: 1rem 1.2rem; display: flex; gap: .8rem; align-items: flex-start; box-shadow: var(--cien); }
+.punkty .ik { color: var(--ok); flex: none; margin-top: .15rem; }
+
+/* pakiety */
+.pakiety { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; align-items: stretch; }
+@media (max-width: 1060px) { .pakiety { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .pakiety { grid-template-columns: 1fr; } }
+.pakiet { background: #fff; border-radius: var(--r); padding: 1.4rem; box-shadow: var(--cien); display: flex; flex-direction: column; border: 2px solid transparent; }
+.pakiet.wyrozniony { border-color: var(--mosiadz); }
+.pakiet h3 { font-size: 1.35rem; margin: 0; }
+.pakiet-op { color: var(--szary); margin: .2rem 0 1rem; }
+.pakiet ul { list-style: none; padding: 0; margin: 0 0 1.2rem; flex: 1; font-size: .93rem; }
+.pakiet li { display: flex; gap: .5rem; padding: .3rem 0; border-bottom: 1px solid var(--linia); }
+.pakiet li.jest .ik { color: var(--ok); flex: none; }
+.pakiet li.brak { color: #9aa6aa; }
+.kreska { width: 1.15em; text-align: center; flex: none; }
+.przypis { color: var(--szary); font-size: .9rem; margin-top: 1rem; }
+
+/* formularze */
+.blok { background: #fff; border-radius: var(--r); padding: 1.3rem; box-shadow: var(--cien); margin-bottom: 1rem; }
+.blok h2 { font-size: 1.15rem; margin-bottom: .8rem; }
+.blok-gora { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.blok-gora h1, .blok-gora h2 { margin-bottom: .8rem; }
+.pole { display: block; margin-bottom: .8rem; }
+.pole > span { display: block; font-size: .88rem; font-weight: 600; margin-bottom: .3rem; color: var(--granat-2); }
+input, textarea, select { width: 100%; font: inherit; padding: .7rem .8rem; border: 1px solid #c7d0d2; border-radius: 9px; background: #fff; color: inherit; }
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--bau); outline-offset: 1px; border-color: var(--mosiadz); }
+textarea { resize: vertical; }
+.siatka { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+@media (max-width: 560px) { .siatka { grid-template-columns: 1fr; } }
+.rodzaje { border: 0; padding: 0; margin: 0 0 1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+@media (max-width: 700px) { .rodzaje { grid-template-columns: 1fr; } }
+.rodzaj { cursor: pointer; }
+.rodzaj { position: relative; }
+.rodzaj input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.rodzaj span { display: block; background: #fff; border: 2px solid var(--linia); border-radius: var(--r); padding: 1rem; height: 100%; }
+.rodzaj b { display: block; color: var(--granat-2); }
+.rodzaj small { color: var(--szary); display: block; margin-top: .3rem; line-height: 1.4; }
+.rodzaj input:checked + span { border-color: var(--bau); background: #fffaf0; }
+.rodzaj input:focus-visible + span { outline: 2px solid var(--granat); }
+.tabela-wpis { width: 100%; border-collapse: collapse; margin-bottom: .6rem; }
+.tabela-wpis th { text-align: left; font-size: .8rem; color: var(--szary); font-weight: 600; padding: 0 .3rem .3rem; }
+.tabela-wpis td { padding: .2rem .3rem; }
+.tabela-wpis td:nth-child(2) { width: 6.5rem; }
+.tabela-wpis td:nth-child(3) { width: 7.5rem; }
+.tabela-wpis td:nth-child(4) { width: 2.2rem; }
+.tabela-wpis input, .tabela-wpis select { padding: .55rem .6rem; }
+.usun { background: none; border: 0; color: #9aa6aa; font-size: 1.3rem; cursor: pointer; line-height: 1; }
+@media (max-width: 560px) {
+  .tabela-wpis thead { display: none; }
+  .tabela-wpis tr { display: grid; grid-template-columns: 1fr 5.5rem 6.5rem 2rem; border-bottom: 1px solid var(--linia); padding: .3rem 0; }
+  .tabela-wpis td:first-child { grid-column: 1 / -1; }
+  .tabela-wpis td { width: auto !important; }
+}
+.upuszcz { display: block; border: 2px dashed #b9c4c7; border-radius: var(--r); padding: 1.5rem; text-align: center; color: var(--szary); cursor: pointer; }
+.upuszcz.nad { border-color: var(--mosiadz); background: #fffaf2; }
+.upuszcz input { display: block; margin: 0 auto .6rem; max-width: 100%; border: 0; padding: 0; }
+.lista-plikow { list-style: none; padding: 0; margin: .6rem 0 0; }
+.lista-plikow li { padding: .45rem .7rem; background: var(--krem); border-radius: 8px; margin-bottom: .3rem; font-size: .92rem; overflow-wrap: anywhere; }
+.zgoda { display: flex; gap: .6rem; align-items: flex-start; font-size: .92rem; margin: .5rem 0; }
+.zgoda input { width: auto; margin-top: .25rem; }
+.blad { background: #fdecea; color: var(--blad); border-radius: 10px; padding: .8rem 1rem; }
+.info { background: #eef4f5; border-radius: 10px; padding: .8rem 1rem; }
+.info.ok { background: #eef7f0; color: var(--ok); }
+.lub { text-align: center; color: var(--szary); position: relative; margin: 1rem 0; }
+.lub::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--linia); }
+.lub span { background: var(--krem); padding: 0 .8rem; position: relative; }
+
+/* potwierdzenie, podgląd */
+.potwierdzenie { text-align: center; }
+.ok-ik { width: 4rem; height: 4rem; border-radius: 50%; background: #e6f2e9; color: var(--ok); display: grid; place-items: center; margin: 0 auto 1rem; }
+.ok-ik .ik { width: 2rem; height: 2rem; }
+.numery { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 1.5rem 0; }
+.numery div { background: #fff; border-radius: var(--r); padding: 1rem 1.4rem; box-shadow: var(--cien); }
+.numery span { display: block; font-size: .8rem; color: var(--szary); text-transform: uppercase; letter-spacing: .06em; }
+.numer { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 1.35rem; color: var(--granat-2); letter-spacing: .02em; }
+td .numer { font-size: 1rem; }
+.karta-zam { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; background: #fff; border-radius: var(--r); padding: 1.1rem; box-shadow: var(--cien); margin-bottom: 1.2rem; }
+@media (max-width: 640px) { .karta-zam { grid-template-columns: 1fr 1fr; } }
+.karta-zam span { display: block; font-size: .78rem; color: var(--szary); text-transform: uppercase; letter-spacing: .05em; }
+.status { display: inline-block; padding: .15rem .6rem; border-radius: 999px; background: #e7eef0; font-size: .85rem; }
+.s-zaakceptowane, .s-zamowione, .s-dostarczone { background: #e6f2e9; color: var(--ok); }
+.s-oferta_wyslana, .s-ceny_otrzymane { background: #fff1db; color: #7a4d0d; }
+.s-odrzucone, .s-anulowane { background: #fdecea; color: var(--blad); }
+.tabela { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--cien); font-size: .95rem; display: block; overflow-x: auto; }
+.tabela thead, .tabela tbody, .tabela tfoot { display: table; width: 100%; table-layout: auto; }
+.tabela th, .tabela td { padding: .6rem .7rem; border-bottom: 1px solid var(--linia); text-align: left; }
+.tabela th { font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--szary); }
+.tabela .l { text-align: right; white-space: nowrap; }
+.tabela tfoot td { font-weight: 600; }
+.tabela tr.razem td { font-size: 1.05rem; border-top: 2px solid var(--granat); }
+.decyzja { display: flex; gap: .8rem; margin: 1.2rem 0; flex-wrap: wrap; }
+.okruchy { margin: 0 0 1rem; font-size: .9rem; }
+.opis { white-space: pre-wrap; background: #fff; border-radius: 10px; padding: 1rem; }
+.tekst h2 { font-size: 1.1rem; margin-top: 1.6rem; }
+.uwaga-robocza { background: #fff1db; color: #7a4d0d; padding: .6rem .9rem; border-radius: 8px; font-size: .9rem; }
+
+/* stopka */
+.dol { background: var(--granat-2); color: #c5d3d6; margin-top: 3rem; }
+.dol-in { max-width: 1180px; margin: 0 auto; padding: 2rem 16px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1.5rem; font-size: .92rem; }
+@media (max-width: 700px) { .dol-in { grid-template-columns: 1fr; } }
+.dol a { color: #fff; }
+.marka.jasna img { background: var(--krem); border-radius: 8px; padding: 3px; }
+.podpis { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: #9fb9b0; }
+@media (max-width: 900px) { .kroki.szesc { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .kroki.szesc { grid-template-columns: 1fr; } }
+html, body { overflow-x: clip; }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"RaumTreu","founder":"Jakub Mateusz Woloszczuk","address":{"@type":"PostalAddress","streetAddress":"Martin-Luther-Ring 10","postalCode":"96332","addressLocality":"Pressig","addressRegion":"Bayern","addressCountry":"DE"},"areaServed":["Pressig","Kronach","Ludwigsstadt","Sonneberg","Neustadt bei Coburg","Rödental","Coburg","Burgkunstadt","Lichtenfels","Kulmbach"]}</script>
+</head>
+<body>
+<header class="gora">
+  <div class="gora-in">
+    <a class="marka " href="v1.0.0-de-index.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii00IC00IDEwOCAxMDgiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iUmF1bVRyZXUiPgogIDwhLS0gSW1tb2JpbGllbjogbGV3YSBrcmF3xJlkxbogLS0+CiAgPHBhdGggZmlsbD0iI2VlNTIzNCIgZD0iTTAgMzQgSDEyIFY4OCBIMjIgTDEwIDEwMCBINCBRMCAxMDAgMCA5NiBaIi8+CiAgPCEtLSBEaWdpdGFsaXNpZXJ1bmc6IGTDs8WCIC0tPgogIDxwYXRoIGZpbGw9IiMxNWExYWYiIGQ9Ik0zMCA4OCBINTcgVjEwMCBIMTggWiIvPgogIDwhLS0gQmF1bWF0ZXJpYWxpZW46IGfDs3JhIC0tPgogIDxwYXRoIGZpbGw9IiNlYWEzMTIiIGQ9Ik01MCAwIEg5NiBRMTAwIDAgMTAwIDQgVjI2IEg4OCBWMTIgSDYyIFoiLz4KICA8IS0tIEJhdU5ldHp3ZXJrOiBwcmF3YSBrcmF3xJlkxbogLS0+CiAgPHBhdGggZmlsbD0iI2JlNjUyZCIgZD0iTTg4IDU1IEgxMDAgVjk2IFExMDAgMTAwIDk2IDEwMCBIODEgVjg4IEg4OCBaIi8+CiAgPCEtLSBSOiBuYXJvxbxuaWsgcmFteSArIGJyenVzemVrICsgbm9nYSAtLT4KICA8cGF0aCBmaWxsPSIjMGQzZjMzIiBkPSJNMCAyNiBWNCBRMCAwIDQgMCBIMzAgQTE4IDI2IDAgMCAxIDMwIDUyIEw1MCA4MCBIMzcgTDE4IDUyIFY0MCBIMzAgQTggMTQgMCAwIDAgMzAgMTIgSDEyIFYyNiBaIi8+CiAgPCEtLSBUOiBiZWxrYSArIG5vZ2Egc2Nob2R6xIVjYSBkbyBrcmF3xJlkemkgcmFteSAtLT4KICA8cGF0aCBmaWxsPSIjMGQzZjMzIiBkPSJNNTUgMzQgSDEwMCBWNDUgSDc2IFYxMDAgSDY0IFY0NSBINTIgWiIvPgo8L3N2Zz4K" alt="" width="40" height="40"><span class="wm"><span class="raum">Raum</span><span class="treu">Treu</span></span></a>
+    <input type="checkbox" id="menu-t" class="menu-t" aria-label="Menü">
+    <label for="menu-t" class="menu-btn" aria-hidden="true"><span></span><span></span><span></span></label>
+    <nav class="menu">
+      <a href="v1.0.0-de-immobilien.html" style="--kd:#ee5234">Immobilien</a><a href="v1.0.0-de-baumaterialien.html" aria-current="page" style="--kd:#eaa312">Baumaterialien</a><a href="v1.0.0-de-baunetzwerk.html" style="--kd:#be652d">BauNetzwerk</a><a href="v1.0.0-de-digitalisierung.html" style="--kd:#15a1af">Digitalisierung</a><a href="v1.0.0-de-ueber-uns.html">Über uns</a><a href="v1.0.0-de-kontakt.html">Kontakt</a>
+      <a class="przycisk maly" href="v1.0.0-de-bestellen.html">Material anfragen</a>
+      <a href="v1.0.0-de-anmelden.html" class="konto-link">Anmelden</a>
+      <a href="v1.0.0-pl-fenster.html" class="jezyk" hreflang="pl">PL</a>
+    </nav>
+  </div>
+  <div class="rama-pasek" aria-hidden="true"><i style="background:#ee5234;flex:4"></i><i style="background:#eaa312;flex:3"></i><i style="background:#be652d;flex:2"></i><i style="background:#15a1af;flex:1"></i></div>
+</header>
+<main><style>/* Konfigurator okien RaumTreu — style wspólne dla wszystkich wersji wyglądu (działają wewnątrz .sekcja / .blok) */
+.fk { --fk-tlo: #f3f4f2; --fk-linia: #d6d8d4; --fk-tekst: #1c1f1d; --fk-szary: #5d635f; --fk-akcent: #0d3f33; --fk-niebo: #e9eef2; }
+.fk-uklad { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(16px, 2.4vw, 32px); align-items: start; }
+@media (max-width: 860px) { .fk-uklad { grid-template-columns: 1fr; } .fk-podglad { position: static !important; } }
+
+/* --- podgląd */
+.fk-podglad { position: sticky; top: 90px; background: var(--fk-tlo); border: 1px solid var(--fk-linia); border-radius: 14px; padding: 14px; color: var(--fk-tekst); }
+.fk-widok { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.fk-widok button { font: 600 .8rem/1 inherit; font-family: inherit; letter-spacing: .04em; padding: .6rem .9rem; border-radius: 999px; border: 1px solid var(--fk-linia); background: #fff; color: var(--fk-tekst); cursor: pointer; }
+.fk-widok button.aktywny { background: var(--fk-akcent); color: #fff; border-color: var(--fk-akcent); }
+.fk-scena { position: relative; height: 380px; perspective: 1100px; overflow: hidden; border-radius: 10px; cursor: grab; touch-action: none; user-select: none;
+  background: linear-gradient(180deg, #dfe7ee 0%, #eef2f5 55%, #d9d6cf 55.2%, #cfcbc2 100%); }
+.fk-scena:active { cursor: grabbing; }
+.fk-okno { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; margin-left: calc(var(--w) / -2); will-change: transform; }
+.fk-rama, .fk-skrzydlo-grupa, .fk-skrzydlo, .fk-box, .fk-szyba { position: absolute; transform-style: preserve-3d; }
+.fk-rama { inset: 0; }
+.fk-skrzydlo { left: 0; top: 0; transition: none; }
+.fk-f { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: visible; }
+.fk-szyba { background: linear-gradient(160deg, rgba(190, 225, 240, .55) 0%, rgba(225, 240, 248, .35) 40%, rgba(160, 200, 220, .5) 100%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5); }
+.fk-tafla { position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255, 255, 255, .55) 0 18%, transparent 18% 22%, rgba(255, 255, 255, .25) 22% 30%, transparent 30%); }
+.fk-klamka { position: absolute; width: 10px; height: 10px; transform-style: preserve-3d; }
+.fk-klamka i { position: absolute; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #c9c9c9; box-shadow: 0 0 0 1px #8b8b8b; }
+.fk-klamka b { position: absolute; left: 3px; top: 8px; width: 5px; height: 34px; border-radius: 3px; background: linear-gradient(90deg, #e6e6e6, #a9a9a9); box-shadow: 0 1px 2px rgba(0, 0, 0, .3); transform: translateZ(4px); }
+.fk-pancerz { position: absolute; top: 0; height: 0; transition: none; box-shadow: 0 3px 6px rgba(0, 0, 0, .35); }
+.fk-podpis { font-size: .74rem; color: var(--fk-szary); margin: 8px 0 0; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.fk-anim { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; align-items: center; }
+.fk-anim button { font: 600 .78rem/1 inherit; font-family: inherit; padding: .6rem .8rem; border-radius: 8px; border: 1px solid var(--fk-linia); background: #fff; color: var(--fk-tekst); cursor: pointer; }
+.fk-anim button:disabled { opacity: .4; cursor: default; }
+.fk-anim label { font-size: .78rem; color: var(--fk-szary); display: inline-flex; gap: 6px; align-items: center; margin-left: auto; }
+.fk-anim label input { width: auto; }
+.fk-przekroj-wrap { background: #fff; border-radius: 10px; padding: 10px; }
+.fk-przekroj svg { width: 100%; height: auto; display: block; font-family: inherit; }
+.fk-et { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; fill: #555; }
+.fk-et2 { font-size: 10px; fill: #333; }
+.fk-et3 { font-size: 8px; fill: #2a7ea6; font-weight: 600; }
+.fk-os { stroke: #999; stroke-dasharray: 4 4; }
+
+/* --- pola */
+.fk-pola .fk-grupa { margin-bottom: 1.1rem; }
+.fk-pola { color: var(--fk-tekst); }
+.fk-pola .fk-grupa > span { display: block; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--fk-szary); margin-bottom: .45rem; }
+.fk-opcje { display: flex; flex-wrap: wrap; gap: 6px; }
+.fk-opcje label { position: relative; }
+.fk-opcje input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.fk-opcje span { display: inline-flex; align-items: center; gap: 6px; padding: .6rem .9rem; border: 1px solid var(--fk-linia); border-radius: 8px; background: #fff; cursor: pointer; font-size: .92rem; transition: border-color .2s, background .2s; }
+.fk-opcje input:checked + span { border-color: var(--fk-akcent); background: var(--fk-akcent); color: #fff; }
+.fk-opcje input:focus-visible + span { outline: 2px solid var(--fk-akcent); outline-offset: 2px; }
+.fk-opcje svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+.fk-dwa { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fk-farby { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fk-farby label > span { display: block; font-size: .78rem; color: var(--fk-szary); margin-bottom: .3rem; }
+.fk-farby select { width: 100%; }
+.fk-probka { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, .25); vertical-align: -2px; margin-right: 6px; }
+.fk-szybkie { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.fk-szybkie button { font-size: .78rem; font-family: inherit; padding: .45rem .7rem; border-radius: 999px; border: 1px solid var(--fk-linia); background: #fff; color: var(--fk-tekst); cursor: pointer; }
+.fk-przelacznik { color: var(--fk-tekst); display: flex; align-items: center; gap: 10px; padding: .7rem .9rem; border: 1px solid var(--fk-linia); border-radius: 8px; background: #fff; cursor: pointer; }
+.fk-przelacznik input { width: auto; accent-color: var(--fk-akcent); }
+.fk-opis { font-size: .9rem; color: var(--fk-szary); margin: .6rem 0 0; min-height: 2.6em; }
+.fk-dodaj-rzad { display: flex; gap: 10px; align-items: end; margin-top: .6rem; flex-wrap: wrap; }
+.fk-dodaj-rzad label { flex: 0 0 110px; }
+.fk-dodaj-rzad .przycisk { flex: 1; }
+
+/* --- lista pozycji */
+.fk-lista { list-style: none; padding: 0; margin: .4rem 0 0; }
+.fk-lista li { display: grid; grid-template-columns: 2rem 1fr auto 2rem; gap: 8px; align-items: center; padding: .6rem .4rem; border-bottom: 1px solid var(--fk-linia); font-size: .92rem; }
+.fk-lista li.nowa { animation: fk-wejscie .8s ease; }
+@keyframes fk-wejscie { from { background: rgba(13, 63, 51, .12); } to { background: transparent; } }
+.fk-nr { font-weight: 700; color: var(--fk-szary); }
+.fk-pil { white-space: nowrap; font-weight: 600; }
+.fk-pusto { color: var(--fk-szary); font-size: .9rem; }
+.fk-razem { font-weight: 600; margin-top: .5rem; }
+.fk-info { font-size: .85rem; color: var(--fk-szary); }
+
+/* zakładki Material / Fenster nad formularzem */
+.zam-zakladki { display: flex; gap: 0; max-width: calc(860px + 2 * var(--pad, 24px)); margin: 0 auto -1px; padding: 0 var(--pad, 24px); }
+.zam-zakladki a { flex: 1; text-align: center; text-decoration: none; padding: 1rem 1.2rem; font-weight: 600; border: 1px solid var(--fk-linia, #d6d8d4); border-bottom: 0; border-radius: 10px 10px 0 0; background: rgba(255, 255, 255, .7); color: #1c1f1d; opacity: .8; }
+.zam-zakladki a[aria-current] { opacity: 1; background: #fff; color: #1c1f1d; box-shadow: inset 0 3px 0 var(--bau, #eaa312); }
+.zam-zakladki a + a { margin-left: 6px; }
+@media (prefers-reduced-motion: reduce) { .fk-lista li.nowa { animation: none; } }
+</style>
+<nav class="zam-zakladki" aria-label="Baumaterial / Fenster &amp; Balkontüren">
+  <a href="v1.0.0-de-bestellen.html">Baumaterial</a>
+  <a href="v1.0.0-de-fenster.html" aria-current="page">Fenster &amp; Balkontüren</a>
+</nav>
+<section class="sekcja waska fk" id="fenster-konf" data-jez="de" data-teksty='{&quot;querschnitt&quot;:&quot;Querschnitt Rahmen und Verglasung&quot;,&quot;aussen&quot;:&quot;Außen&quot;,&quot;innen&quot;:&quot;Innen&quot;,&quot;stahl&quot;:&quot;Stahl&quot;,&quot;zweifach&quot;:&quot;2-fach-Verglasung&quot;,&quot;dreifach&quot;:&quot;3-fach-Verglasung&quot;,&quot;mat&quot;:{&quot;pvc&quot;:&quot;Kunststoff&quot;,&quot;holz&quot;:&quot;Holz&quot;,&quot;alu&quot;:&quot;Aluminium&quot;},&quot;uw&quot;:{&quot;2&quot;:&quot;Ug ca. 1,1&quot;,&quot;3&quot;:&quot;Ug ca. 0,6&quot;},&quot;farbe&quot;:{&quot;weiss&quot;:&quot;Weiß&quot;,&quot;anthrazit&quot;:&quot;Anthrazit (RAL 7016)&quot;,&quot;golden_oak&quot;:&quot;Golden Oak&quot;,&quot;nussbaum&quot;:&quot;Nussbaum&quot;,&quot;grau&quot;:&quot;Grau (RAL 7001)&quot;,&quot;dunkelgruen&quot;:&quot;Dunkelgrün (RAL 6009)&quot;},&quot;opis&quot;:{&quot;typ&quot;:{&quot;fenster&quot;:&quot;Fenster&quot;,&quot;balkontuer&quot;:&quot;Balkontür&quot;},&quot;fluegelig&quot;:&quot;flügelig&quot;,&quot;mat&quot;:{&quot;pvc&quot;:&quot;Kunststoff&quot;,&quot;holz&quot;:&quot;Holz&quot;,&quot;alu&quot;:&quot;Aluminium&quot;},&quot;glas&quot;:{&quot;2&quot;:&quot;2-fach-Verglasung&quot;,&quot;3&quot;:&quot;3-fach-Verglasung&quot;},&quot;oeffnung&quot;:{&quot;fest&quot;:&quot;Festverglasung&quot;,&quot;dreh&quot;:&quot;Dreh&quot;,&quot;dk&quot;:&quot;Dreh-Kipp&quot;,&quot;kipp&quot;:&quot;Kipp&quot;},&quot;anschlag&quot;:{&quot;links&quot;:&quot;DIN links&quot;,&quot;rechts&quot;:&quot;DIN rechts&quot;},&quot;farbe_ein&quot;:&quot;Farbe&quot;,&quot;innen&quot;:&quot;innen&quot;,&quot;aussen&quot;:&quot;außen&quot;,&quot;rollladen&quot;:&quot;Aufsatzrollladen&quot;},&quot;stk&quot;:&quot;Stk&quot;,&quot;positionen&quot;:&quot;Positionen&quot;,&quot;leer&quot;:&quot;Bitte fügen Sie mindestens eine Position hinzu.&quot;}'>
+<h1>Fenster anfragen</h1>
+<p class="info">Stellen Sie Ihr Fenster zusammen und sehen Sie jede Änderung sofort in 3D und im Querschnitt. Jede Anfrage bekommt eine eigene Auftragsnummer – wir holen Angebote aus Deutschland und Polen ein.</p>
+
+<form method="post" class="fk-form">
+  <div class="fk-uklad">
+    <div class="fk-podglad">
+      <div class="fk-widok" role="group"><button type="button" class="aktywny" data-widok="3d">3D-Ansicht</button><button type="button" data-widok="innen">Von innen</button><button type="button" data-widok="schnitt">Querschnitt</button></div>
+      <div class="fk-scena-wrap"><div class="fk-scena" aria-label="3D-Ansicht"><div class="fk-okno"></div></div>
+        <div class="fk-anim"><button type="button" id="fk-kipp">Kippen</button><button type="button" id="fk-dreh">Öffnen</button><button type="button" id="fk-roll">Rollladen</button><button type="button" id="fk-reset">Zurücksetzen</button><label><input type="checkbox" id="fk-auto" checked> Drehen</label></div>
+        <p class="fk-podpis"><span>Ziehen zum Drehen</span><span>Die Vorschau ist schematisch. Maße werden vor der Bestellung mit Ihnen geprüft (Aufmaß).</span></p></div>
+      <div class="fk-przekroj-wrap" hidden><div class="fk-przekroj"></div></div>
+      <p class="fk-opis" aria-live="polite"></p>
+    </div>
+    <div class="fk-pola">
+      <div class="fk-grupa"><span>Element</span><div class="fk-opcje"><label><input type="radio" name="fk_typ" value="fenster" checked><span><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 3v18M4 12h16"/></svg>Fenster</span></label><label><input type="radio" name="fk_typ" value="balkontuer"><span><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="1"/><path d="M6 15h12M9 9h1"/></svg>Balkontür</span></label></div></div>
+      <div class="fk-grupa"><span>Flügel</span><div class="fk-opcje"><label><input type="radio" name="fk_fluegel" value="1" checked><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><rect x="7" y="7" width="10" height="10"/></svg>1-flügelig</span></label><label><input type="radio" name="fk_fluegel" value="2"><span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16M5.5 6.5h5v11h-5zM13.5 6.5h5v11h-5z"/></svg>2-flügelig (Stulp)</span></label></div></div>
+      <div class="fk-grupa"><span>Maße (mm)</span><div class="fk-dwa"><label class="pole"><span>Breite</span><input type="number" id="fk_breite" min="400" max="3000" step="10" value="1200" inputmode="numeric"></label><label class="pole"><span>Höhe</span><input type="number" id="fk_hoehe" min="400" max="2600" step="10" value="1400" inputmode="numeric"></label></div></div>
+      <div class="fk-grupa"><span>Öffnungsart</span><div class="fk-opcje"><label><input type="radio" name="fk_oeffnung" value="dk" checked><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 4l12 3v10L4 20M4 20l8-13 8 13"/></svg>Dreh-Kipp</span></label><label><input type="radio" name="fk_oeffnung" value="dreh"><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 4l12 3v10L4 20"/></svg>Dreh</span></label><label><input type="radio" name="fk_oeffnung" value="kipp"><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 20l8-13 8 13"/></svg>Kipp</span></label><label><input type="radio" name="fk_oeffnung" value="fest"><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg>Festverglasung</span></label></div></div>
+      <div class="fk-grupa fk-anschlag"><span>Griffseite / Anschlag</span><div class="fk-opcje"><label><input type="radio" name="fk_anschlag" value="links" checked><span>DIN links</span></label><label><input type="radio" name="fk_anschlag" value="rechts"><span>DIN rechts</span></label></div></div>
+      <div class="fk-grupa"><span>Verglasung</span><div class="fk-opcje"><label><input type="radio" name="fk_glas" value="2"><span><svg viewBox="0 0 24 24"><path d="M9 3v18M15 3v18"/></svg>2-fach</span></label><label><input type="radio" name="fk_glas" value="3" checked><span><svg viewBox="0 0 24 24"><path d="M7 3v18M12 3v18M17 3v18"/></svg>3-fach</span></label></div></div>
+      <div class="fk-grupa"><span>Material</span><div class="fk-opcje"><label><input type="radio" name="fk_material" value="pvc" checked><span>Kunststoff (PVC)</span></label><label><input type="radio" name="fk_material" value="holz"><span>Holz</span></label><label><input type="radio" name="fk_material" value="alu"><span>Aluminium</span></label></div></div>
+      <div class="fk-grupa"><span>Farbe</span><div class="fk-farby"><label><span>Innen</span><select id="fk_innen" name="fk_innen"><option value="weiss" selected>Weiß</option><option value="anthrazit">Anthrazit (RAL 7016)</option><option value="golden_oak">Golden Oak</option><option value="nussbaum">Nussbaum</option><option value="grau">Grau (RAL 7001)</option><option value="dunkelgruen">Dunkelgrün (RAL 6009)</option></select></label><label><span>Außen</span><select id="fk_aussen" name="fk_aussen"><option value="weiss">Weiß</option><option value="anthrazit" selected>Anthrazit (RAL 7016)</option><option value="golden_oak">Golden Oak</option><option value="nussbaum">Nussbaum</option><option value="grau">Grau (RAL 7001)</option><option value="dunkelgruen">Dunkelgrün (RAL 6009)</option></select></label></div>
+        <div class="fk-szybkie"><button type="button" id="fk-zweifarbig">Zweifarbig: innen weiß / außen anthrazit</button><button type="button" id="fk-einfarbig">Einfarbig wie innen</button></div>
+        <p class="fk-info"><span class="fk-probka" style="background:#f4f4f1"></span>Weiß &nbsp; <span class="fk-probka" style="background:#3a3d41"></span>Anthrazit &nbsp; <span class="fk-probka" style="background:#9a6a3a"></span>Golden Oak &nbsp; <span class="fk-probka" style="background:#5a3c28"></span>Nussbaum &nbsp; <span class="fk-probka" style="background:#8a8d90"></span>Grau &nbsp; <span class="fk-probka" style="background:#2f4a3a"></span>Dunkelgrün</p></div>
+      <div class="fk-grupa"><label class="fk-przelacznik"><input type="checkbox" id="fk_rollladen"> Mit Aufsatzrollladen</label></div>
+      <div class="fk-dodaj-rzad"><label class="pole"><span>Menge</span><input type="number" id="fk_menge" min="1" max="99" value="1" inputmode="numeric"></label><button type="button" class="przycisk" id="fk-dodaj">Position hinzufügen</button></div>
+    </div>
+  </div>
+
+  <div class="blok"><h2>Ihre Fensterliste</h2>
+    <p class="fk-pusto">Noch keine Position – stellen Sie oben ein Fenster zusammen und klicken Sie „Position hinzufügen“.</p>
+    <ul class="fk-lista"></ul>
+    <p class="fk-razem"></p>
+    <input type="hidden" name="okna" id="fk-json" value="[]">
+  </div>
+
+  <div class="blok">
+    <label class="pole"><span>Hinweise (Einbauort, Fensterbank, Sonderwünsche)</span><textarea name="opis" rows="3" placeholder="z. B. Erdgeschoss Küche, Fensterbank innen gewünscht, Montage durch Partnerbetrieb anfragen"></textarea></label>
+    <label class="pole"><span>Wunsch-Lieferant oder wo suchen (optional)</span><input name="dostawca" value="" placeholder="z. B. bestimmter Großhändler, Marke oder Region – oder leer lassen: bester Preis"></label>
+  </div>
+  <div class="blok"><h2>Lieferung</h2>
+    <div class="siatka"><label class="pole"><span>PLZ *</span><input type="text" name="kod" value="" required autocomplete="postal-code"></label><label class="pole"><span>Ort *</span><input type="text" name="miasto" value="" required autocomplete="address-level2"></label></div>
+    <div class="siatka"><label class="pole"><span>Straße, Nr.</span><input type="text" name="ulica" value="" autocomplete="street-address"></label><label class="pole"><span>Gewünschter Liefertermin</span><input type="date" name="termin" value=""></label></div>
+  </div>
+  <div class="blok"><h2>Ihre Kontaktdaten</h2>
+    <p class="info">Mit einem Konto sehen Sie alle Aufträge an einem Ort. <a href="v1.0.0-de-anmelden.html">Anmelden</a></p>
+    <div class="siatka"><label class="pole"><span>Name *</span><input type="text" name="imie" value="" required autocomplete="name"></label><label class="pole"><span>Firma (optional)</span><input type="text" name="firma" value="" autocomplete="organization"></label></div>
+    <div class="siatka"><label class="pole"><span>E-Mail *</span><input type="email" name="email" value="" required autocomplete="email"></label><label class="pole"><span>Telefon</span><input type="tel" name="telefon" value="" autocomplete="tel"></label></div>
+  </div>
+  <label class="zgoda"><input type="checkbox" name="zgoda" value="1" required> <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden (siehe Datenschutz). <a href="v1.0.0-de-datenschutz.html" target="_blank">Datenschutz</a></span></label>
+  <input type="text" name="www" class="ukryj" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <p class="blad" id="blad-js" hidden></p>
+  <button class="przycisk duzy" type="submit" data-laduje="Wird gesendet …">Anfrage senden</button>
+</form>
+</section>
+<script>document.addEventListener("DOMContentLoaded",function(){'use strict';
+/* Konfigurator okien RaumTreu — podgląd na żywo (bez bibliotek).
+   - widok 3D zbudowany z płaszczyzn CSS (transform-style: preserve-3d), obrót palcem/myszą, autoobrót,
+   - animacje: uchył (Kipp), otwarcie (Dreh), opuszczanie rolety,
+   - przekrój (SVG): 2 albo 3 szyby, komory ramy, kolor wewnątrz / na zewnątrz,
+   - lista pozycji → ukryte pole JSON do formularza. */
+(function () {
+  const F = document.getElementById('fenster-konf');
+  if (!F) return;
+  const T = JSON.parse(F.dataset.teksty);
+  const jez = F.dataset.jez || 'de';
+  const KOLORY = { weiss: '#f4f4f1', anthrazit: '#3a3d41', golden_oak: '#9a6a3a', nussbaum: '#5a3c28', grau: '#8a8d90', dunkelgruen: '#2f4a3a' };
+  const bezRuchu = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ------------------------------------------------ stan */
+  const st = {
+    typ: 'fenster', fluegel: 1, breite: 1200, hoehe: 1400, oeffnung: 'dk', anschlag: 'links',
+    glas: 3, material: 'pvc', innen: 'weiss', aussen: 'anthrazit', rollladen: false, menge: 1,
+    // animacja
+    kipp: 0, dreh: 0, roll: 0, rotY: -28, rotX: 10, auto: true
+  };
+  const pozycje = [];
+
+  const $ = (s, r = F) => r.querySelector(s);
+  const $$ = (s, r = F) => [...r.querySelectorAll(s)];
+
+  /* ------------------------------------------------ widok 3D */
+  const scena = $('.fk-scena');
+  const okno = $('.fk-okno');
+  const SKALA = () => Math.min(300 / Math.max(st.breite, 600), 300 / Math.max(st.hoehe + (st.rollladen ? 220 : 0), 600));
+
+  // pudełko 3D: szerokość w, wysokość h, głębokość d; kolory: przód (zewnątrz), tył (wewnątrz), boki
+  function box(w, h, d, kol, klasa = '') {
+    const b = document.createElement('div');
+    b.className = 'fk-box ' + klasa;
+    b.style.width = w + 'px'; b.style.height = h + 'px';
+    const f = (nazwa, tr, ww, hh, kolor, x = 0, y = 0) => {
+      const e = document.createElement('i'); e.className = 'fk-f fk-' + nazwa;
+      e.style.width = ww + 'px'; e.style.height = hh + 'px'; e.style.left = x + 'px'; e.style.top = y + 'px'; e.style.transform = tr; e.style.background = kolor;
+      b.appendChild(e);
+    };
+    // wszystkie ściany mają transform-origin 0 0 (lewy górny róg)
+    f('przod', `translateZ(${d / 2}px)`, w, h, kol.przod);
+    f('tyl', `translateZ(${-d / 2}px)`, w, h, kol.tyl);
+    f('gora', `translateZ(${d / 2}px) rotateX(-90deg)`, w, d, kol.gora || kol.bok);
+    f('dol', `translateZ(${d / 2}px) rotateX(-90deg)`, w, d, kol.dol || kol.bok, 0, h);
+    f('lewo', `translateZ(${d / 2}px) rotateY(90deg)`, d, h, kol.lewo || kol.bok);
+    f('prawo', `translateZ(${d / 2}px) rotateY(90deg)`, d, h, kol.prawo || kol.bok, w, 0);
+    return b;
+  }
+  const odcien = (hex, p) => { // rozjaśnij/przyciemnij
+    const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => Math.max(0, Math.min(255, Math.round(v + p))));
+    return '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('');
+  };
+
+  function kolory() {
+    const a = KOLORY[st.aussen]; const i = KOLORY[st.innen];
+    return { przod: a, tyl: i, bok: odcien(a, -14), gora: odcien(a, 22), dol: odcien(a, -34), lewo: odcien(a, 8), prawo: odcien(a, -24) };
+  }
+
+  function zbudujOkno() {
+    okno.innerHTML = '';
+    const s = SKALA();
+    const W = st.breite * s; const H = st.hoehe * s;
+    const RAMA = 70 * s; // szerokość profilu ramy (mm)
+    const SKRZ = 60 * s; // profil skrzydła
+    const G = 24; // głębokość ramy w px (ok. 80 mm przy skali)
+    const kol = kolory();
+    okno.style.width = W + 'px'; okno.style.height = H + 'px';
+    okno.style.setProperty('--w', W + 'px'); okno.style.setProperty('--h', H + 'px');
+    okno.style.marginTop = (-(H - (st.rollladen ? 200 * s : 0)) / 2 - 8) + 'px';
+
+    // rama zewnętrzna: 4 belki
+    const rama = document.createElement('div'); rama.className = 'fk-rama';
+    const belka = (w, h, x, y) => { const b = box(w, h, G, kol); b.style.left = x + 'px'; b.style.top = y + 'px'; rama.appendChild(b); };
+    belka(W, RAMA, 0, 0); belka(W, RAMA, 0, H - RAMA); belka(RAMA, H - 2 * RAMA, 0, RAMA); belka(RAMA, H - 2 * RAMA, W - RAMA, RAMA);
+    okno.appendChild(rama);
+
+    // skrzydła
+    const n = st.fluegel;
+    const wew = W - 2 * RAMA; const hew = H - 2 * RAMA;
+    const slupek = n === 2 ? 50 * s : 0;
+    const szerSkrz = (wew - slupek) / n;
+    for (let k = 0; k < n; k++) {
+      const grupa = document.createElement('div'); grupa.className = 'fk-skrzydlo-grupa';
+      const x = RAMA + k * (szerSkrz + slupek);
+      grupa.style.left = x + 'px'; grupa.style.top = RAMA + 'px'; grupa.style.width = szerSkrz + 'px'; grupa.style.height = hew + 'px';
+      // zawias: lewe skrzydło na lewej krawędzi, prawe na prawej (dla 1 skrzydła wg anschlag)
+      const zawiasLewy = n === 2 ? k === 0 : st.anschlag === 'rechts'; // DIN liczy się od wewnątrz, patrzymy od zewnątrz
+      grupa.dataset.zawias = zawiasLewy ? 'lewo' : 'prawo';
+      const stale = st.oeffnung === 'fest';
+      const skrz = document.createElement('div'); skrz.className = 'fk-skrzydlo';
+      skrz.style.width = szerSkrz + 'px'; skrz.style.height = hew + 'px';
+      skrz.style.transformOrigin = zawiasLewy ? `0 100%` : `100% 100%`;
+      if (!stale) {
+        // profil skrzydła
+        const b2 = (w, h, xx, yy) => { const b = box(w, h, G * 0.8, kol); b.style.left = xx + 'px'; b.style.top = yy + 'px'; b.style.transform = `translateZ(${G * 0.15}px)`; skrz.appendChild(b); };
+        b2(szerSkrz, SKRZ, 0, 0); b2(szerSkrz, SKRZ, 0, hew - SKRZ); b2(SKRZ, hew - 2 * SKRZ, 0, SKRZ); b2(SKRZ, hew - 2 * SKRZ, szerSkrz - SKRZ, SKRZ);
+      }
+      // szyba
+      const szyba = document.createElement('div'); szyba.className = 'fk-szyba';
+      const m = stale ? 0 : SKRZ;
+      szyba.style.left = m + 'px'; szyba.style.top = m + 'px'; szyba.style.width = (szerSkrz - 2 * m) + 'px'; szyba.style.height = (hew - 2 * m) + 'px';
+      szyba.style.transform = `translateZ(${G * 0.15}px)`;
+      // 2/3 szyby: dodatkowe lekkie odbicia w głębi
+      for (let g = 0; g < st.glas; g++) { const t = document.createElement('i'); t.className = 'fk-tafla'; t.style.transform = `translateZ(${-g * 5}px)`; szyba.appendChild(t); }
+      skrz.appendChild(szyba);
+      // dolny panel drzwi balkonowych (profil)
+      if (st.typ === 'balkontuer' && !stale) {
+        const panel = box(szerSkrz - 2 * SKRZ, 90 * s, G * 0.8, kol); panel.className += ' fk-panel';
+        panel.style.left = SKRZ + 'px'; panel.style.top = (hew - SKRZ - 90 * s) + 'px'; panel.style.transform = `translateZ(${G * 0.15}px)`; skrz.appendChild(panel);
+      }
+      // klamka po stronie przeciwnej do zawiasu, od wewnątrz (tył)
+      if (!stale) {
+        const kl = document.createElement('div'); kl.className = 'fk-klamka';
+        const wysKl = st.typ === 'balkontuer' ? hew * 0.55 : hew * 0.5;
+        kl.style.top = wysKl + 'px'; kl.style[zawiasLewy ? 'right' : 'left'] = (SKRZ / 2 - 4) + 'px';
+        kl.style.transform = `translateZ(${-G * 0.55}px) rotateY(180deg) ${zawiasLewy ? '' : 'scaleX(-1)'}`;
+        kl.innerHTML = '<i></i><b></b>';
+        skrz.appendChild(kl);
+      }
+      grupa.appendChild(skrz);
+      okno.appendChild(grupa);
+    }
+    // słupek przy 2 skrzydłach
+    if (n === 2) { const sl = box(slupek, hew, G, kol); sl.style.left = (RAMA + szerSkrz) + 'px'; sl.style.top = RAMA + 'px'; okno.appendChild(sl); }
+    // parapet / próg
+    const prog = box(W + 40 * s, 14, G * 1.6, { przod: '#d9d9d6', tyl: '#e8e8e4', bok: '#bdbdb9' }); prog.className += ' fk-prog';
+    prog.style.left = (-20 * s) + 'px'; prog.style.top = H + 'px'; okno.appendChild(prog);
+    // roleta nadstawna
+    if (st.rollladen) {
+      const KAS = 200 * s;
+      const kaseta = box(W, KAS, G * 1.9, { przod: kol.przod, tyl: kol.tyl, bok: kol.bok }); kaseta.className += ' fk-kaseta';
+      kaseta.style.left = '0'; kaseta.style.top = (-KAS) + 'px'; okno.appendChild(kaseta);
+      const prow = (x) => { const p = box(22 * s, H, G * 0.6, kol); p.style.left = x + 'px'; p.style.top = '0'; p.style.transform = `translateZ(${G * 0.9}px)`; okno.appendChild(p); };
+      prow(-22 * s); prow(W);
+      const pancerz = document.createElement('div'); pancerz.className = 'fk-pancerz';
+      pancerz.style.left = '0'; pancerz.style.width = W + 'px'; pancerz.style.setProperty('--pelna', H + 'px');
+      pancerz.style.transform = `translateZ(${G * 0.95}px)`; pancerz.style.background = `repeating-linear-gradient(180deg, ${odcien(kol.przod, 14)} 0 ${Math.max(5, 40 * s * 0.8)}px, ${odcien(kol.przod, -22)} ${Math.max(5, 40 * s * 0.8)}px ${Math.max(6, 40 * s)}px)`;
+      okno.appendChild(pancerz);
+    }
+    zastosujAnimacje();
+  }
+
+  function zastosujAnimacje() {
+    $$('.fk-skrzydlo-grupa').forEach((g) => {
+      const skrz = g.firstElementChild; const lewy = g.dataset.zawias === 'lewo';
+      let tr = '';
+      if (st.oeffnung !== 'fest') {
+        if (st.kipp && (st.oeffnung === 'dk' || st.oeffnung === 'kipp')) { skrz.style.transformOrigin = '50% 100%'; tr = `rotateX(${12 * st.kipp}deg)`; } // góra skrzydła do środka pomieszczenia
+        else if (st.dreh && (st.oeffnung === 'dk' || st.oeffnung === 'dreh')) { skrz.style.transformOrigin = lewy ? '0 50%' : '100% 50%'; tr = `rotateY(${(lewy ? 1 : -1) * 60 * st.dreh}deg)`; } // otwiera się do wewnątrz
+      }
+      skrz.style.transform = tr;
+    });
+    const p = $('.fk-pancerz'); if (p) p.style.height = `calc(var(--pelna) * ${st.roll})`;
+    okno.style.transform = `rotateX(${st.rotX}deg) rotateY(${st.rotY}deg)`;
+  }
+
+  // obrót palcem / myszą
+  let drag = null;
+  scena.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY, ry: st.rotY, rx: st.rotX }; st.auto = false; $('#fk-auto').checked = false; scena.setPointerCapture(e.pointerId); });
+  scena.addEventListener('pointermove', (e) => { if (!drag) return; st.rotY = drag.ry + (e.clientX - drag.x) * 0.5; st.rotX = Math.max(-60, Math.min(60, drag.rx - (e.clientY - drag.y) * 0.4)); zastosujAnimacje(); });
+  scena.addEventListener('pointerup', () => { drag = null; });
+  scena.addEventListener('pointercancel', () => { drag = null; });
+  let ostatni = 0;
+  function petla(ts) {
+    if (st.auto && !drag && !bezRuchu) { st.rotY += (ts - ostatni) * 0.012; if (st.rotY > 180) st.rotY -= 360; zastosujAnimacje(); }
+    ostatni = ts; requestAnimationFrame(petla);
+  }
+  requestAnimationFrame((ts) => { ostatni = ts; petla(ts); });
+
+  // płynne przejścia stanów (kipp/dreh/roll) 0..1
+  function animuj(klucz, cel, ms = 700) {
+    if (bezRuchu) { st[klucz] = cel; zastosujAnimacje(); return; }
+    const od = st[klucz]; const t0 = performance.now();
+    const krok = (t) => { const f = Math.min(1, (t - t0) / ms); const e = 1 - Math.pow(1 - f, 3); st[klucz] = od + (cel - od) * e; zastosujAnimacje(); if (f < 1) requestAnimationFrame(krok); };
+    requestAnimationFrame(krok);
+  }
+
+  /* ------------------------------------------------ przekrój (SVG) */
+  function przekroj() {
+    const svg = $('.fk-przekroj');
+    const a = KOLORY[st.aussen]; const i = KOLORY[st.innen];
+    const glas = st.glas; const szer = 340; const wys = 200;
+    const profilH = 88; // wysokość profilu w rysunku
+    const y0 = 60;
+    const komory = st.material === 'pvc' ? 5 : st.material === 'alu' ? 3 : 0;
+    let s = `<svg viewBox="0 0 ${szer} ${wys + 40}" role="img" aria-label="${T.querschnitt}">`;
+    // etykiety stron
+    s += `<text x="14" y="22" class="fk-et">${T.aussen}</text><text x="${szer - 14}" y="22" class="fk-et" text-anchor="end">${T.innen}</text>`;
+    s += `<path d="M${szer / 2} 8 V${wys + 36}" class="fk-os"/>`;
+    // profil ramy: lewa połowa = zewnątrz (kolor aussen), prawa = wewnątrz (innen). Rysujemy jako przekrój poziomy: lewo = na zewnątrz
+    const px = 30; const pw = szer - 60;
+    const rysujProfil = (y, h) => {
+      // korpus: dwie barwy (okleina zewnętrzna / wewnętrzna) + rdzeń
+      const rdzen = st.material === 'holz' ? '#b98a57' : st.material === 'alu' ? '#b9bcc0' : '#e9e9e6';
+      s += `<rect x="${px}" y="${y}" width="${pw}" height="${h}" rx="3" fill="${rdzen}" stroke="#2a2a2a" stroke-width="1.5"/>`;
+      s += `<rect x="${px}" y="${y}" width="${pw / 2}" height="${h}" fill="${a}" fill-opacity="${st.material === 'holz' ? .55 : 1}" clip-path="inset(0 round 3px)"/>`;
+      s += `<rect x="${px + pw / 2}" y="${y}" width="${pw / 2}" height="${h}" fill="${i}" fill-opacity="${st.material === 'holz' ? .55 : 1}"/>`;
+      // ścianki rdzenia (komory)
+      if (komory) {
+        const kw = (pw - 24) / komory;
+        for (let k = 0; k < komory; k++) s += `<rect x="${px + 12 + k * kw + 2}" y="${y + 10}" width="${kw - 4}" height="${h - 20}" rx="2" fill="${k === 1 && st.material === 'pvc' ? '#9aa3ad' : rdzen}" stroke="#2a2a2a" stroke-width="1"/>`;
+        if (st.material === 'pvc') s += `<text x="${px + 12 + 1.5 * kw}" y="${y + h / 2 + 4}" class="fk-et2" text-anchor="middle">${T.stahl}</text>`;
+      } else {
+        for (let k = 1; k < 5; k++) s += `<path d="M${px + 6} ${y + k * h / 5} Q${px + pw / 2} ${y + k * h / 5 + 4} ${px + pw - 6} ${y + k * h / 5}" stroke="#8a6238" stroke-width=".8" fill="none"/>`;
+      }
+      s += `<rect x="${px}" y="${y}" width="${pw}" height="${h}" rx="3" fill="none" stroke="#2a2a2a" stroke-width="1.5"/>`;
+    };
+    rysujProfil(y0, profilH);
+    // pakiet szybowy nad profilem (szyby pionowe widziane z góry → tu rysujemy je jako pionowe paski w górnej części)
+    const gy = 10; const gh = y0 - 6;
+    const pak = glas === 3 ? 44 : 28; const gx = szer / 2 - pak / 2;
+    s += `<rect x="${gx - 6}" y="${y0 - 2}" width="${pak + 12}" height="10" fill="#1f1f1f"/>`; // uszczelka
+    for (let g = 0; g < glas; g++) {
+      const x = gx + g * (glas === 3 ? 18 : 20);
+      s += `<rect x="${x}" y="${gy}" width="8" height="${gh}" fill="#bfe3ef" stroke="#2a7ea6" stroke-width="1"/>`;
+      if (g < glas - 1) s += `<rect x="${x + 8}" y="${gy + 2}" width="${glas === 3 ? 10 : 12}" height="${gh - 4}" fill="#eef7fb"/><text x="${x + 8 + (glas === 3 ? 5 : 6)}" y="${gy + gh / 2}" class="fk-et3" text-anchor="middle" transform="rotate(-90 ${x + 8 + (glas === 3 ? 5 : 6)} ${gy + gh / 2})">Ar</text>`;
+    }
+    s += `<text x="${szer / 2}" y="${wys + 22}" class="fk-et" text-anchor="middle">${glas === 3 ? T.dreifach : T.zweifach} · ${T.mat[st.material]}</text><text x="${szer / 2}" y="${wys + 38}" class="fk-et2" text-anchor="middle">${T.uw[glas]} W/(m²K)</text>`;
+    // podpisy kolorów
+    s += `<text x="${px + 4}" y="${y0 + profilH + 16}" class="fk-et2">${T.farbe[st.aussen]}</text><text x="${px + pw - 4}" y="${y0 + profilH + 16}" class="fk-et2" text-anchor="end">${T.farbe[st.innen]}</text>`;
+    s += '</svg>';
+    svg.innerHTML = s;
+  }
+
+  /* ------------------------------------------------ opis pozycji */
+  function opisPozycji(p = st) {
+    const T2 = T.opis;
+    const czesci = [
+      `${T2.typ[p.typ]} ${p.breite} × ${p.hoehe} mm`,
+      `${p.fluegel}-${T2.fluegelig}`,
+      T2.mat[p.material],
+      T2.glas[p.glas],
+      T2.oeffnung[p.oeffnung] + (p.oeffnung === 'fest' ? '' : ` ${T2.anschlag[p.anschlag]}`),
+      p.innen === p.aussen ? `${T2.farbe_ein} ${T.farbe[p.innen]}` : `${T2.innen} ${T.farbe[p.innen]} / ${T2.aussen} ${T.farbe[p.aussen]}`,
+      p.rollladen ? T2.rollladen : null
+    ].filter(Boolean);
+    return czesci.join(', ');
+  }
+  function odswiezPodsumowanie() {
+    $('.fk-opis').textContent = opisPozycji();
+    const ul = $('.fk-lista'); ul.innerHTML = '';
+    pozycje.forEach((p, idx) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="fk-nr">${idx + 1}</span><span class="fk-ptekst"></span><span class="fk-pil">${p.menge} ${T.stk}</span><button type="button" class="usun" aria-label="×">×</button>`;
+      li.querySelector('.fk-ptekst').textContent = opisPozycji(p);
+      li.querySelector('.usun').addEventListener('click', () => { pozycje.splice(idx, 1); odswiezPodsumowanie(); });
+      ul.appendChild(li);
+    });
+    $('#fk-json').value = JSON.stringify(pozycje);
+    $('.fk-pusto').hidden = pozycje.length > 0;
+    const razem = pozycje.reduce((a, p) => a + p.menge, 0);
+    $('.fk-razem').textContent = razem ? `${pozycje.length} ${T.positionen} · ${razem} ${T.stk}` : '';
+  }
+
+  /* ------------------------------------------------ sterowanie */
+  function czytajPola() {
+    st.typ = $('input[name=fk_typ]:checked').value;
+    st.fluegel = Number($('input[name=fk_fluegel]:checked').value);
+    st.breite = Math.max(400, Math.min(3000, Number($('#fk_breite').value) || 1200));
+    st.hoehe = Math.max(400, Math.min(2600, Number($('#fk_hoehe').value) || 1400));
+    st.oeffnung = $('input[name=fk_oeffnung]:checked').value;
+    st.anschlag = $('input[name=fk_anschlag]:checked').value;
+    st.glas = Number($('input[name=fk_glas]:checked').value);
+    st.material = $('input[name=fk_material]:checked').value;
+    st.innen = $('#fk_innen').value; st.aussen = $('#fk_aussen').value;
+    st.rollladen = $('#fk_rollladen').checked;
+    st.menge = Math.max(1, Math.min(99, Number($('#fk_menge').value) || 1));
+    // zależności pól
+    $('.fk-anschlag').hidden = st.oeffnung === 'fest' || st.fluegel === 2;
+    $('#fk-kipp').disabled = !(st.oeffnung === 'dk' || st.oeffnung === 'kipp');
+    $('#fk-dreh').disabled = !(st.oeffnung === 'dk' || st.oeffnung === 'dreh');
+    $('#fk-roll').disabled = !st.rollladen;
+    if (!st.rollladen) st.roll = 0;
+    if (st.oeffnung === 'fest') { st.kipp = 0; st.dreh = 0; }
+  }
+  function odswiez() { czytajPola(); zbudujOkno(); przekroj(); odswiezPodsumowanie(); }
+  F.addEventListener('input', (e) => { if (e.target.closest('.fk-pola')) odswiez(); });
+  F.addEventListener('change', (e) => { if (e.target.closest('.fk-pola')) odswiez(); });
+
+  // typ: drzwi balkonowe → domyślne wymiary
+  $$('input[name=fk_typ]').forEach((r) => r.addEventListener('change', () => {
+    if (r.value === 'balkontuer' && r.checked) { $('#fk_breite').value = 900; $('#fk_hoehe').value = 2200; }
+    if (r.value === 'fenster' && r.checked && Number($('#fk_hoehe').value) > 1800) { $('#fk_breite').value = 1200; $('#fk_hoehe').value = 1400; }
+    odswiez();
+  }));
+  // zweifarbig: szybki przełącznik
+  $('#fk-zweifarbig').addEventListener('click', () => { $('#fk_innen').value = 'weiss'; $('#fk_aussen').value = 'anthrazit'; odswiez(); });
+  $('#fk-einfarbig').addEventListener('click', () => { $('#fk_aussen').value = $('#fk_innen').value; odswiez(); });
+
+  // przyciski animacji
+  $('#fk-kipp').addEventListener('click', () => { if (st.dreh) animuj('dreh', 0, 400); animuj('kipp', st.kipp > 0.5 ? 0 : 1); });
+  $('#fk-dreh').addEventListener('click', () => { if (st.kipp) animuj('kipp', 0, 400); animuj('dreh', st.dreh > 0.5 ? 0 : 1, 900); });
+  $('#fk-roll').addEventListener('click', () => animuj('roll', st.roll > 0.5 ? 0 : 0.7, 1400));
+  $('#fk-auto').addEventListener('change', (e) => { st.auto = e.target.checked; });
+  $('#fk-reset').addEventListener('click', () => { st.rotY = -28; st.rotX = 10; st.auto = true; $('#fk-auto').checked = true; animuj('kipp', 0, 300); animuj('dreh', 0, 300); zastosujAnimacje(); });
+  $$('.fk-widok button').forEach((b) => b.addEventListener('click', () => {
+    $$('.fk-widok button').forEach((x) => x.classList.toggle('aktywny', x === b));
+    const w = b.dataset.widok;
+    $('.fk-scena-wrap').hidden = w !== '3d'; $('.fk-przekroj-wrap').hidden = w !== 'schnitt';
+    // widok od wewnątrz = obrót o 180°
+    if (w === 'innen') { $('.fk-scena-wrap').hidden = false; st.auto = false; $('#fk-auto').checked = false; st.rotY = 180; st.rotX = 6; zastosujAnimacje(); }
+    if (w === '3d') { st.auto = true; $('#fk-auto').checked = true; }
+  }));
+
+  // dodanie pozycji
+  $('#fk-dodaj').addEventListener('click', () => {
+    czytajPola();
+    pozycje.push({ typ: st.typ, fluegel: st.fluegel, breite: st.breite, hoehe: st.hoehe, oeffnung: st.oeffnung, anschlag: st.anschlag, glas: st.glas, material: st.material, innen: st.innen, aussen: st.aussen, rollladen: st.rollladen, menge: st.menge });
+    odswiezPodsumowanie();
+    const li = $('.fk-lista').lastElementChild; if (li && !bezRuchu) { li.classList.add('nowa'); setTimeout(() => li.classList.remove('nowa'), 900); }
+  });
+  // wysyłka: wymagana co najmniej jedna pozycja
+  const form = $('form');
+  form.addEventListener('submit', (e) => {
+    if (!pozycje.length) { e.preventDefault(); const b = $('#blad-js'); b.textContent = T.leer; b.hidden = false; b.scrollIntoView({ block: 'center' }); return; }
+    const btn = form.querySelector('button[type=submit]'); if (btn) { btn.disabled = true; btn.textContent = btn.dataset.laduje || btn.textContent; }
+  });
+
+  odswiez();
+  // demonstracja na start: krótki uchył
+  if (!bezRuchu) setTimeout(() => { animuj('kipp', 1, 900); setTimeout(() => animuj('kipp', 0, 900), 2200); }, 1200);
+})();
+});</script></main>
+<footer class="dol">
+  <div class="dol-in">
+    <div><a class="marka jasna" href="v1.0.0-de-index.html"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii00IC00IDEwOCAxMDgiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iUmF1bVRyZXUiPgogIDwhLS0gSW1tb2JpbGllbjogbGV3YSBrcmF3xJlkxbogLS0+CiAgPHBhdGggZmlsbD0iI2VlNTIzNCIgZD0iTTAgMzQgSDEyIFY4OCBIMjIgTDEwIDEwMCBINCBRMCAxMDAgMCA5NiBaIi8+CiAgPCEtLSBEaWdpdGFsaXNpZXJ1bmc6IGTDs8WCIC0tPgogIDxwYXRoIGZpbGw9IiMxNWExYWYiIGQ9Ik0zMCA4OCBINTcgVjEwMCBIMTggWiIvPgogIDwhLS0gQmF1bWF0ZXJpYWxpZW46IGfDs3JhIC0tPgogIDxwYXRoIGZpbGw9IiNlYWEzMTIiIGQ9Ik01MCAwIEg5NiBRMTAwIDAgMTAwIDQgVjI2IEg4OCBWMTIgSDYyIFoiLz4KICA8IS0tIEJhdU5ldHp3ZXJrOiBwcmF3YSBrcmF3xJlkxbogLS0+CiAgPHBhdGggZmlsbD0iI2JlNjUyZCIgZD0iTTg4IDU1IEgxMDAgVjk2IFExMDAgMTAwIDk2IDEwMCBIODEgVjg4IEg4OCBaIi8+CiAgPCEtLSBSOiBuYXJvxbxuaWsgcmFteSArIGJyenVzemVrICsgbm9nYSAtLT4KICA8cGF0aCBmaWxsPSIjMGQzZjMzIiBkPSJNMCAyNiBWNCBRMCAwIDQgMCBIMzAgQTE4IDI2IDAgMCAxIDMwIDUyIEw1MCA4MCBIMzcgTDE4IDUyIFY0MCBIMzAgQTggMTQgMCAwIDAgMzAgMTIgSDEyIFYyNiBaIi8+CiAgPCEtLSBUOiBiZWxrYSArIG5vZ2Egc2Nob2R6xIVjYSBkbyBrcmF3xJlkemkgcmFteSAtLT4KICA8cGF0aCBmaWxsPSIjMGQzZjMzIiBkPSJNNTUgMzQgSDEwMCBWNDUgSDc2IFYxMDAgSDY0IFY0NSBINTIgWiIvPgo8L3N2Zz4K" alt="" width="40" height="40"><span class="wm"><span class="raum">Raum</span><span class="treu">Treu</span></span></a><p class="podpis">Immobilien · Baumaterialien · BauNetzwerk · Digitalisierung</p></div>
+    <div><p>Jakub Mateusz Woloszczuk<br>Martin-Luther-Ring 10<br>96332 Pressig</p></div>
+    <div><p><a href="v1.0.0-de-regionen.html">Regionen</a><br><a href="v1.0.0-de-kontakt.html">Kontakt</a><br><a href="v1.0.0-de-impressum.html">Impressum</a><br><a href="v1.0.0-de-datenschutz.html">Datenschutz</a></p></div>
+  </div>
+</footer>
+<div class="rt-podglad" style="position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:999;display:flex;gap:10px;align-items:center;background:#0b2e26;color:#f6f2ea;border:1px solid rgba(246,242,234,.18);font:600 13px/1.2 system-ui,sans-serif;padding:10px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.25);white-space:nowrap"><span>Vorschau v1.0.0 · DE</span><a href="index.html" style="color:#f0b25a;text-decoration:none">&larr; wersje</a></div><script>document.addEventListener("submit",function(e){e.preventDefault();var b=document.createElement("div");b.textContent="Podgląd: formularz działa dopiero w prawdziwej aplikacji (lokalnie albo na Hostingerze).";b.style.cssText="position:fixed;left:16px;right:16px;top:90px;z-index:1000;background:#fff;border-left:4px solid #b8622b;padding:14px 16px;font:500 15px system-ui;box-shadow:0 10px 30px rgba(0,0,0,.2);border-radius:10px";document.body.appendChild(b);setTimeout(function(){b.remove()},4500)},true);</script></body></html>

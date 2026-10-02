@@ -1,0 +1,183 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>RaumTreu Vorschau</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400..800&display=swap">
+<style>
+  :root {
+    --tlo: #f6f2ea; --karta: #fffdf9; --tekst: #0b2e26; --szary: #56655f; --linia: #ddd4c4;
+    --miedz: #b8622b; --zielen: #0d3f33; --na-zieleni: #f6f2ea; --cien: 0 2px 4px rgba(11,46,38,.05), 0 14px 32px -12px rgba(11,46,38,.18);
+    --immo: #ee5234; --bau: #eaa312; --netz: #be652d; --dig: #15a1af;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { color-scheme: dark; --tlo: #0e1916; --karta: #15231f; --tekst: #ece6da; --szary: #a5b3ad; --linia: #2b3b35; --miedz: #df915a; --zielen: #cfe3d9; --na-zieleni: #0e1916; --cien: 0 2px 4px rgba(0,0,0,.3), 0 14px 32px -12px rgba(0,0,0,.6); }
+  }
+  :root[data-theme="dark"] { color-scheme: dark; --tlo: #0e1916; --karta: #15231f; --tekst: #ece6da; --szary: #a5b3ad; --linia: #2b3b35; --miedz: #df915a; --zielen: #cfe3d9; --na-zieleni: #0e1916; --cien: 0 2px 4px rgba(0,0,0,.3), 0 14px 32px -12px rgba(0,0,0,.6); }
+  * { box-sizing: border-box; }
+  body { background: var(--tlo); color: var(--tekst); font: 450 16px/1.65 "Manrope", "Segoe UI", system-ui, sans-serif; padding-inline: 20px; padding-block: 0 64px; }
+  .ramka { max-width: 1120px; margin: 0 auto; }
+  .pasek { display: flex; height: 4px; margin: 0 -20px; }
+  .pasek i { display: block; }
+  header { padding-block: 48px 32px; display: grid; gap: 14px; }
+  .etykieta { font: 500 12px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--szary); display: flex; gap: 12px; align-items: center; margin: 0; }
+  .etykieta::before { content: ""; width: 28px; height: 2px; background: var(--miedz); }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 420; letter-spacing: -.012em; margin: 0; text-wrap: balance; }
+  h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); line-height: 1.08; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15; }
+  h3 { font-size: 1.35rem; }
+  .lead { color: var(--szary); max-width: 62ch; font-size: 1.08rem; margin: 0; }
+  .wersje { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-block: 8px 64px; }
+  .wersja { background: var(--karta); border: 1px solid var(--linia); border-radius: 18px; overflow: hidden; box-shadow: var(--cien); display: flex; flex-direction: column; }
+  .wersja.nowa { outline: 2px solid var(--miedz); outline-offset: -2px; }
+  .mini { aspect-ratio: 16 / 11; overflow: hidden; border-bottom: 1px solid var(--linia); background: #f6f2ea; }
+  .mini img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .wersja:hover .mini img { transform: scale(1.03); }
+  .tresc { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .nr { font: 500 13px/1 "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .04em; color: var(--miedz); display: flex; gap: 10px; align-items: center; }
+  .znaczek { font: 600 11px/1 "Manrope", sans-serif; letter-spacing: .06em; text-transform: uppercase; padding: 5px 9px; border-radius: 999px; background: var(--miedz); color: var(--karta); }
+  .opis { color: var(--szary); font-size: .94rem; margin: 0; flex: 1; }
+  .akcje { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 10px; font-weight: 650; font-size: .92rem; text-decoration: none; background: var(--zielen); color: var(--na-zieleni); transition: transform .3s, box-shadow .3s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--cien); }
+  .btn.jasny { background: transparent; color: var(--tekst); box-shadow: inset 0 0 0 1.5px var(--linia); }
+  .btn:focus-visible { outline: 2px solid var(--miedz); outline-offset: 3px; }
+  section { display: grid; gap: 18px; margin-bottom: 56px; }
+  .przyklady { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .przyklad { background: var(--karta); border: 1px solid var(--linia); border-radius: 14px; padding: 18px 20px; display: grid; gap: 6px; text-decoration: none; color: inherit; transition: transform .3s, box-shadow .3s; }
+  .przyklad:hover { transform: translateY(-2px); box-shadow: var(--cien); }
+  .przyklad b { font-family: "Fraunces", Georgia, serif; font-weight: 500; font-size: 1.15rem; }
+  .przyklad span { color: var(--szary); font-size: .92rem; }
+  .przyklad small { font: 12px "IBM Plex Mono", monospace; color: var(--miedz); }
+  .kroki { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: k; }
+  .kroki li { background: var(--karta); border: 1px solid var(--linia); border-radius: 12px; padding: 14px 18px 14px 56px; position: relative; }
+  .kroki li::before { counter-increment: k; content: counter(k); position: absolute; left: 16px; top: 13px; width: 26px; height: 26px; border-radius: 50%; background: var(--tlo); display: grid; place-items: center; font: 500 13px "IBM Plex Mono", monospace; color: var(--miedz); }
+  code { font-family: "IBM Plex Mono", monospace; font-size: .9em; background: var(--tlo); padding: 1px 6px; border-radius: 5px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head><body>
+<div class="pasek" aria-hidden="true"><i style="background:var(--immo);flex:4"></i><i style="background:var(--bau);flex:3"></i><i style="background:var(--netz);flex:2"></i><i style="background:var(--dig);flex:1"></i></div>
+<div class="ramka">
+  <header>
+    <p class="etykieta">RaumTreu · wygląd strony</p>
+    <h1>Dziesięć wersji strony do porównania</h1>
+    <p class="lead">Nowość: w każdej wersji zakładka <b>„Fenster &amp; Balkontüren”</b> z konfiguratorem okien i podglądem 3D (np. <a href="v3.0.0-de-fenster.html">v3</a>, <a href="v6.0.0-de-fenster.html">v6</a>, <a href="v10.0.0-de-fenster.html">v10</a>). Każda wersja jest zapisana osobno i żadnej nie kasujemy. Otwórz stronę, przewiń, poklikaj menu. Na dole każdej strony jest przycisk powrotu tutaj. Formularze w podglądzie nie wysyłają danych, działają tylko w aplikacji.</p>
+  </header>
+
+  <div class="wersje">
+    <article class="wersja nowa">
+      <a class="mini" href="v10.0.0-de-index.html"><img src="miniatury-v10.0.0.jpg" alt="Strona główna v10.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v10.0.0 <span class="znaczek">nowa</span></p>
+        <h3>Plattform: cyfrowa platforma</h3>
+        <p class="opis">Ciemny granat z poświatami w kolorach logo, szklane karty, krój Geist. W nagłówku animowana makieta portalu: lista materiałów → numer sprawy → zestawienie PDF. Działy jako bento z małymi animacjami, diagram „Twoje dane zostają u nas” (lokalna AI, hurtownia widzi tylko listę i kod pocztowy).</p>
+        <div class="akcje"><a class="btn" href="v10.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v10.0.0-pl-index.html">PL</a><a class="btn jasny" href="v10.0.0-de-bestellen.html">Bestellen</a></div>
+      </div>
+    </article>
+    <article class="wersja nowa">
+      <a class="mini" href="v9.0.0-de-index.html"><img src="miniatury-v9.0.0.jpg" alt="Strona główna v9.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v9.0.0 <span class="znaczek">nowa</span></p>
+        <h3>Heimat: spokój Frankenwaldu</h3>
+        <p class="opis">Owsiany beż, szałwia i leśna zieleń, miękkie zaokrąglenia. Ilustrowany krajobraz Frankenwaldu z domem (dym z komina, światło w oknie), działy jako zakładki, karty „Dlaczego możesz czuć się bezpiecznie”, kręta ścieżka kroków i ilustrowana mapa.</p>
+        <div class="akcje"><a class="btn" href="v9.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v9.0.0-pl-index.html">PL</a><a class="btn jasny" href="v9.0.0-de-immobilien.html">Immobilien</a></div>
+      </div>
+    </article>
+    <article class="wersja nowa">
+      <a class="mini" href="v8.0.0-de-index.html"><img src="miniatury-v8.0.0.jpg" alt="Strona główna v8.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v8.0.0 <span class="znaczek">nowa</span></p>
+        <h3>Exposé: magazyn premium</h3>
+        <p class="opis">Jak ekskluzywny magazyn o nieruchomościach: winieta „RaumTreu — Nr. 01”, Bodoni, spis treści, kolumny z inicjałem i cytatami, duotonowe ilustracje domów. Pakiety maklerskie jako karty exposé.</p>
+        <div class="akcje"><a class="btn" href="v8.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v8.0.0-pl-index.html">PL</a><a class="btn jasny" href="v8.0.0-de-immobilien.html">Immobilien</a></div>
+      </div>
+    </article>
+    <article class="wersja nowa">
+      <a class="mini" href="v7.0.0-de-index.html"><img src="miniatury-v7.0.0.jpg" alt="Strona główna v7.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v7.0.0 <span class="znaczek">nowa</span></p>
+        <h3>Klarheit: porządek i zaufanie</h3>
+        <p class="opis">Jak nowoczesny prywatny bank albo notariusz: biel, granat, stalowy błękit, ścisła siatka. Sekcja „Ihre Sicherheit”, interaktywny przykład śledzenia sprawy krok po kroku (RT-2026-0042-K), FAQ i oś kroków.</p>
+        <div class="akcje"><a class="btn" href="v7.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v7.0.0-pl-index.html">PL</a><a class="btn jasny" href="v7.0.0-de-baumaterialien.html">Baumaterialien</a></div>
+      </div>
+    </article>
+    <article class="wersja">
+      <a class="mini" href="v6.0.0-de-index.html"><img src="miniatury-v6.0.0.jpg" alt="Strona główna v6.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v6.0.0</p>
+        <h3>Atelier: ultra premium</h3>
+        <p class="opis">Spokój prywatnego biura: kość słoniowa, espresso i mosiądz, duży lekki szeryf. Zamiast zdjęć stockowych próbki materiałów (trawertyn, dąb, beton, mosiądz), osobisty list od Ciebie z podpisem, wizytówka przy kontakcie. Powolny ruch: kurtyna z logo, zdanie zapalające się słowo po słowie, paralaksa, pływający przycisk „Gespräch vereinbaren”.</p>
+        <div class="akcje"><a class="btn" href="v6.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v6.0.0-pl-index.html">PL</a><a class="btn jasny" href="v6.0.0-de-immobilien.html">Immobilien</a></div>
+      </div>
+    </article>
+    <article class="wersja">
+      <a class="mini" href="v5.0.0-de-index.html"><img src="miniatury-v5.0.0.jpg" alt="Strona główna v5.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v5.0.0</p>
+        <h3>Plan: jak rysunek techniczny</h3>
+        <p class="opis">Jasny papier milimetrowy, ramka arkusza i tabliczka rysunkowa, wąskie wersaliki. Dom w aksonometrii kreśli się sam, a numery 1–4 na rysunku prowadzą do działów. Kolory działów jak zakreślacz, kroki jako łańcuch wymiarowy, tabela odległości od Pressig, stempel „do akceptacji”.</p>
+        <div class="akcje"><a class="btn" href="v5.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v5.0.0-pl-index.html">PL</a><a class="btn jasny" href="v5.0.0-de-bestellen.html">Bestellen</a></div>
+      </div>
+    </article>
+    <article class="wersja">
+      <a class="mini" href="v4.0.0-de-index.html"><img src="miniatury-v4.0.0.jpg" alt="Strona główna v4.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v4.0.0</p>
+        <h3>Rama: ciemna i mocna</h3>
+        <p class="opis">Zupełnie inny kierunek. Ciemne tło, ciężkie szerokie litery jak w logo, belki działów budują ramę wokół nagłówka, a znak składa się z części. Działy jako duże kolorowe bloki (wielkość według wagi 40/30/20/10), tor „Was haben Sie vor?” przesuwany palcem, karty kroków nakładają się przy przewijaniu, wielkie napisy konturowe jadą razem ze stroną. Formularze na jasnym arkuszu.</p>
+        <div class="akcje"><a class="btn" href="v4.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v4.0.0-pl-index.html">PL</a><a class="btn jasny" href="v4.0.0-de-bestellen.html">Bestellen</a></div>
+      </div>
+    </article>
+    <article class="wersja">
+      <a class="mini" href="v3.0.0-de-index.html"><img src="miniatury-v3.0.0.jpg" alt="Strona główna v3.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v3.0.0</p>
+        <h3>Premium z ruchem</h3>
+        <p class="opis">Baza v2 i do tego: nagłówek wjeżdża wierszami, rzut rysuje się sam, taśma z działami i miejscowościami, pasek postępu, karty unoszą się przy dotyku i najechaniu, puls na mapie. Więcej miejsca przy przyciskach i tekście, miękkie cienie.</p>
+        <div class="akcje"><a class="btn" href="v3.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v3.0.0-pl-index.html">PL</a><a class="btn jasny" href="v3.0.0-de-immobilien.html">Immobilien</a></div>
+      </div>
+    </article>
+    <article class="wersja">
+      <a class="mini" href="v2.0.0-de-index.html"><img src="miniatury-v2.0.0.jpg" alt="Strona główna v2.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v2.0.0</p>
+        <h3>Premium, spokojna</h3>
+        <p class="opis">Styl redakcyjny: szeryfowe nagłówki, cienkie linie, zieleń, papier i miedź. Mało ruchu, ostre krawędzie.</p>
+        <div class="akcje"><a class="btn" href="v2.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v2.0.0-pl-index.html">PL</a></div>
+      </div>
+    </article>
+    <article class="wersja">
+      <a class="mini" href="v1.0.0-de-index.html"><img src="miniatury-v1.0.0.jpg" alt="Strona główna v1.0.0"></a>
+      <div class="tresc">
+        <p class="nr">v1.0.0</p>
+        <h3>Pierwsza wersja</h3>
+        <p class="opis">Jasna strona z kolorowymi kartami działów i systemowymi czcionkami.</p>
+        <div class="akcje"><a class="btn" href="v1.0.0-de-index.html">Otwórz DE</a><a class="btn jasny" href="v1.0.0-pl-index.html">PL</a></div>
+      </div>
+    </article>
+  </div>
+
+  <section>
+    <p class="etykieta">Kierunek</p>
+    <h2>Przykłady stron, na które warto spojrzeć</h2>
+    <p class="lead">Wskaż, co Ci się podoba: układ, ruch, zdjęcia, typografia. Wystarczy napisać na przykład „hero jak w X, karty jak w Y”.</p>
+    <div class="przyklady">
+      <a class="przyklad" href="https://www.compass.com" target="_blank" rel="noopener"><small>nieruchomości</small><b>Compass</b><span>Strona oparta na typografii, oszczędne kolory, jeden wyraźny przycisk na ekranie.</span></a>
+      <a class="przyklad" href="https://www.sothebysrealty.com" target="_blank" rel="noopener"><small>nieruchomości premium</small><b>Sotheby's International Realty</b><span>Duże zdjęcia, szeryfowe nagłówki, wejście od stylu życia zamiast od wyszukiwarki.</span></a>
+      <a class="przyklad" href="https://www.snohetta.com" target="_blank" rel="noopener"><small>architektura</small><b>Snøhetta</b><span>Siatka projektów, dużo powietrza, spokojne przejścia między sekcjami.</span></a>
+      <a class="przyklad" href="https://www.fosterandpartners.com" target="_blank" rel="noopener"><small>architektura</small><b>Foster + Partners</b><span>Pełnoekranowe zdjęcia obiektów i techniczny, uporządkowany język.</span></a>
+      <a class="przyklad" href="https://www.awwwards.com/websites/real-estate/" target="_blank" rel="noopener"><small>galeria</small><b>Awwwards: real estate</b><span>Nagradzane strony nieruchomości. Dobre źródło pomysłów na ruch i przewijanie.</span></a>
+      <a class="przyklad" href="https://land-book.com" target="_blank" rel="noopener"><small>galeria</small><b>Land-book</b><span>Przegląd układów stron głównych. Można filtrować po branży.</span></a>
+    </div>
+  </section>
+
+  <section>
+    <p class="etykieta">Wybór</p>
+    <h2>Jak dalej</h2>
+    <ol class="kroki">
+      <li>Wypisz elementy, które Ci się podobają, z dowolnych wersji, na przykład „nagłówek z v6, śledzenie sprawy z v7, zakładki działów z v9, formularz z v10”.</li>
+      <li>Z tych elementów złożymy wersję ostateczną strony i systemu (nowy numer, np. <code>v11.0.0</code>). Wszystkie propozycje zostają do porównania.</li>
+      <li>Poprawki detali trafią do kopii tej wersji z kolejnym numerem (<code>v3.0.1</code>, <code>v3.0.2</code>), a poprzednia zostaje.</li>
+      <li>W aplikacji przełączasz wersje w panelu: Ustawienia → Wygląd strony.</li>
+    </ol>
+  </section>
+</div>
+</body></html>

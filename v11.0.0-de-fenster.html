@@ -1,0 +1,1421 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fenster anfragen · RaumTreu</title>
+<meta name="description" content="Stellen Sie Ihr Fenster zusammen und sehen Sie jede Änderung sofort in 3D und im Querschnitt. Jede Anfrage bekommt eine eigene Auftragsnummer – wir holen Angebote aus Deutschland und Polen ein.">
+<meta name="theme-color" content="#07211b">
+<script>(function(){var m=null;try{m=sessionStorage.getItem("rt-motyw")}catch(e){}if(m!=="ciemny"&&m!=="jasny")m="ciemny";document.documentElement.setAttribute("data-motyw",m);document.documentElement.classList.add("js")})()</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"><style>/* RaumTreu — wygląd v11.0.0 „Werkplan".
+   „Teczka projektu": ciemna strona z kratką milimetrową, na której leżą jasne arkusze sekcji (podwójna ramka, rogi w kolorach
+   działów). Hero ciemny z rysunkiem domu, belkami ramy i tabliczką rysunkową. Kroje lokalne: Archivo (nagłówki, szerokie
+   wersaliki), Barlow Condensed (h3, etykiety), Barlow (tekst), DM Mono (numery, wymiary).
+   Dwa motywy: ciemny (domyślny) i jasny (papier milimetrowy, białe arkusze) — wszystkie kolory przez zmienne. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------------------------------------------------------- zestaw CIEMNY (domyślny): teczka */
+:root {
+  --t0: #07211b;          /* atrament-zieleń: tło strony */
+  --t1: #0c2d25;          /* ciemne karty */
+  --t2: #113a30;          /* karty po najechaniu */
+  --t-glebia: #041712;    /* stopka */
+  --krem: #f1ebdf;        /* tekst na ciemnym */
+  --mgla: #a3b6ad;        /* tekst drugorzędny */
+  --kreska: rgba(241, 235, 223, .14);
+  --kreska-2: rgba(241, 235, 223, .08);
+  --kreska-m: rgba(241, 235, 223, .32);
+  --kontur: rgba(241, 235, 223, .5);     /* obrys napisów konturowych (taśma) */
+  --kontur-2: rgba(241, 235, 223, .16);  /* RAUMTREU w stopce */
+  --kratka: rgba(241, 235, 223, .035);   /* kratka milimetrowa 10 px */
+  --kratka-2: rgba(241, 235, 223, .065); /* kratka 50 px */
+  --gora-tlo: rgba(7, 33, 27, .78);
+  --gora-tlo-2: rgba(7, 33, 27, .95);
+  --swiatlo: rgba(234, 163, 18, .075);
+  --cien: rgba(0, 0, 0, .55);
+  --cel: rgba(238, 82, 52, .4);          /* celownik CAD */
+  --ok-ik: #eaa312;                      /* znak „tak" w polach */
+  /* arkusz: jasna karta papieru — w obu motywach jasna */
+  --ark: #f4f3ee; --ark-2: #fbfaf6; --ark-3: #ebeae3;
+  --tusz: #15201c; --tusz-2: #4a5550;
+  --ark-linia: rgba(21, 32, 28, .16); --ark-linia-2: rgba(21, 32, 28, .09); --ark-linia-m: rgba(21, 32, 28, .3);
+  --ark-obrys: rgba(241, 235, 223, .42); /* zewnętrzna linia podwójnej ramki (na ciemnym tle krem) */
+  --ark-cien: 16px 16px 0 rgba(0, 0, 0, .38);
+  --pole-tlo: #ffffff;
+  --tk: #051814; --tk-odwrot: #f1ebdf;   /* tekst na kaflach działów (stały w obu motywach) */
+  --immo: #ee5234; --bau: #eaa312; --netz: #be652d; --dig: #15a1af;
+  --akcent: var(--bau);
+  --disp: "Archivo", "Arial Black", "Segoe UI", system-ui, sans-serif;
+  --disp-2: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --sans: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --mono: "DM Mono", ui-monospace, Consolas, monospace;
+  --szer: 1320px;
+  --pad: clamp(20px, 4vw, 56px);
+  --sek: clamp(80px, 10vw, 148px);
+  --belka: clamp(8px, 1vw, 14px);
+  --r: 0px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --ease-ostry: cubic-bezier(.7, 0, .2, 1);
+  color-scheme: dark;
+}
+/* ---------------------------------------------------------------- zestaw JASNY: papier milimetrowy */
+:root[data-motyw="jasny"] {
+  --t0: #f4f3ee; --t1: #fbfaf6; --t2: #ffffff; --t-glebia: #ecebe4;
+  --krem: #15201c; --mgla: #4a5550;
+  --kreska: rgba(21, 32, 28, .2); --kreska-2: rgba(21, 32, 28, .1); --kreska-m: rgba(21, 32, 28, .55);
+  --kontur: rgba(21, 32, 28, .55); --kontur-2: rgba(21, 32, 28, .16);
+  --kratka: rgba(21, 32, 28, .045); --kratka-2: rgba(21, 32, 28, .085);
+  --gora-tlo: rgba(244, 243, 238, .86); --gora-tlo-2: rgba(244, 243, 238, .97);
+  --swiatlo: rgba(234, 163, 18, .11);
+  --cien: rgba(21, 32, 28, .16);
+  --ok-ik: #2d6b3c;
+  --ark: #fbfaf6; --ark-2: #ffffff; --ark-3: #f0efe8;
+  --ark-obrys: #15201c;
+  --ark-cien: 10px 10px 0 rgba(21, 32, 28, .07);
+  color-scheme: light;
+}
+:root[data-motyw="ciemny"] .m-ksiezyc, :root[data-motyw="jasny"] .m-slonce { display: none; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; background: var(--t0); }
+body {
+  margin: 0; background-color: var(--t0); color: var(--krem);
+  background-image:
+    linear-gradient(var(--kratka-2) 1px, transparent 1px), linear-gradient(90deg, var(--kratka-2) 1px, transparent 1px),
+    linear-gradient(var(--kratka) 1px, transparent 1px), linear-gradient(90deg, var(--kratka) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  font-family: var(--sans); font-size: 17.5px; line-height: 1.62; font-weight: 400;
+  overflow-x: clip; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2 { font-family: var(--disp); font-weight: 820; font-stretch: 118%; text-transform: uppercase; letter-spacing: -.005em; line-height: 1.02; margin: 0; color: var(--krem); hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; text-wrap: balance; }
+h1 { font-size: clamp(2.1rem, 6vw, 5.2rem); font-weight: 880; }
+h2 { font-size: clamp(1.55rem, 3.1vw, 2.7rem); }
+h3 { font-family: var(--disp-2); font-weight: 700; font-size: clamp(1.25rem, 1.7vw, 1.5rem); letter-spacing: .02em; line-height: 1.12; text-transform: uppercase; margin: 0; color: var(--krem); hyphens: manual; overflow-wrap: break-word; text-wrap: balance; }
+p { margin: 0 0 1em; }
+.mono { font-family: var(--mono); font-weight: 400; letter-spacing: .02em; }
+.maly { font-size: .78rem; }
+.lead { font-size: clamp(1.08rem, 1.4vw, 1.28rem); line-height: 1.58; color: var(--mgla); max-width: 56ch; }
+.srodek { text-align: center; margin-top: 2.6rem; }
+.ik { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: square; stroke-linejoin: miter; flex: none; vertical-align: -.18em; }
+.ukryj, .ukryj-tekst { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; left: -9999px; }
+.pomin { position: absolute; left: -9999px; top: 8px; background: var(--akcent); color: var(--tk); padding: 8px 14px; z-index: 100; font-weight: 700; }
+.pomin:focus { left: 8px; }
+:focus-visible { outline: 3px solid var(--akcent); outline-offset: 3px; }
+::selection { background: var(--akcent); color: var(--tk); }
+main, .gora, .stopka { position: relative; z-index: 1; }
+
+/* światło podążające za kursorem (tylko urządzenia z myszą) */
+.swiatlo { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0; transition: opacity .6s; background: radial-gradient(520px circle at var(--sx, 50%) var(--sy, 30%), var(--swiatlo), transparent 62%); }
+.ruch .swiatlo.wl { opacity: 1; }
+
+/* pasek postępu przewijania — cztery kolory ramy */
+.postep { position: fixed; left: 0; right: 0; top: 0; height: 4px; z-index: 60; pointer-events: none; }
+.postep i { display: block; height: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--immo) 0 40%, var(--bau) 40% 70%, var(--netz) 70% 90%, var(--dig) 90%); }
+
+/* przycisk motywu */
+.motyw { width: 40px; height: 40px; flex: none; display: grid; place-items: center; background: transparent; color: inherit; border: 1.5px solid var(--kreska); cursor: pointer; transition: background .2s, color .2s; }
+.motyw .ik { width: 20px; height: 20px; }
+.motyw:hover { background: var(--akcent); color: var(--t0); border-color: var(--akcent); }
+html.motyw-zmiana, html.motyw-zmiana *, html.motyw-zmiana *::before, html.motyw-zmiana *::after { transition: background-color .45s, color .45s, border-color .45s, fill .45s, stroke .45s, box-shadow .45s !important; }
+
+/* etykiety sekcji: Barlow Condensed + numer arkusza w DM Mono */
+.etykieta { font-family: var(--disp-2); font-size: .95rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mgla); display: flex; align-items: center; flex-wrap: wrap; gap: .6rem .9rem; margin: 0 0 1.5rem; line-height: 1.2; }
+.etykieta .kreska { width: 30px; height: 3px; background: var(--kd, var(--akcent)); display: inline-block; flex: none; }
+.etykieta .blatt { font: 500 .68rem/1 var(--mono); letter-spacing: .1em; border: 1.5px solid var(--kreska-m); padding: .32rem .5rem; color: var(--krem); }
+
+/* zakreślacz (v5) */
+.marker { --kd-m: var(--kd, var(--bau)); background-image: linear-gradient(transparent 58%, color-mix(in srgb, var(--kd-m) 55%, transparent) 58%, color-mix(in srgb, var(--kd-m) 55%, transparent) 92%, transparent 92%); background-repeat: no-repeat; background-size: 100% 100%; -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 .08em; transition: background-size 1.1s var(--ease); }
+@supports not (color: color-mix(in srgb, red 50%, transparent)) { .marker { background-image: linear-gradient(transparent 58%, rgba(234, 163, 18, .5) 58%, rgba(234, 163, 18, .5) 92%, transparent 92%); } }
+
+/* znacznik detalu (v5): kółko, u góry numer, u dołu arkusz */
+.znacznik { --zn-tusz: var(--krem); --zn-tlo: var(--t1); width: 58px; height: 58px; flex: none; border-radius: 50%; border: 2px solid var(--zn-tusz); background: var(--zn-tlo); color: var(--zn-tusz); display: grid; grid-template-rows: 1fr 1fr; overflow: hidden; position: relative; box-shadow: 0 0 0 5px color-mix(in srgb, var(--kd) 35%, transparent); }
+.znacznik::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px solid var(--zn-tusz); }
+.znacznik b { display: grid; place-items: end center; font: 800 1.2rem/1 var(--disp); font-stretch: 112%; padding-bottom: 2px; }
+.znacznik i { display: grid; place-items: start center; font: normal 500 .62rem/1 var(--mono); padding-top: 5px; opacity: .8; }
+
+/* ---------------------------------------------------------------- ARKUSZ: jasna karta papieru na ciemnym tle (podwójna ramka z v5) */
+.arkusz { --t0: var(--ark); --t1: var(--ark-2); --t2: var(--ark-3); --t-glebia: var(--ark-3); --krem: var(--tusz); --mgla: var(--tusz-2); --kreska: var(--ark-linia); --kreska-2: var(--ark-linia-2); --kreska-m: rgba(21, 32, 28, .55); --kontur: rgba(21, 32, 28, .35); --cel: rgba(238, 82, 52, .4); --ok-ik: #2d6b3c;
+  position: relative; background: var(--ark); color: var(--tusz); border: 1.5px solid var(--tusz); outline: 1px solid var(--ark-obrys); outline-offset: 6px; box-shadow: var(--ark-cien); color-scheme: light; }
+.ark-sek { padding: clamp(26px, 4vw, 56px); }
+.arkusz.z-belka::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px; background: var(--kd, var(--akcent)); }
+.arkusz .lead { color: var(--tusz-2); }
+.rog { position: absolute; width: 22px; height: 22px; border-color: var(--immo); border-style: solid; border-width: 0; z-index: 1; pointer-events: none; }
+.r1 { left: 8px; top: 8px; border-left-width: 3px; border-top-width: 3px; }
+.r2 { right: 8px; top: 8px; border-right-width: 3px; border-top-width: 3px; border-color: var(--bau); }
+.r3 { right: 8px; bottom: 8px; border-right-width: 3px; border-bottom-width: 3px; border-color: var(--netz); }
+.r4 { left: 8px; bottom: 8px; border-left-width: 3px; border-bottom-width: 3px; border-color: var(--dig); }
+
+/* ---------------------------------------------------------------- przyciski */
+.btn, .przycisk { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .8rem; background: var(--akcent); color: var(--tk); border: 2px solid var(--akcent); border-radius: 0; padding: 1.1rem 1.8rem; font: 800 .88rem/1 var(--disp); font-stretch: 112%; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s, color .25s; box-shadow: 0 0 0 var(--krem); }
+.btn:hover, .przycisk:hover { transform: translate(-4px, -4px); box-shadow: 6px 6px 0 var(--krem); }
+.btn:active, .przycisk:active { transform: translate(0, 0); box-shadow: 0 0 0 var(--krem); }
+.btn .ik, .przycisk .ik { transition: transform .3s var(--ease); }
+.btn:hover .ik, .przycisk:hover .ik, .link-strz:hover .ik { transform: translateX(5px); }
+.btn-maly, .przycisk.maly { padding: .8rem 1.15rem; font-size: .76rem; }
+.btn-obrys { background: transparent; color: var(--krem); border-color: var(--krem); }
+.btn-obrys:hover { background: var(--krem); color: var(--t0); box-shadow: 6px 6px 0 var(--akcent); }
+.link-strz { display: inline-flex; align-items: center; gap: .6rem; font: 700 1.05rem/1 var(--disp-2); text-transform: uppercase; letter-spacing: .08em; text-decoration: none; padding: .9rem 0; border-bottom: 2px dashed var(--kreska-m); transition: border-color .3s, color .2s; }
+.link-strz:hover { color: var(--akcent); border-bottom-style: solid; border-bottom-color: var(--akcent); }
+.cta-rzad { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem 2.4rem; margin-top: 2.4rem; }
+
+/* ---------------------------------------------------------------- nagłówek strony */
+.gora { position: sticky; top: 0; z-index: 50; background: var(--gora-tlo); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); border-bottom: 1px solid transparent; transition: border-color .3s, background .3s; }
+.gora.przewiniete { border-bottom-color: var(--kreska); background: var(--gora-tlo-2); }
+.gora-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; transition: height .3s var(--ease); }
+.gora.przewiniete .gora-in { height: 64px; }
+.marka { display: inline-flex; align-items: center; gap: .75rem; text-decoration: none; color: var(--krem); flex: none; }
+.marka .znak { width: 34px; height: 34px; transition: transform .5s var(--ease); }
+.marka:hover .znak { transform: rotate(-90deg); }
+.wm { font: 900 1.15rem/1 var(--disp); font-stretch: 125%; letter-spacing: .02em; }
+.wm b { font-weight: 900; color: var(--akcent); }
+.menu { display: flex; align-items: center; gap: 1.8rem; }
+.menu-lista { list-style: none; display: flex; gap: .1rem; margin: 0; padding: 0; }
+.menu-lista a { position: relative; display: flex; align-items: baseline; gap: .4rem; padding: .7rem .7rem; text-decoration: none; white-space: nowrap; font: 600 1.02rem/1 var(--disp-2); letter-spacing: .07em; text-transform: uppercase; color: var(--mgla); transition: color .2s; }
+.menu-nr { font-family: var(--mono); font-size: .62rem; color: var(--kd, var(--mgla)); font-weight: 500; }
+.menu-nr:empty { display: none; }
+.menu-lista a::after { content: ""; position: absolute; left: .7rem; right: .7rem; bottom: .25rem; height: 3px; background: var(--kd, var(--krem)); transform: scaleX(0); transform-origin: 0 50%; transition: transform .35s var(--ease); }
+.menu-lista a:hover, .menu-lista a[aria-current] { color: var(--krem); }
+.menu-lista a:hover::after, .menu-lista a[aria-current]::after { transform: scaleX(1); }
+.menu-akcje { display: flex; align-items: center; gap: 1rem; }
+.link-konto, .jezyk { font-size: .82rem; font-weight: 600; text-decoration: none; color: var(--mgla); }
+.link-konto:hover, .jezyk:hover { color: var(--krem); }
+.jezyk { font-family: var(--mono); border: 1.5px solid var(--kreska); padding: .5rem .55rem; line-height: 1; }
+.menu-btn { display: none; width: 48px; height: 48px; background: transparent; border: 2px solid var(--kreska); cursor: pointer; position: relative; }
+.menu-btn i { position: absolute; left: 12px; right: 12px; height: 3px; background: var(--krem); transition: transform .35s var(--ease), top .35s var(--ease); }
+.menu-btn i:first-of-type { top: 17px; } .menu-btn i:last-of-type { top: 25px; }
+.menu-btn[aria-expanded="true"] i:first-of-type { top: 21px; transform: rotate(45deg); }
+.menu-btn[aria-expanded="true"] i:last-of-type { top: 21px; transform: rotate(-45deg); }
+@media (max-width: 1300px) {
+  /* bez backdrop-filter: tworzyłby blok odniesienia dla menu position:fixed i obcinał je do wysokości nagłówka */
+  .gora { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--gora-tlo-2); }
+  .menu-btn { display: block; }
+  .menu { position: absolute; left: 0; right: 0; top: 100%; height: calc(100vh - 100%); height: calc(100dvh - 100%); background: var(--t0); border-top: 1px solid var(--kreska); flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 0; padding: 1rem var(--pad) 3rem; overflow-y: auto; transform: translateY(-8px); opacity: 0; visibility: hidden; transition: opacity .3s, transform .4s var(--ease), visibility 0s .4s; }
+  .menu.otwarte { opacity: 1; transform: none; visibility: visible; transition: opacity .3s, transform .4s var(--ease); }
+  .menu-lista { flex-direction: column; gap: 0; }
+  .menu-lista li { border-bottom: 1px solid var(--kreska); }
+  .menu-lista a { font-family: var(--disp); font-size: clamp(1.4rem, 5vw, 2.1rem); font-weight: 850; font-stretch: 120%; letter-spacing: 0; color: var(--krem); padding: 1.2rem 0; gap: 1rem; }
+  .menu-lista a::after { left: 0; right: auto; width: 60px; bottom: .6rem; }
+  .menu-nr { font-size: .8rem; }
+  .menu-akcje { flex-wrap: wrap; gap: 1.2rem; padding-top: 2rem; }
+  .menu-akcje .btn { flex: 1 1 100%; }
+  .motyw { width: 48px; height: 48px; }
+  body.menu-otwarte { overflow: hidden; }
+}
+
+/* ---------------------------------------------------------------- belki ramy (wspólne) */
+.belki { display: flex; }
+.belki i { display: block; }
+.belki.pozioma { height: 8px; }
+.belki.pozioma .b-immo { flex: 4; background: var(--immo); } .belki.pozioma .b-bau { flex: 3; background: var(--bau); }
+.belki.pozioma .b-netz { flex: 2; background: var(--netz); } .belki.pozioma .b-dig { flex: 1; background: var(--dig); }
+
+/* ---------------------------------------------------------------- HERO: ciemny arkusz w ramie z belek, rysunek domu, tabliczka */
+.hero { padding: clamp(18px, 2.5vw, 36px) var(--pad) clamp(40px, 5vw, 64px); }
+.hero-rama { position: relative; max-width: var(--szer); margin: 0 auto; padding: clamp(40px, 6vw, 88px) clamp(28px, 6vw, 92px) 0; border: 1px solid var(--kreska); display: flex; flex-direction: column; gap: clamp(30px, 4vw, 56px); }
+.hr { position: absolute; display: block; z-index: 2; }
+.hr-bau { top: -1px; right: -1px; width: 56%; height: var(--belka); background: var(--bau); transform-origin: 100% 50%; }
+.hr-bau::after { content: ""; position: absolute; right: 0; top: 0; width: var(--belka); height: clamp(60px, 12vw, 150px); background: var(--bau); }
+.hr-immo { left: -1px; bottom: -1px; width: var(--belka); height: 68%; background: var(--immo); transform-origin: 50% 100%; }
+.hr-netz { right: -1px; bottom: -1px; width: var(--belka); height: 42%; background: var(--netz); transform-origin: 50% 100%; }
+.hr-netz::after { content: ""; position: absolute; right: 0; bottom: 0; width: clamp(40px, 7vw, 90px); height: var(--belka); background: var(--netz); }
+.hr-dig { left: 16%; bottom: -1px; width: 30%; height: var(--belka); background: var(--dig); transform-origin: 0 50%; }
+.hero-in { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.hero-in > * { position: relative; z-index: 1; }
+.hero-tytul { hyphens: manual; -webkit-hyphens: manual; font-size: clamp(1.9rem, 3.9vw, 3.7rem); font-weight: 900; font-stretch: 122%; line-height: .98; letter-spacing: -.01em; margin-bottom: 1.8rem; }
+.wiersz { display: block; overflow: hidden; padding-bottom: .1em; }
+.wiersz > span { display: inline-block; }
+.hero .lead { color: var(--krem); opacity: .84; }
+.hero-rys { display: grid; gap: 1.1rem; }
+.hero-rys .foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1.5px solid var(--kreska-m); }
+.dom { margin: 0; color: var(--krem); }
+.dom svg { width: 100%; height: auto; display: block; overflow: visible; }
+.dom .cienka { stroke-opacity: .5; }
+.dom .szraf { stroke-opacity: .6; }
+.dom .wymiar { stroke-opacity: .7; }
+.dom .skan { stroke: var(--dig); }
+.dom .dron { stroke: currentColor; fill: none; }
+.dom .dron-korpus { fill: var(--t0); }
+.dom .opisy text { font: 500 11px var(--mono); fill: currentColor; }
+.dom figcaption { font-size: .7rem; color: var(--mgla); text-transform: uppercase; letter-spacing: .1em; margin-top: .5rem; }
+.punkt { cursor: pointer; }
+.punkt-k { fill: var(--t1); stroke: var(--kd); stroke-width: 2.5; transition: fill .25s; }
+.punkt text { font: 800 15px var(--disp); font-stretch: 112%; fill: var(--krem); pointer-events: none; transition: fill .25s; }
+.punkt-puls { fill: none; stroke: var(--kd); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; }
+.punkt:hover .punkt-k, .punkt:focus-visible .punkt-k, .punkt.aktywny .punkt-k { fill: var(--kd); }
+.punkt:hover text, .punkt:focus-visible text, .punkt.aktywny text { fill: var(--tk); }
+.legenda-dom { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1.5px solid var(--kreska-m); }
+.legenda-dom li { border-bottom: 1px solid var(--kreska); }
+.legenda-dom li:nth-child(odd) { border-right: 1px solid var(--kreska); }
+.legenda-dom a { display: flex; align-items: center; gap: .7rem; padding: .7rem .6rem; text-decoration: none; font: 600 1.02rem/1.1 var(--disp-2); letter-spacing: .06em; text-transform: uppercase; transition: background .2s; }
+.nr-k { width: 28px; height: 28px; flex: none; border-radius: 50%; border: 2px solid var(--kd); display: grid; place-items: center; font: 800 .82rem var(--disp); font-stretch: 112%; transition: background .2s, color .2s; }
+.legenda-dom a:hover, .legenda-dom a.aktywny { background: color-mix(in srgb, var(--kd) 16%, transparent); }
+.legenda-dom a:hover .nr-k, .legenda-dom a.aktywny .nr-k { background: var(--kd); color: var(--tk); }
+.celownik { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; z-index: 0; overflow: hidden; }
+.celownik.wl { opacity: 1; }
+.celownik .cx, .celownik .cy { position: absolute; background: var(--cel); }
+.celownik .cx { left: 0; right: 0; height: 1px; top: var(--y, 50%); }
+.celownik .cy { top: 0; bottom: 0; width: 1px; left: var(--x, 50%); }
+.celownik .wsp { position: absolute; left: calc(var(--x, 50%) + 10px); top: calc(var(--y, 50%) + 8px); font-size: .68rem; color: var(--immo); background: var(--t0); padding: 2px 5px; border: 1px solid var(--cel); white-space: nowrap; }
+
+/* tabliczka rysunkowa (Schriftfeld) na dole hero */
+.schriftfeld { margin: 0 calc(-1 * clamp(28px, 6vw, 92px)); display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--kreska-m); }
+.schriftfeld div { padding: .75rem 1rem .85rem; border-right: 1px solid var(--kreska); min-width: 0; }
+.schriftfeld div:last-child { border-right: 0; }
+.schriftfeld dt { font: 400 .64rem var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--mgla); margin-bottom: .25rem; }
+.schriftfeld dd { margin: 0; font: 600 1.05rem/1.2 var(--disp-2); letter-spacing: .04em; text-transform: uppercase; overflow-wrap: anywhere; }
+.hero .schriftfeld { padding-left: var(--belka); padding-right: var(--belka); }
+@media (max-width: 1000px) {
+  .hero-in { grid-template-columns: 1fr; }
+  .hero-tytul { font-size: clamp(1.9rem, 6.2vw, 3.6rem); }
+  .dom { max-width: 560px; justify-self: center; width: 100%; }
+  .schriftfeld { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .schriftfeld div:nth-child(3n) { border-right: 0; }
+  .schriftfeld div:nth-child(-n+3) { border-bottom: 1px solid var(--kreska); }
+}
+@media (max-width: 600px) {
+  .hero { padding-inline: 12px; }
+  .hero-tytul { hyphens: manual; -webkit-hyphens: manual; }
+  .hero-rama { padding-inline: 26px 22px; }
+  .schriftfeld { margin: 0 -22px 0 -26px; grid-template-columns: 1fr 1fr; }
+  .schriftfeld div { border-right: 1px solid var(--kreska) !important; border-bottom: 1px solid var(--kreska); }
+  .schriftfeld div:nth-child(2n) { border-right: 0 !important; }
+  .legenda-dom { grid-template-columns: 1fr; }
+  .legenda-dom li:nth-child(odd) { border-right: 0; }
+  .hr-bau { width: 70%; }
+}
+
+/* ---------------------------------------------------------------- taśma: wielki napis konturowy (v4) */
+.tasma { overflow: hidden; border-block: 1px solid var(--kreska); padding: clamp(18px, 2.4vw, 30px) 0; transform: skewX(var(--skos, 0deg)); transition: transform .4s var(--ease); }
+.tasma-rzad { overflow: hidden; }
+.tasma-tor { display: flex; align-items: center; width: max-content; gap: clamp(22px, 3vw, 44px); padding-right: clamp(22px, 3vw, 44px); animation: tasma 46s linear infinite; }
+.tasma-rzad.odwrot .tasma-tor { animation-direction: reverse; animation-duration: 60s; }
+.tasma span { font: 900 clamp(2.6rem, 8.5vw, 7.6rem)/1 var(--disp); font-stretch: 125%; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.5px var(--kontur); white-space: nowrap; transition: color .3s, -webkit-text-stroke-color .3s; }
+.tasma span:hover { color: var(--kd, var(--krem)); -webkit-text-stroke-color: var(--kd, var(--krem)); }
+.tasma i { width: clamp(16px, 2vw, 28px); height: clamp(16px, 2vw, 28px); background: var(--kd, var(--mgla)); flex: none; }
+.tasma .cienki { margin-top: clamp(12px, 1.6vw, 20px); }
+.tasma .cienki span { font: 500 clamp(.8rem, 1.1vw, .95rem)/1 var(--mono); letter-spacing: .2em; color: var(--mgla); -webkit-text-stroke: 0; }
+.tasma .cienki i { width: 6px; height: 6px; background: var(--akcent); }
+.tasma:hover .tasma-tor { animation-play-state: paused; }
+@keyframes tasma { to { transform: translateX(-50%); } }
+
+/* ---------------------------------------------------------------- sekcje */
+.sek { padding: var(--sek) 0 0; position: relative; }
+.sek:last-of-type { padding-bottom: var(--sek); }
+.sek-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); }
+.sek-in.wasko { padding-top: 2.4rem; }
+.sek-nag { margin-bottom: clamp(36px, 4.5vw, 64px); }
+.sek-nag h2 { max-width: 22ch; }
+.arkusz .sek-nag { margin-bottom: clamp(28px, 3.5vw, 48px); }
+
+/* bento: działy jako bloki koloru; wielkość kafla = waga działu (40/30/20/10) — bez zmian w obu motywach */
+.bento { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); grid-auto-rows: minmax(250px, auto); gap: clamp(10px, 1.2vw, 16px); }
+.kafel { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: .9rem; padding: clamp(22px, 2.6vw, 36px); background: var(--kd); color: var(--tk); text-decoration: none; transition: transform .35s var(--ease), box-shadow .35s var(--ease); box-shadow: 0 0 0 var(--krem); container-type: inline-size; }
+.kafel::after { content: ""; position: absolute; inset: 0; background: var(--t0); transform-origin: 50% 0; transform: scaleY(0); transition: transform 1s var(--ease-ostry); transition-delay: inherit; pointer-events: none; }
+.kafel::before { content: ""; position: absolute; inset: 0; background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .28), transparent 60%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+.kafel:hover::before { opacity: 1; }
+.kafel:hover { transform: translate(-6px, -6px); box-shadow: 10px 10px 0 var(--krem); }
+.b-40 { grid-column: span 4; grid-row: span 2; }
+.b-30 { grid-column: span 3; grid-row: span 2; }
+.b-20, .b-10 { grid-column: span 3; }
+.k-gora { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.kafel .znacznik { --zn-tusz: var(--tk); --zn-tlo: rgba(255, 255, 255, .55); box-shadow: 0 0 0 5px rgba(5, 24, 20, .14); }
+.ik-dzial { width: 64px; height: 64px; color: var(--tk); flex: none; }
+.ik-dzial .cienka { stroke-opacity: .45; }
+.b-20 .ik-dzial, .b-10 .ik-dzial { width: 48px; height: 48px; }
+.k-tyt { hyphens: manual; -webkit-hyphens: manual; font: 880 clamp(1.3rem, 2.3vw, 2.2rem)/1 var(--disp); font-stretch: 120%; text-transform: uppercase; margin-top: auto; overflow-wrap: anywhere; }
+.b-40 .k-tyt { font-size: clamp(1.6rem, 3.3vw, 3.2rem); }
+@supports (font-size: 1cqi) {
+  .k-tyt { font-size: clamp(1.15rem, 9.4cqi, 2.3rem); }
+  .b-40 .k-tyt { font-size: clamp(1.6rem, 10cqi, 3.4rem); }
+}
+.k-op { font-size: 1rem; font-weight: 500; line-height: 1.5; max-width: 42ch; }
+.k-dol { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; }
+.k-tagi { display: flex; flex-wrap: wrap; gap: .4rem; }
+.k-tagi span { font: 500 .66rem/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; border: 1.5px solid currentColor; padding: .45rem .55rem; opacity: .85; }
+.b-20 .k-tagi, .b-10 .k-tagi { display: none; }
+.k-strz { width: 50px; height: 50px; flex: none; display: grid; place-items: center; background: var(--tk); color: var(--tk-odwrot); transition: transform .4s var(--ease); }
+.kafel:hover .k-strz { transform: rotate(-45deg); }
+@media (max-width: 1000px) {
+  .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; }
+  .b-40, .b-30 { grid-column: span 2; grid-row: auto; min-height: 300px; }
+  .b-20, .b-10 { grid-column: span 1; min-height: 280px; }
+  .b-20 .k-tagi, .b-10 .k-tagi { display: flex; }
+}
+@media (max-width: 600px) { .bento { grid-template-columns: 1fr; } .kafel { grid-column: auto; grid-row: auto; min-height: 0; } }
+
+/* legenda rysunku (Vorhaben, v5) na arkuszu */
+.legenda { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--krem); }
+.legenda a { display: grid; grid-template-columns: 44px 3rem minmax(0, 1fr) minmax(0, 1.4fr) 2.4rem; gap: 1.2rem; align-items: center; padding: 1.2rem .6rem; border-bottom: 1px solid var(--kreska-m); text-decoration: none; background: linear-gradient(90deg, color-mix(in srgb, var(--kd) 16%, transparent), transparent) no-repeat 0 0 / 0 100%; transition: background-size .45s var(--ease); }
+.legenda a:hover { background-size: 100% 100%; }
+.sym { width: 40px; height: 26px; border: 1.5px solid var(--krem); background: repeating-linear-gradient(-45deg, var(--kd) 0 2px, transparent 2px 7px); }
+.l-nr { font-size: .8rem; color: var(--mgla); }
+.l-tyt { font: 700 clamp(1.3rem, 2vw, 1.7rem)/1.05 var(--disp-2); text-transform: uppercase; letter-spacing: .02em; }
+.l-op { color: var(--mgla); }
+.l-strz { width: 38px; height: 38px; display: grid; place-items: center; border: 1.5px solid var(--krem); border-radius: 50%; transition: background .25s, color .25s, transform .3s var(--ease); }
+.legenda a:hover .l-strz { background: var(--krem); color: var(--t0); transform: rotate(-45deg); }
+@media (max-width: 760px) { .legenda a { grid-template-columns: 40px minmax(0, 1fr) 2.4rem; row-gap: .3rem; } .l-nr { display: none; } .l-op { grid-column: 2 / 3; } .l-strz { grid-row: 1; grid-column: 3; } }
+
+/* stos: kroki jako arkusze nakładające się przy przewijaniu (v4) */
+.kroki-uklad { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.kroki-lewa { position: sticky; top: 120px; }
+.kroki-lewa h2, .dwie-l h2 { font-size: clamp(1.5rem, 2.7vw, 2.4rem); }
+.stos { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(28px, 5vh, 56px); }
+.stos li { position: sticky; top: calc(110px + var(--i) * 18px); display: grid; grid-template-columns: auto 1fr; gap: clamp(18px, 3vw, 40px); align-items: start; padding: clamp(26px, 3vw, 42px); border-left: 8px solid var(--kk, var(--akcent)); min-height: 190px; box-shadow: 0 -24px 48px -24px var(--cien); }
+.stos li:nth-child(4n+1) { --kk: var(--immo); } .stos li:nth-child(4n+2) { --kk: var(--bau); } .stos li:nth-child(4n+3) { --kk: var(--netz); } .stos li:nth-child(4n+4) { --kk: var(--dig); }
+.s-nr { font: 900 clamp(3rem, 5vw, 4.8rem)/.85 var(--disp); font-stretch: 125%; color: var(--kk); }
+.stos .s-krok { font-size: .7rem; text-transform: uppercase; letter-spacing: .14em; color: var(--mgla); margin-bottom: .6rem; }
+.stos h3 { font-size: clamp(1.3rem, 2vw, 1.7rem); margin-bottom: .6rem; }
+.stos p:last-child { color: var(--mgla); margin: 0; }
+@media (max-width: 860px) {
+  .kroki-uklad { grid-template-columns: 1fr; }
+  .kroki-lewa { position: static; }
+  .stos li { top: calc(86px + var(--i) * 12px); }
+}
+
+/* łańcuch wymiarowy (Maßkette, v5) na arkuszu */
+.masskette { --n: 6; list-style: none; margin: 0; padding: 46px 0 0; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); position: relative; }
+.masskette::before { content: ""; position: absolute; left: 0; right: 0; top: 18px; border-top: 1.5px solid var(--krem); transform-origin: 0 50%; transition: transform 1.4s var(--ease); }
+.masskette li { position: relative; padding: 0 1.1rem 0 1.1rem; border-left: 1px solid var(--krem); }
+.masskette li:last-child { border-right: 1px solid var(--krem); }
+.masskette li::before { content: ""; position: absolute; left: -7px; top: -34px; width: 14px; height: 1.5px; background: var(--krem); transform: rotate(-45deg); }
+.masskette li:last-child::after { content: ""; position: absolute; right: -7px; top: -34px; width: 14px; height: 1.5px; background: var(--krem); transform: rotate(-45deg); }
+.mk-nr { position: absolute; left: 50%; top: -46px; transform: translateX(-50%); background: var(--t0); padding: 0 .5rem; font-size: .82rem; font-weight: 500; color: var(--krem); }
+.masskette li:nth-child(4n+1) .mk-nr { color: var(--immo); } .masskette li:nth-child(4n+2) .mk-nr { color: #b77c00; } .masskette li:nth-child(4n+3) .mk-nr { color: var(--netz); } .masskette li:nth-child(4n+4) .mk-nr { color: #0e7f8a; }
+.masskette h3 { margin: .2rem 0 .6rem; font-size: clamp(1.15rem, 1.4vw, 1.35rem); }
+.masskette p { color: var(--mgla); font-size: .98rem; margin: 0; }
+@media (max-width: 1100px) {
+  .masskette { grid-template-columns: 1fr; padding: 0 0 0 54px; }
+  .masskette::before { left: 18px; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1.5px solid var(--krem); transform-origin: 50% 0; }
+  .masskette li { border-left: 0; border-top: 1px solid var(--krem); padding: 1.2rem 0 1.4rem; }
+  .masskette li:last-child { border-right: 0; border-bottom: 1px solid var(--krem); }
+  .masskette li::before { left: -43px; top: -1px; }
+  .masskette li:last-child::after { left: -43px; right: auto; top: auto; bottom: -1px; }
+  .mk-nr { left: -54px; top: 1.2rem; transform: none; width: 36px; text-align: center; padding: .2rem 0; }
+}
+
+/* osoba — tabliczka „Verfasser" na arkuszu */
+.osoba { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.osoba-foto > img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 1.5px solid var(--krem); outline: 1px solid var(--krem); outline-offset: 6px; }
+.monogram { aspect-ratio: 4 / 5; border: 1.5px solid var(--krem); outline: 1px solid var(--krem); outline-offset: 6px; background: var(--t1) repeating-linear-gradient(-45deg, transparent 0 14px, var(--kreska-2) 14px 15px); display: grid; place-items: center; color: var(--krem); }
+.monogram .znak { width: 44%; height: auto; }
+.osoba-tekst .sek-nag { margin-bottom: .8rem; }
+.osoba-tekst .sek-nag h2 { font-size: clamp(1.6rem, 3.2vw, 2.8rem); }
+.rola { text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; color: var(--mgla); margin-bottom: 1.4rem; }
+.osoba-tekst > p, .osoba-tekst .tekst p { max-width: 58ch; font-size: 1.06rem; }
+.maly-sf { margin: 2rem 0 2.2rem; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1.5px solid var(--krem); background: var(--t1); }
+.maly-sf div { border-right: 1px solid var(--krem); padding: .8rem 1rem .9rem; }
+.maly-sf dd { font-size: 1rem; text-transform: none; font-family: var(--sans); font-weight: 600; letter-spacing: 0; }
+@media (max-width: 1000px) { .maly-sf { grid-template-columns: 1fr; } .maly-sf div { border-right: 0 !important; border-bottom: 1px solid var(--krem); } .maly-sf div:last-child { border-bottom: 0; } }
+@media (max-width: 700px) { .osoba { grid-template-columns: 1fr; } .osoba-foto { max-width: 300px; } }
+
+/* zasady: Ja / Nein (wielkie słowo konturowe z v4) z polami do odhaczenia (v5) */
+.zasady { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 1.4vw, 18px); }
+.zasada { position: relative; overflow: hidden; padding: clamp(28px, 3.6vw, 52px); background: var(--t1); border: 1px solid var(--kreska); }
+.z-slowo { position: absolute; right: -.04em; top: -.12em; font: 900 clamp(5rem, 11vw, 10rem)/1 var(--disp); font-stretch: 125%; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.5px var(--kreska); pointer-events: none; }
+.zasada h3 { position: relative; display: flex; gap: .8rem; align-items: center; padding-bottom: 1.2rem; margin-bottom: .4rem; border-bottom: 1.5px solid var(--kreska-m); max-width: 24ch; font-size: clamp(1.3rem, 2vw, 1.7rem); }
+.zasada ul { position: relative; list-style: none; margin: 0; padding: 0; }
+.zasada li { display: flex; gap: .9rem; align-items: flex-start; padding: .9rem 0; border-bottom: 1px dashed var(--kreska); font-weight: 500; }
+.pole-k { width: 26px; height: 26px; flex: none; border: 1.5px solid var(--kreska-m); display: grid; place-items: center; background: var(--t0); margin-top: .1rem; }
+.pole-k .ik { width: 18px; height: 18px; stroke-width: 2.6; }
+.pole-k.tak .ik { color: var(--ok-ik); } .pole-k.nie .ik { color: var(--immo); }
+.zasada.tak { border-top: 8px solid var(--bau); } .zasada.nie { border-top: 8px solid var(--immo); }
+@media (max-width: 860px) { .zasady { grid-template-columns: 1fr; } }
+
+/* region: mapa (tusz na arkuszu) + tabela odległości (v5) */
+.region { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.region .sek-nag { margin-bottom: 1.6rem; }
+.miejsca { width: 100%; border-collapse: collapse; margin-top: 1.6rem; background: var(--t1); border: 1.5px solid var(--krem); font-size: .98rem; }
+.miejsca th { font: 400 .68rem var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--mgla); text-align: left; padding: .6rem .9rem; border-bottom: 1.5px solid var(--krem); }
+.miejsca td { padding: .5rem .9rem; border-bottom: 1px solid var(--kreska-2); }
+.miejsca .l { text-align: right; white-space: nowrap; }
+.miejsca th.l { white-space: normal; }
+@media (max-width: 480px) { .miejsca th, .miejsca td { padding-inline: .5rem; } }
+.miejsca tr.baza td { font-weight: 700; background: color-mix(in srgb, var(--immo) 12%, transparent); }
+.miejsca tr:hover td { background: color-mix(in srgb, var(--bau) 14%, transparent); }
+.mapa { margin: 0; border: 1.5px solid var(--krem); background: var(--t1); padding: 10px; color: var(--krem); }
+.mapa svg { width: 100%; height: auto; display: block; }
+.puls { transform-box: fill-box; transform-origin: center; animation: puls 2.4s var(--ease) infinite; }
+@keyframes puls { 0% { transform: scale(.5); opacity: 1; } 100% { transform: scale(1.9); opacity: 0; } }
+@media (max-width: 860px) { .region { grid-template-columns: 1fr; } }
+
+/* CTA: rama z czterech belek (v4) + stempel (v5) */
+.cta-pas { padding: clamp(40px, 6vw, 88px) var(--pad) var(--sek); }
+.cta-rama { position: relative; max-width: var(--szer); margin: 0 auto; padding: clamp(48px, 8vw, 120px) clamp(28px, 7vw, 110px); background: var(--t1); border: 1px solid var(--kreska); }
+.belki.rama i { position: absolute; }
+.belki.rama .b-bau { top: -1px; right: -1px; width: 55%; height: var(--belka); background: var(--bau); }
+.belki.rama .b-immo { left: -1px; bottom: -1px; width: var(--belka); height: 70%; background: var(--immo); }
+.belki.rama .b-netz { right: -1px; bottom: -1px; width: var(--belka); height: 45%; background: var(--netz); }
+.belki.rama .b-dig { left: 18%; bottom: -1px; width: 28%; height: var(--belka); background: var(--dig); }
+.cta-in { position: relative; max-width: 1040px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(24px, 5vw, 72px); align-items: center; }
+.stempel { width: clamp(110px, 16vw, 190px); color: var(--akcent); transform: rotate(-12deg); }
+.stempel svg { width: 100%; height: auto; display: block; }
+.cta-tekst h2 { font-size: clamp(1.9rem, 4.8vw, 4.2rem); font-stretch: 125%; font-weight: 900; margin-bottom: 1.3rem; }
+.cta-tekst > p:not(.etykieta) { font-size: 1.12rem; color: var(--mgla); max-width: 52ch; }
+@media (max-width: 700px) { .cta-in { grid-template-columns: 1fr; } .stempel { width: 110px; } }
+
+/* ---------------------------------------------------------------- podstrony */
+.nag { position: relative; overflow: hidden; padding: clamp(64px, 9vw, 130px) 0 clamp(48px, 6vw, 90px); border-bottom: 1px solid var(--kreska); }
+.nag.z-dzialem::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--belka); background: var(--kd); transform-origin: 50% 0; animation: belka-y 1s var(--ease-ostry) both; }
+.nag-in { position: relative; max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: start; }
+.nag-nr { position: absolute; right: -.06em; bottom: -.2em; font: 900 clamp(12rem, 34vw, 30rem)/1 var(--disp); font-stretch: 125%; color: transparent; -webkit-text-stroke: 2px var(--kd); opacity: .3; pointer-events: none; letter-spacing: -.04em; }
+.nag-tytul { font-size: clamp(2rem, 5.4vw, 4.8rem); font-stretch: 122%; font-weight: 900; max-width: 18ch; margin-bottom: 1.6rem; hyphens: manual; -webkit-hyphens: manual; }
+.nag .lead { color: var(--krem); opacity: .82; }
+.nag-znak .znacznik { --zn-tlo: var(--t1); width: clamp(80px, 11vw, 120px); height: clamp(80px, 11vw, 120px); }
+.nag-znak .znacznik b { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+.nag-znak .znacznik i { font-size: .85rem; }
+@media (max-width: 640px) { .nag-in { grid-template-columns: 1fr; } .nag-znak { order: -1; } }
+
+.dwie { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.dwie-l { position: sticky; top: 120px; }
+.dwie-p.arkusz { padding: clamp(22px, 3vw, 40px); }
+@media (max-width: 860px) { .dwie { grid-template-columns: 1fr; } .dwie-l { position: static; } }
+.linie { list-style: none; margin: 0; padding: 0; }
+.linie li { display: grid; grid-template-columns: 4.4rem 1fr; gap: 1rem; align-items: baseline; padding: 1.1rem .6rem; border-bottom: 1px solid var(--kreska); font-size: 1.08rem; font-weight: 500; transition: background .3s, padding-left .3s var(--ease); }
+.linie li:last-child { border-bottom: 0; }
+.linie li:hover { background: color-mix(in srgb, var(--kd, var(--bau)) 14%, transparent); padding-left: 1rem; }
+.linie li .mono { font-size: .74rem; color: var(--mgla); font-weight: 500; }
+.linie .ik { color: var(--ok-ik); }
+.uslugi { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: clamp(18px, 2vw, 26px); }
+.usluga { padding: clamp(24px, 3vw, 36px); display: grid; gap: .8rem; align-content: start; transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
+.usluga::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--kd); }
+.usluga:hover { transform: translate(-5px, -5px); box-shadow: 10px 10px 0 var(--kd); }
+.usluga .znacznik { width: 52px; height: 52px; margin: .4rem 0 .6rem; }
+.usluga p { color: var(--mgla); margin: 0; }
+.uwaga { margin-top: 2.4rem; padding: 1.3rem 1.5rem; background: var(--t1); border: 1px solid var(--kreska); border-left: 8px solid var(--akcent); display: flex; gap: 1.1rem; align-items: flex-start; }
+.trojkat { width: 34px; height: 30px; flex: none; clip-path: polygon(50% 0, 100% 100%, 0 100%); background: var(--bau); color: var(--tk); display: grid; place-items: end center; font: 800 1.05rem/1 var(--disp); padding-bottom: 3px; }
+.uwaga .mono { font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; color: var(--akcent); font-weight: 500; }
+.uwaga p { margin: .2rem 0 0; }
+.indeks { border-bottom: 1px solid var(--kreska); }
+.indeks-wiersz { display: grid; grid-template-columns: auto minmax(0, 1.1fr) minmax(0, 1.6fr) 3rem; gap: 1.4rem; align-items: center; padding: 1.4rem 1.2rem; border-top: 1px solid var(--kreska); text-decoration: none; transition: background .3s, color .3s; }
+.indeks-wiersz:hover { background: var(--kd); color: var(--tk); }
+.indeks-wiersz:hover .znacznik { --zn-tusz: var(--tk); --zn-tlo: rgba(255, 255, 255, .55); }
+.i-tyt { font: 850 clamp(1.2rem, 2.2vw, 1.9rem)/1.05 var(--disp); font-stretch: 120%; text-transform: uppercase; }
+.i-op { color: var(--mgla); font-size: .98rem; } .indeks-wiersz:hover .i-op { color: var(--tk); }
+.i-strz .ik { width: 26px; height: 26px; }
+@media (max-width: 760px) { .indeks-wiersz { grid-template-columns: auto 1fr 2rem; } .i-op { grid-column: 2 / -1; } .i-strz { grid-row: 1; grid-column: 3; } }
+.tekst p { color: inherit; }
+
+/* pakiety (na arkuszu) */
+.pakiety-tab { margin-top: 2.6rem; overflow-x: auto; }
+.pakiety-tab table { width: 100%; border-collapse: collapse; min-width: 760px; }
+.pakiety-tab th, .pakiety-tab td { padding: .9rem 1.1rem; border-bottom: 1px solid var(--kreska-2); border-right: 1px solid var(--kreska-2); text-align: center; font-size: .96rem; }
+.pakiety-tab th:last-child, .pakiety-tab td:last-child { border-right: 0; }
+.pakiety-tab thead th { vertical-align: bottom; padding-top: 1.6rem; padding-bottom: 1.2rem; border-bottom: 1.5px solid var(--krem); }
+.pakiety-tab thead th:first-child, .pakiety-tab tbody th { text-align: left; font-weight: 500; }
+.pakiety-tab thead th:first-child { font: 400 .7rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mgla); }
+.p-nazwa { display: block; font: 880 1.25rem/1.05 var(--disp); font-stretch: 120%; text-transform: uppercase; }
+.p-pod { display: block; font-size: .84rem; color: var(--mgla); font-weight: 500; margin-top: .3rem; }
+.pakiety-tab .wyr { background: color-mix(in srgb, var(--immo) 9%, transparent); }
+.pakiety-tab thead .wyr { box-shadow: inset 0 6px 0 var(--immo); }
+.pakiety-tab .tak { color: var(--ok-ik); }
+.pakiety-tab .tak .ik { width: 1.3em; height: 1.3em; stroke-width: 2.6; }
+.pakiety-tab .nie { color: var(--kreska-m); }
+.pakiety-tab tr.pozniej th, .pakiety-tab tr.pozniej td { color: var(--mgla); font-style: italic; font-size: .9rem; }
+.pakiety-tab tfoot td { border-bottom: 0; padding: 1.5rem 1rem; }
+.pakiety-mob { display: none; }
+@media (max-width: 820px) {
+  .pakiety-tab { display: none; }
+  .pakiety-mob { display: grid; gap: 1.4rem; margin-top: 2rem; }
+  .pk { padding: 1.8rem 1.4rem; }
+  .pk.wyr { box-shadow: inset 0 8px 0 var(--immo), var(--ark-cien); }
+  .pk h3 { font-size: 1.6rem; }
+  .pk .linie { margin: 1.2rem 0 1.6rem; }
+  .pk .linie li { font-size: .96rem; padding: .7rem .2rem; grid-template-columns: 2rem 1fr; }
+}
+
+/* zakładki Baumaterial | Fenster nad formularzem zamówienia (fenster.css nadpisane pod ten wygląd) */
+main .zam-zakladki { max-width: min(100% - 2 * var(--pad), 920px); padding: 0; margin: clamp(40px, 6vw, 80px) auto calc(-1 * clamp(40px, 6vw, 80px) + 9px); position: relative; z-index: 2; }
+main .zam-zakladki a { border: 1.5px solid var(--kreska-m); border-bottom: 0; border-radius: 0; background: var(--t1); color: var(--mgla); opacity: 1; font: 700 1rem/1 var(--disp-2); letter-spacing: .06em; text-transform: uppercase; padding: 1rem 1.2rem; }
+main .zam-zakladki a + a { margin-left: 6px; }
+main .zam-zakladki a[aria-current] { background: var(--ark); color: var(--tusz); border-color: var(--tusz); box-shadow: inset 0 5px 0 var(--bau); }
+
+/* ---------------------------------------------------------------- formularze, konto, zamówienie: jasny arkusz (w obu motywach jasny, pola białe) */
+.sekcja {
+  --atrament: var(--tusz); --zielen: #0d3f33; --zielen-2: #145445; --miedz: #b8622b; --miedz-2: #9c5020;
+  --papier: var(--ark-3); --papier-2: #e5e3da; --bialy: var(--ark-2); --linia: var(--ark-linia-m); --linia-2: var(--ark-linia); --szary: var(--tusz-2);
+  --blad: #a8321f; --ok: #2d6b3c;
+  --t0: var(--ark); --t1: var(--ark-2); --t2: var(--ark-3); --krem: var(--tusz); --mgla: var(--tusz-2); --kreska: var(--ark-linia); --kreska-2: var(--ark-linia-2); --kreska-m: rgba(21, 32, 28, .55);
+  position: relative; width: min(100% - 2 * var(--pad), 920px); margin: clamp(40px, 6vw, 80px) auto var(--sek); padding: clamp(28px, 5vw, 64px); background: var(--ark); color: var(--atrament); border: 1.5px solid var(--tusz); outline: 1px solid var(--ark-obrys); outline-offset: 6px; box-shadow: var(--ark-cien); color-scheme: light;
+}
+.sekcja::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px; background: linear-gradient(90deg, var(--immo) 0 40%, var(--bau) 40% 70%, var(--netz) 70% 90%, var(--dig) 90%); }
+.sekcja.waziutka { width: min(100% - 2 * var(--pad), 520px); }
+.sekcja h1, .sekcja h2, .sekcja h3 { color: var(--atrament); }
+.sekcja h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1.4rem; }
+.sekcja h2 { font-size: clamp(1.1rem, 1.8vw, 1.35rem); margin: 2.4rem 0 1rem; }
+.sekcja a:not(.przycisk):not(.btn) { color: var(--zielen); text-underline-offset: 3px; }
+.sekcja .przycisk { background: var(--atrament); color: var(--ark); border-color: var(--atrament); box-shadow: 0 0 0 var(--akcent); }
+.sekcja .przycisk:hover { box-shadow: 6px 6px 0 var(--akcent); }
+.sekcja .przycisk.drugi { background: transparent; color: var(--atrament); }
+.sekcja .przycisk.google { background: var(--pole-tlo); color: #222; border-color: var(--linia); text-transform: none; font-stretch: 100%; letter-spacing: 0; font-weight: 600; font-size: .95rem; font-family: var(--sans); }
+.sekcja .link { background: none; border: 0; color: var(--zielen); font: 600 .9rem var(--sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: .4rem 0; }
+.sekcja .blok { background: var(--bialy); }
+.sekcja .rodzaj b { font-family: var(--disp-2); font-weight: 700; text-transform: uppercase; font-size: 1.15rem; letter-spacing: .03em; }
+.sekcja .rodzaj input:checked + span::before { height: 6px; }
+.sekcja .numer { font-family: var(--mono); }
+.uwaga-robocza { margin-bottom: 1.4rem; }
+.przycisk.duzy { width: 100%; padding: 1.3rem; margin-top: 1.4rem; font-size: .92rem; }
+.przycisk[disabled] { opacity: .6; cursor: wait; }
+.potwierdzenie { text-align: center; }
+.blok { background: var(--bialy); border: 1px solid var(--linia); padding: clamp(20px, 3vw, 36px); margin-bottom: 1.2rem; }
+.blok h2 { font-size: 1.35rem; margin: 0 0 1.2rem; }
+.blok-gora { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.blok-gora h1, .blok-gora h2 { margin-bottom: 1rem; }
+.pole { display: block; margin-bottom: 1.1rem; }
+.pole > span, .tematy legend { display: block; font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--szary); margin-bottom: .45rem; }
+input, textarea, select { width: 100%; font: 500 1rem/1.4 var(--sans); color: var(--atrament); padding: .85rem .95rem; border: 1px solid var(--linia); border-radius: var(--r); background: var(--pole-tlo); transition: border-color .2s, box-shadow .2s; }
+input:hover, textarea:hover, select:hover { border-color: var(--tusz-2); }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--zielen); box-shadow: 0 0 0 3px rgba(13, 63, 51, .12); }
+textarea { resize: vertical; }
+.siatka { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+@media (max-width: 600px) { .siatka { grid-template-columns: 1fr; } }
+.rodzaje { border: 0; padding: 0; margin: 0 0 1.4rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--linia); background: var(--bialy); }
+@media (max-width: 760px) { .rodzaje { grid-template-columns: 1fr; } }
+.rodzaj { cursor: pointer; position: relative; }
+.rodzaj + .rodzaj { border-left: 1px solid var(--linia); }
+@media (max-width: 760px) { .rodzaj + .rodzaj { border-left: 0; border-top: 1px solid var(--linia); } }
+.rodzaj input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.rodzaj span { display: block; padding: 1.4rem 1.4rem 1.5rem; height: 100%; position: relative; transition: background .2s; }
+.rodzaj span::before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: transparent; }
+.rodzaj b { display: block; font-family: var(--disp); font-size: 1.2rem; font-weight: 500; margin-bottom: .4rem; }
+.rodzaj small { color: var(--szary); font-size: .87rem; line-height: 1.5; display: block; }
+.rodzaj input:checked + span { background: var(--papier); }
+.rodzaj input:checked + span::before { background: var(--bau); }
+.rodzaj input:focus-visible + span { outline: 2px solid var(--miedz); outline-offset: -2px; }
+.tabela-wpis { width: 100%; border-collapse: collapse; margin-bottom: .8rem; }
+.tabela-wpis th { text-align: left; font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--szary); font-weight: 400; padding: 0 .35rem .4rem; }
+.tabela-wpis td { padding: .25rem .35rem; }
+.tabela-wpis td:nth-child(2) { width: 7rem; } .tabela-wpis td:nth-child(3) { width: 8rem; } .tabela-wpis td:nth-child(4) { width: 2.4rem; }
+.tabela-wpis input, .tabela-wpis select { padding: .65rem .7rem; }
+.usun { background: none; border: 0; color: var(--szary); font-size: 1.4rem; cursor: pointer; line-height: 1; }
+.usun:hover { color: var(--blad); }
+@media (max-width: 600px) {
+  .tabela-wpis thead { display: none; }
+  .tabela-wpis tr { display: grid; grid-template-columns: 1fr 6rem 7rem 2rem; border-bottom: 1px solid var(--linia-2); padding: .4rem 0; }
+  .tabela-wpis td:first-child { grid-column: 1 / -1; }
+  .tabela-wpis td { width: auto !important; }
+  .tabela-wpis tr { grid-template-columns: 1fr 5rem 6rem 2rem; }
+}
+.upuszcz { display: block; border: 1px dashed var(--linia); padding: 2rem 1.4rem; text-align: center; color: var(--szary); cursor: pointer; background: var(--papier); transition: border-color .2s, background .2s; }
+.upuszcz.nad { border-color: var(--zielen); background: #efe7d8; }
+.upuszcz input { display: block; margin: 0 auto .8rem; max-width: 100%; border: 0; padding: 0; background: transparent; }
+.lista-plikow { list-style: none; padding: 0; margin: .8rem 0 0; }
+.lista-plikow li { padding: .6rem .8rem; border-bottom: 1px solid var(--linia-2); font-size: .92rem; font-family: var(--mono); overflow-wrap: anywhere; }
+.zgoda { display: flex; gap: .7rem; align-items: flex-start; font-size: .92rem; margin: 1rem 0; color: var(--szary); }
+.zgoda input { width: auto; margin-top: .3rem; accent-color: var(--zielen); }
+.blad { border-left: 3px solid var(--blad); background: #faeeea; color: var(--blad); padding: .9rem 1.1rem; }
+.info { border-left: 3px solid var(--zielen); background: var(--papier); padding: .9rem 1.1rem; }
+.info.ok { border-left-color: var(--ok); color: var(--ok); }
+.komunikat { border-left: 3px solid var(--miedz); background: var(--papier); padding: 1rem 1.2rem; display: flex; gap: .8rem; }
+.lub { text-align: center; color: var(--szary); position: relative; margin: 1.4rem 0; font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; }
+.lub::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--linia); }
+.lub span { background: var(--ark); padding: 0 1rem; position: relative; }
+.przypis { color: var(--szary); font-size: .9rem; margin-top: 1.4rem; }
+.tematy { border: 0; padding: 0; margin: 0 0 1.4rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+.temat { position: relative; }
+.temat input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.temat span { display: inline-block; padding: .6rem 1rem; border: 1px solid var(--linia); cursor: pointer; font-size: .92rem; font-weight: 500; background: var(--pole-tlo); transition: border-color .2s, background .2s; }
+.temat input:checked + span { border-color: var(--atrament); background: var(--papier); box-shadow: inset 0 -3px 0 var(--kd); }
+.temat input:focus-visible + span { outline: 2px solid var(--miedz); }
+
+.ok-ik { width: 64px; height: 64px; border: 1px solid var(--ok); color: var(--ok); display: grid; place-items: center; margin: 0 auto 1.6rem; border-radius: 50%; }
+.ok-ik .ik { width: 28px; height: 28px; }
+.numery { display: grid; grid-template-columns: 1fr 1fr; margin: 2.4rem auto; max-width: 640px; border: 1px solid var(--linia); }
+.numery div { padding: 1.4rem; background: var(--bialy); }
+.numery div + div { border-left: 1px solid var(--linia); }
+.numery span { display: block; font-family: var(--mono); font-size: .7rem; color: var(--szary); text-transform: uppercase; letter-spacing: .12em; margin-bottom: .4rem; }
+.numer { font-family: var(--mono); font-weight: 500; font-size: 1.4rem; letter-spacing: .04em; color: var(--atrament); }
+td .numer { font-size: .95rem; }
+@media (max-width: 560px) { .numery { grid-template-columns: 1fr; } .numery div + div { border-left: 0; border-top: 1px solid var(--linia); } }
+.karta-zam { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--linia); margin-bottom: 2rem; background: var(--bialy); }
+.karta-zam div { padding: 1.2rem; }
+.karta-zam div + div { border-left: 1px solid var(--linia-2); }
+.karta-zam span { display: block; font-family: var(--mono); font-size: .68rem; color: var(--szary); text-transform: uppercase; letter-spacing: .12em; margin-bottom: .35rem; }
+@media (max-width: 700px) { .karta-zam { grid-template-columns: 1fr 1fr; } .karta-zam div:nth-child(3) { border-left: 0; } .karta-zam div:nth-child(n + 3) { border-top: 1px solid var(--linia-2); } }
+.status { font-family: var(--mono); font-size: .78rem; letter-spacing: .04em; padding: .2rem .55rem; border: 1px solid var(--linia); background: var(--papier); display: inline-block; font-weight: 500; }
+.s-zaakceptowane, .s-zamowione, .s-dostarczone { border-color: #9cc3a6; color: var(--ok); background: #eef5ef; }
+.s-oferta_wyslana, .s-ceny_otrzymane { border-color: #e2b98e; color: var(--miedz-2); background: #faf1e6; }
+.s-odrzucone, .s-anulowane { border-color: #e2a99d; color: var(--blad); background: #faeeea; }
+.tabela { width: 100%; border-collapse: collapse; font-size: .95rem; background: var(--bialy); border: 1px solid var(--linia); display: block; overflow-x: auto; }
+.tabela thead, .tabela tbody, .tabela tfoot { display: table; width: 100%; }
+.tabela th, .tabela td { padding: .85rem 1rem; border-bottom: 1px solid var(--linia-2); text-align: left; }
+.tabela th { font-family: var(--mono); font-size: .68rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--szary); border-bottom-color: var(--atrament); }
+.tabela .l { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tabela tfoot td { font-weight: 600; }
+
+/* ---------------------------------------------------------------- stopka: ciemna tabliczka rysunkowa + wielki napis konturowy */
+.stopka { background: var(--t-glebia); color: var(--mgla); font-size: .93rem; overflow: hidden; padding-top: clamp(56px, 7vw, 96px); }
+.stopka-in { max-width: var(--szer); margin: 0 auto; padding: 0 var(--pad); }
+.sf { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1.15fr; border: 1.5px solid var(--kreska-m); outline: 1px solid var(--kreska); outline-offset: 6px; background: var(--t0); }
+.sf > div { padding: 1.5rem 1.3rem; border-right: 1px solid var(--kreska); min-width: 0; }
+.sf > div:nth-child(5) { border-right: 0; }
+.sf-marka p { margin: 1.2rem 0 0; color: var(--krem); opacity: .82; font-size: .95rem; max-width: 34ch; }
+.sf-marka .mono { font-size: .68rem; letter-spacing: .12em; color: var(--mgla); opacity: 1; margin-top: .8rem; }
+.sf h4 { font: 400 .68rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mgla); margin: 0 0 1.2rem; }
+.sf ul { list-style: none; margin: 0; padding: 0; }
+.sf li { margin-bottom: .6rem; }
+.sf ul a { color: var(--krem); text-decoration: none; font-weight: 500; display: inline-flex; gap: .55rem; align-items: baseline; }
+.sf ul a .mono { font-size: .66rem; color: var(--kd, var(--mgla)); }
+.sf ul a:hover { text-decoration: underline; text-decoration-color: var(--akcent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.sf-adres { font-size: .95rem; line-height: 1.6; color: var(--krem); }
+.sf-adres .mono { display: block; font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mgla); margin-bottom: 1rem; }
+.sf-dol { grid-column: 1 / -1; border-right: 0 !important; border-top: 1.5px solid var(--kreska-m); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .6rem 1.4rem; font-size: .82rem; padding: .9rem 1.3rem !important; }
+.sf-dol .mono { font-size: .72rem; }
+.stopka-wielki { margin: clamp(32px, 4vw, 56px) 0 0; padding: 0 var(--pad); font: 900 clamp(4rem, 19vw, 18rem)/.8 var(--disp); font-stretch: 125%; letter-spacing: -.02em; color: transparent; -webkit-text-stroke: 1.5px var(--kontur-2); white-space: nowrap; user-select: none; }
+@media (max-width: 960px) { .sf { grid-template-columns: 1fr 1fr 1fr; } .sf-marka { grid-column: 1 / -1; border-right: 0 !important; border-bottom: 1px solid var(--kreska); } .sf > div:nth-child(4) { border-right: 0; } .sf-adres { grid-column: 1 / -1; border-top: 1px solid var(--kreska); } }
+@media (max-width: 560px) { .sf { grid-template-columns: 1fr; } .sf > div { border-right: 0 !important; border-bottom: 1px solid var(--kreska); } .sf-dol { border-bottom: 0; } }
+
+/* ---------------------------------------------------------------- RUCH (tylko gdy JS i bez „ogranicz ruch") */
+@keyframes wiersz { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes wejscie { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes belka-x { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes belka-y { from { transform: scaleY(0); } to { transform: none; } }
+@keyframes kresl { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pulsk { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.8); opacity: 0; } }
+@keyframes unos { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.ruch .wiersz > span { animation: wiersz 1s var(--ease-ostry) both; }
+.ruch .wiersz + .wiersz > span { animation-delay: .14s; }
+.ruch .wejscie { animation: wejscie .9s var(--ease) both; animation-delay: calc(.25s + var(--o, 0) * .1s); }
+.ruch .hr-bau, .ruch .hr-dig { animation: belka-x 1.1s var(--ease-ostry) both; }
+.ruch .hr-immo, .ruch .hr-netz { animation: belka-y 1.1s var(--ease-ostry) both; }
+.ruch .hr-bau { animation-delay: .1s; } .ruch .hr-netz { animation-delay: .3s; } .ruch .hr-dig { animation-delay: .5s; } .ruch .hr-immo { animation-delay: .7s; }
+.ruch [data-rys] .rys { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.ruch [data-rys].rysuj .rys { animation: kresl 1.6s var(--ease) forwards; }
+.ruch [data-rys].rysuj .rys:nth-child(2) { animation-delay: .15s; } .ruch [data-rys].rysuj .rys:nth-child(3) { animation-delay: .3s; }
+.ruch [data-rys].rysuj .rys:nth-child(4) { animation-delay: .45s; } .ruch [data-rys].rysuj .rys:nth-child(5) { animation-delay: .6s; }
+.ruch [data-rys].rysuj .rys:nth-child(6) { animation-delay: .75s; } .ruch [data-rys].rysuj .rys:nth-child(7) { animation-delay: .9s; }
+.ruch [data-rys].rysuj .rys:nth-child(8) { animation-delay: 1s; } .ruch [data-rys].rysuj .rys:nth-child(9) { animation-delay: 1.1s; }
+.ruch [data-rys].rysuj .rys:nth-child(10) { animation-delay: 1.2s; } .ruch [data-rys].rysuj .rys:nth-child(n+11) { animation-delay: 1.35s; }
+.ruch .dom .dron, .ruch .dom .opisy, .ruch .dom .punkt { opacity: 0; transition: opacity .8s var(--ease) 1.6s; }
+.ruch .dom.rysuj .dron, .ruch .dom.rysuj .opisy, .ruch .dom.rysuj .punkt { opacity: 1; }
+.ruch .dom .dron { animation: unos 4s ease-in-out infinite; }
+.ruch .punkt-puls { animation: pulsk 2.2s var(--ease) infinite; }
+.ruch .punkt:nth-of-type(2) .punkt-puls { animation-delay: .5s; } .ruch .punkt:nth-of-type(3) .punkt-puls { animation-delay: 1s; } .ruch .punkt:nth-of-type(4) .punkt-puls { animation-delay: 1.5s; }
+.ruch .marker { background-size: 0 100%; }
+.ruch .marker.widoczny, .ruch .marker.gotowy { background-size: 100% 100%; }
+.ruch .marker.gotowy { transition-delay: .7s; }
+.ruch .odslon { transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.ruch .kafel.odslon { transition: opacity .9s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease); }
+.ruch .usluga.odslon { transition: opacity .9s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease); }
+.ruch .odslon.przed { opacity: 0; transform: translateY(48px); }
+.ruch .kafel.odslon.przed { opacity: 1; transform: none; }
+.ruch .kafel.odslon.przed::after { transform: scaleY(1); }
+.ruch .masskette.przed { opacity: 1; transform: none; }
+.ruch .masskette.przed::before { transform: scaleX(0); }
+.ruch .masskette li { transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: calc(.3s + var(--i) * .12s); }
+.ruch .masskette.przed li { opacity: 0; transform: translateY(14px); }
+@media (max-width: 1100px) { .ruch .masskette.przed::before { transform: scaleY(0); } }
+.ruch .stos li { transition: transform .5s var(--ease), filter .5s; }
+.ruch .stos li.pod { transform: scale(.96); filter: brightness(.86); }
+[data-przesuw] { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .tasma-tor, .puls, .punkt-puls, .dron { animation: none !important; }
+  .tasma { transform: none !important; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+@media print { .gora, .stopka, .cta-pas, .tasma, .swiatlo, .postep, .celownik, .motyw { display: none; } body { background: #fff; color: #000; } }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"RaumTreu","founder":"Jakub Mateusz Woloszczuk","address":{"@type":"PostalAddress","streetAddress":"Martin-Luther-Ring 10","postalCode":"96332","addressLocality":"Pressig","addressRegion":"Bayern","addressCountry":"DE"},"areaServed":["Pressig","Kronach","Ludwigsstadt","Sonneberg","Neustadt bei Coburg","Rödental","Coburg","Burgkunstadt","Lichtenfels","Kulmbach"],"knowsLanguage":["de","pl"]}</script>
+<script>document.addEventListener("DOMContentLoaded",function(){'use strict';
+/* v11.0.0 „Werkplan": ruch (v4 + v5) i przełącznik motywu.
+   - przełącznik ciemny/jasny (sessionStorage w try/catch), działa też przy „ogranicz ruch",
+   - pasek postępu (4 kolory ramy), nagłówek kurczy się po przewinięciu, menu pełnoekranowe na tablecie/telefonie,
+   - z v4: elementy poniżej pierwszego ekranu odsłaniają się kolejno (kafle „wycierają się"), wielkie napisy przesuwają się
+     z przewijaniem, taśma pochyla się przy szybkim przewijaniu, karty stosu przykryte kolejną cofają się,
+     światło za kursorem, połysk na kaflach,
+   - z v5: rysunki (dom, mapa) kreślą się po wejściu w widok, zakreślacz przeciąga się przez nagłówek, łańcuch wymiarowy
+     rysuje się kolejno, znaczniki 1–4 na rysunku ↔ lista pod nim, celownik CAD ze współrzędnymi w hero (mysz),
+   - to, co widać od razu, NIGDY nie jest ukryte; ruch wyłączony przy „ogranicz ruch". */
+(function () {
+  const html = document.documentElement;
+  const bezRuchu = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mysz = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const gora = document.getElementById('gora');
+  const postep = document.getElementById('postep');
+
+  // motyw ciemny / jasny
+  const motywBtn = document.getElementById('motyw');
+  function ustawMotyw(m) {
+    html.setAttribute('data-motyw', m);
+    if (motywBtn) motywBtn.setAttribute('aria-label', m === 'jasny' ? motywBtn.dataset.ciemny : motywBtn.dataset.jasny);
+    const tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) requestAnimationFrame(() => { tc.content = getComputedStyle(document.body).backgroundColor; });
+  }
+  if (motywBtn) motywBtn.addEventListener('click', () => {
+    const m = html.getAttribute('data-motyw') === 'jasny' ? 'ciemny' : 'jasny';
+    html.classList.add('motyw-zmiana'); ustawMotyw(m);
+    try { sessionStorage.setItem('rt-motyw', m); } catch (e) { /* prywatne okno */ }
+    setTimeout(() => html.classList.remove('motyw-zmiana'), 500);
+  });
+  ustawMotyw(html.getAttribute('data-motyw') || 'ciemny');
+
+  // menu
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  if (btn && menu) {
+    const ustaw = (otw) => { btn.setAttribute('aria-expanded', String(otw)); menu.classList.toggle('otwarte', otw); document.body.classList.toggle('menu-otwarte', otw); };
+    btn.addEventListener('click', () => ustaw(btn.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') ustaw(false); });
+    menu.addEventListener('click', (e) => { if (e.target.closest('a')) ustaw(false); });
+  }
+
+  // znaczniki na rysunku ↔ lista pod rysunkiem
+  const punkty = [...document.querySelectorAll('.punkt')];
+  const pozycje = [...document.querySelectorAll('.legenda-dom a')];
+  const zaznacz = (i, wl) => { if (punkty[i]) punkty[i].classList.toggle('aktywny', wl); if (pozycje[i]) pozycje[i].classList.toggle('aktywny', wl); };
+  [punkty, pozycje].forEach((lista) => lista.forEach((el, i) => {
+    el.addEventListener('pointerenter', () => zaznacz(i, true));
+    el.addEventListener('pointerleave', () => zaznacz(i, false));
+    el.addEventListener('focus', () => zaznacz(i, true));
+    el.addEventListener('blur', () => zaznacz(i, false));
+  }));
+
+  const przesuwane = [...document.querySelectorAll('[data-przesuw]')];
+  const tasma = document.querySelector('.tasma');
+  const stos = [...document.querySelectorAll('.stos li')];
+  let ostatniY = window.scrollY; let skos = 0; let tik = false;
+
+  function klatka() {
+    tik = false;
+    const y = window.scrollY; const h = window.innerHeight;
+    if (gora) gora.classList.toggle('przewiniete', y > 8);
+    if (postep) {
+      const max = document.documentElement.scrollHeight - h;
+      postep.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+    }
+    if (bezRuchu) return;
+    przesuwane.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > h + 200) return;
+      const srodek = r.top + r.height / 2 - h / 2;
+      el.style.transform = `translate3d(${(srodek * Number(el.dataset.przesuw)).toFixed(1)}px,0,0)`;
+    });
+    if (tasma) {
+      const v = Math.max(-10, Math.min(10, (y - ostatniY) * 0.25));
+      skos += (v - skos) * 0.5;
+      tasma.style.setProperty('--skos', `${(-skos).toFixed(2)}deg`);
+      clearTimeout(klatka.t); klatka.t = setTimeout(() => { skos = 0; tasma.style.setProperty('--skos', '0deg'); }, 140);
+    }
+    // karta kroku przykryta przez następną: lekko się cofa
+    stos.forEach((li, i) => {
+      const nast = stos[i + 1];
+      if (!nast) return;
+      const a = li.getBoundingClientRect(); const b = nast.getBoundingClientRect();
+      li.classList.toggle('pod', b.top - a.top < a.height * 0.55);
+    });
+    ostatniY = y;
+  }
+  window.addEventListener('scroll', () => { if (!tik) { tik = true; requestAnimationFrame(klatka); } }, { passive: true });
+  window.addEventListener('resize', () => { if (!tik) { tik = true; requestAnimationFrame(klatka); } });
+
+  if (bezRuchu) { klatka(); return; }
+  html.classList.add('ruch');
+  klatka();
+
+  const wys = window.innerHeight;
+  const widac = (el) => el.getBoundingClientRect().top < wys * 0.92;
+
+  // rysunki: kreślą się po wejściu w widok (te widoczne od razu — od razu)
+  const rysunki = [...document.querySelectorAll('[data-rys]')];
+  // zakreślacze (poza tymi w tytułach, które mają własne opóźnienie)
+  const markery = [...document.querySelectorAll('.marker:not(.gotowy)')];
+  // odsłanianie: tylko elementy, których NIE widać na starcie
+  const ukryte = [...document.querySelectorAll('.odslon')].filter((x) => !widac(x));
+  document.querySelectorAll('section').forEach((s) => {
+    let i = 0;
+    s.querySelectorAll('.odslon').forEach((x) => { if (ukryte.includes(x)) x.style.transitionDelay = `${Math.min(i++, 6) * 90}ms`; });
+  });
+
+  if (!('IntersectionObserver' in window)) {
+    rysunki.forEach((r) => r.classList.add('rysuj'));
+    markery.forEach((m) => m.classList.add('widoczny'));
+  } else {
+    ukryte.forEach((x) => x.classList.add('przed'));
+    const io = new IntersectionObserver((wpisy) => {
+      wpisy.forEach((w) => {
+        if (!w.isIntersecting) return;
+        const el = w.target;
+        if (el.matches('[data-rys]')) el.classList.add('rysuj');
+        else if (el.matches('.marker')) setTimeout(() => el.classList.add('widoczny'), 250);
+        else el.classList.remove('przed');
+        io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    ukryte.forEach((x) => io.observe(x));
+    rysunki.forEach((r) => io.observe(r));
+    markery.forEach((m) => io.observe(m));
+    // dom w hero: kreśl od razu
+    requestAnimationFrame(() => rysunki.forEach((r) => { if (widac(r)) r.classList.add('rysuj'); }));
+  }
+
+  if (!mysz) return;
+
+  // światło za kursorem
+  const swiatlo = document.querySelector('.swiatlo');
+  if (swiatlo) {
+    document.addEventListener('pointermove', (e) => {
+      swiatlo.classList.add('wl');
+      swiatlo.style.setProperty('--sx', `${e.clientX}px`);
+      swiatlo.style.setProperty('--sy', `${e.clientY}px`);
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => swiatlo.classList.remove('wl'));
+  }
+
+  // celownik CAD ze współrzędnymi w hero
+  const hero = document.getElementById('hero');
+  const cel = hero && hero.querySelector('.celownik');
+  if (cel) {
+    const ark = cel.parentElement; const wsp = cel.querySelector('.wsp');
+    ark.addEventListener('pointermove', (e) => {
+      const r = ark.getBoundingClientRect();
+      const x = e.clientX - r.left; const y = e.clientY - r.top;
+      cel.classList.add('wl');
+      cel.style.setProperty('--x', `${x}px`); cel.style.setProperty('--y', `${y}px`);
+      wsp.textContent = `X ${(x / 10).toFixed(1)}  Y ${(y / 10).toFixed(1)}`;
+    });
+    ark.addEventListener('pointerleave', () => cel.classList.remove('wl'));
+  }
+
+  // połysk na kaflach
+  document.querySelectorAll('.kafel').forEach((k) => {
+    k.addEventListener('pointermove', (e) => {
+      const r = k.getBoundingClientRect();
+      k.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      k.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
+})();
+});</script>
+</head>
+<body>
+<a class="pomin" href="#tresc">Zum Inhalt</a>
+<div class="swiatlo" aria-hidden="true"></div>
+<div class="postep" aria-hidden="true"><i id="postep"></i></div>
+<header class="gora" id="gora">
+  <div class="gora-in">
+    <a class="marka " href="v11.0.0-de-index.html" aria-label="RaumTreu – Start"><svg class="znak " viewBox="-4 -4 108 108" width="34" height="34" aria-hidden="true">
+  <path class="cz cz-immo" fill="#ee5234" d="M0 34 H12 V88 H22 L10 100 H4 Q0 100 0 96 Z"/>
+  <path class="cz cz-dig" fill="#15a1af" d="M30 88 H57 V100 H18 Z"/>
+  <path class="cz cz-bau" fill="#eaa312" d="M50 0 H96 Q100 0 100 4 V26 H88 V12 H62 Z"/>
+  <path class="cz cz-netz" fill="#be652d" d="M88 55 H100 V96 Q100 100 96 100 H81 V88 H88 Z"/>
+  <path class="cz cz-r" fill="currentColor" d="M0 26 V4 Q0 0 4 0 H30 A18 26 0 0 1 30 52 L50 80 H37 L18 52 V40 H30 A8 14 0 0 0 30 12 H12 V26 Z"/>
+  <path class="cz cz-t" fill="currentColor" d="M55 34 H100 V45 H76 V100 H64 V45 H52 Z"/>
+</svg><span class="wm">RAUM<b>TREU</b></span></a>
+    <nav class="menu" id="menu" aria-label="Menü">
+      <ul class="menu-lista"><li><a href="v11.0.0-de-immobilien.html" style="--kd:#ee5234"><span class="menu-nr">01</span><span class="menu-t">Immobilien</span></a></li><li><a href="v11.0.0-de-baumaterialien.html" aria-current="page" style="--kd:#eaa312"><span class="menu-nr">02</span><span class="menu-t">Baumaterialien</span></a></li><li><a href="v11.0.0-de-baunetzwerk.html" style="--kd:#be652d"><span class="menu-nr">03</span><span class="menu-t">BauNetzwerk</span></a></li><li><a href="v11.0.0-de-digitalisierung.html" style="--kd:#15a1af"><span class="menu-nr">04</span><span class="menu-t">Digitalisierung</span></a></li><li><a href="v11.0.0-de-ueber-uns.html"><span class="menu-nr"></span><span class="menu-t">Über uns</span></a></li></ul>
+      <div class="menu-akcje">
+        <a class="link-konto" href="v11.0.0-de-anmelden.html">Anmelden</a>
+        <button class="motyw" id="motyw" type="button" data-ciemny="Dunkles Design" data-jasny="Helles Design" aria-label="Helles Design"><svg class="ik" viewBox="0 0 24 24" aria-hidden="true"><g class="m-slonce"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></g><path class="m-ksiezyc" d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></button>
+        <a class="jezyk" href="v11.0.0-pl-fenster.html" hreflang="pl" aria-label="Polski">PL</a>
+        <a class="btn btn-maly" href="v11.0.0-de-kontakt.html">Kontakt</a>
+      </div>
+    </nav>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu"><span class="ukryj-tekst">Menü</span><i></i><i></i></button>
+  </div>
+</header>
+<main id="tresc"><style>/* Konfigurator okien RaumTreu — style wspólne dla wszystkich wersji wyglądu (działają wewnątrz .sekcja / .blok) */
+.fk { --fk-tlo: #f3f4f2; --fk-linia: #d6d8d4; --fk-tekst: #1c1f1d; --fk-szary: #5d635f; --fk-akcent: #0d3f33; --fk-niebo: #e9eef2; }
+.fk-uklad { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(16px, 2.4vw, 32px); align-items: start; }
+@media (max-width: 860px) { .fk-uklad { grid-template-columns: 1fr; } .fk-podglad { position: static !important; } }
+
+/* --- podgląd */
+.fk-podglad { position: sticky; top: 90px; background: var(--fk-tlo); border: 1px solid var(--fk-linia); border-radius: 14px; padding: 14px; color: var(--fk-tekst); }
+.fk-widok { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.fk-widok button { font: 600 .8rem/1 inherit; font-family: inherit; letter-spacing: .04em; padding: .6rem .9rem; border-radius: 999px; border: 1px solid var(--fk-linia); background: #fff; color: var(--fk-tekst); cursor: pointer; }
+.fk-widok button.aktywny { background: var(--fk-akcent); color: #fff; border-color: var(--fk-akcent); }
+.fk-scena { position: relative; height: 380px; perspective: 1100px; overflow: hidden; border-radius: 10px; cursor: grab; touch-action: none; user-select: none;
+  background: linear-gradient(180deg, #dfe7ee 0%, #eef2f5 55%, #d9d6cf 55.2%, #cfcbc2 100%); }
+.fk-scena:active { cursor: grabbing; }
+.fk-okno { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; margin-left: calc(var(--w) / -2); will-change: transform; }
+.fk-rama, .fk-skrzydlo-grupa, .fk-skrzydlo, .fk-box, .fk-szyba { position: absolute; transform-style: preserve-3d; }
+.fk-rama { inset: 0; }
+.fk-skrzydlo { left: 0; top: 0; transition: none; }
+.fk-f { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: visible; }
+.fk-szyba { background: linear-gradient(160deg, rgba(190, 225, 240, .55) 0%, rgba(225, 240, 248, .35) 40%, rgba(160, 200, 220, .5) 100%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5); }
+.fk-tafla { position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255, 255, 255, .55) 0 18%, transparent 18% 22%, rgba(255, 255, 255, .25) 22% 30%, transparent 30%); }
+.fk-klamka { position: absolute; width: 10px; height: 10px; transform-style: preserve-3d; }
+.fk-klamka i { position: absolute; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #c9c9c9; box-shadow: 0 0 0 1px #8b8b8b; }
+.fk-klamka b { position: absolute; left: 3px; top: 8px; width: 5px; height: 34px; border-radius: 3px; background: linear-gradient(90deg, #e6e6e6, #a9a9a9); box-shadow: 0 1px 2px rgba(0, 0, 0, .3); transform: translateZ(4px); }
+.fk-pancerz { position: absolute; top: 0; height: 0; transition: none; box-shadow: 0 3px 6px rgba(0, 0, 0, .35); }
+.fk-podpis { font-size: .74rem; color: var(--fk-szary); margin: 8px 0 0; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.fk-anim { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; align-items: center; }
+.fk-anim button { font: 600 .78rem/1 inherit; font-family: inherit; padding: .6rem .8rem; border-radius: 8px; border: 1px solid var(--fk-linia); background: #fff; color: var(--fk-tekst); cursor: pointer; }
+.fk-anim button:disabled { opacity: .4; cursor: default; }
+.fk-anim label { font-size: .78rem; color: var(--fk-szary); display: inline-flex; gap: 6px; align-items: center; margin-left: auto; }
+.fk-anim label input { width: auto; }
+.fk-przekroj-wrap { background: #fff; border-radius: 10px; padding: 10px; }
+.fk-przekroj svg { width: 100%; height: auto; display: block; font-family: inherit; }
+.fk-et { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; fill: #555; }
+.fk-et2 { font-size: 10px; fill: #333; }
+.fk-et3 { font-size: 8px; fill: #2a7ea6; font-weight: 600; }
+.fk-os { stroke: #999; stroke-dasharray: 4 4; }
+
+/* --- pola */
+.fk-pola .fk-grupa { margin-bottom: 1.1rem; }
+.fk-pola { color: var(--fk-tekst); }
+.fk-pola .fk-grupa > span { display: block; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--fk-szary); margin-bottom: .45rem; }
+.fk-opcje { display: flex; flex-wrap: wrap; gap: 6px; }
+.fk-opcje label { position: relative; }
+.fk-opcje input { position: absolute; opacity: 0; width: 1px; height: 1px; left: 0; top: 0; }
+.fk-opcje span { display: inline-flex; align-items: center; gap: 6px; padding: .6rem .9rem; border: 1px solid var(--fk-linia); border-radius: 8px; background: #fff; cursor: pointer; font-size: .92rem; transition: border-color .2s, background .2s; }
+.fk-opcje input:checked + span { border-color: var(--fk-akcent); background: var(--fk-akcent); color: #fff; }
+.fk-opcje input:focus-visible + span { outline: 2px solid var(--fk-akcent); outline-offset: 2px; }
+.fk-opcje svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+.fk-dwa { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fk-farby { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fk-farby label > span { display: block; font-size: .78rem; color: var(--fk-szary); margin-bottom: .3rem; }
+.fk-farby select { width: 100%; }
+.fk-probka { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, .25); vertical-align: -2px; margin-right: 6px; }
+.fk-szybkie { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.fk-szybkie button { font-size: .78rem; font-family: inherit; padding: .45rem .7rem; border-radius: 999px; border: 1px solid var(--fk-linia); background: #fff; color: var(--fk-tekst); cursor: pointer; }
+.fk-przelacznik { color: var(--fk-tekst); display: flex; align-items: center; gap: 10px; padding: .7rem .9rem; border: 1px solid var(--fk-linia); border-radius: 8px; background: #fff; cursor: pointer; }
+.fk-przelacznik input { width: auto; accent-color: var(--fk-akcent); }
+.fk-opis { font-size: .9rem; color: var(--fk-szary); margin: .6rem 0 0; min-height: 2.6em; }
+.fk-dodaj-rzad { display: flex; gap: 10px; align-items: end; margin-top: .6rem; flex-wrap: wrap; }
+.fk-dodaj-rzad label { flex: 0 0 110px; }
+.fk-dodaj-rzad .przycisk { flex: 1; }
+
+/* --- lista pozycji */
+.fk-lista { list-style: none; padding: 0; margin: .4rem 0 0; }
+.fk-lista li { display: grid; grid-template-columns: 2rem 1fr auto 2rem; gap: 8px; align-items: center; padding: .6rem .4rem; border-bottom: 1px solid var(--fk-linia); font-size: .92rem; }
+.fk-lista li.nowa { animation: fk-wejscie .8s ease; }
+@keyframes fk-wejscie { from { background: rgba(13, 63, 51, .12); } to { background: transparent; } }
+.fk-nr { font-weight: 700; color: var(--fk-szary); }
+.fk-pil { white-space: nowrap; font-weight: 600; }
+.fk-pusto { color: var(--fk-szary); font-size: .9rem; }
+.fk-razem { font-weight: 600; margin-top: .5rem; }
+.fk-info { font-size: .85rem; color: var(--fk-szary); }
+
+/* zakładki Material / Fenster nad formularzem */
+.zam-zakladki { display: flex; gap: 0; max-width: calc(860px + 2 * var(--pad, 24px)); margin: 0 auto -1px; padding: 0 var(--pad, 24px); }
+.zam-zakladki a { flex: 1; text-align: center; text-decoration: none; padding: 1rem 1.2rem; font-weight: 600; border: 1px solid var(--fk-linia, #d6d8d4); border-bottom: 0; border-radius: 10px 10px 0 0; background: rgba(255, 255, 255, .7); color: #1c1f1d; opacity: .8; }
+.zam-zakladki a[aria-current] { opacity: 1; background: #fff; color: #1c1f1d; box-shadow: inset 0 3px 0 var(--bau, #eaa312); }
+.zam-zakladki a + a { margin-left: 6px; }
+@media (prefers-reduced-motion: reduce) { .fk-lista li.nowa { animation: none; } }
+</style>
+<nav class="zam-zakladki" aria-label="Baumaterial / Fenster &amp; Balkontüren">
+  <a href="v11.0.0-de-bestellen.html">Baumaterial</a>
+  <a href="v11.0.0-de-fenster.html" aria-current="page">Fenster &amp; Balkontüren</a>
+</nav>
+<section class="sekcja waska fk" id="fenster-konf" data-jez="de" data-teksty='{&quot;querschnitt&quot;:&quot;Querschnitt Rahmen und Verglasung&quot;,&quot;aussen&quot;:&quot;Außen&quot;,&quot;innen&quot;:&quot;Innen&quot;,&quot;stahl&quot;:&quot;Stahl&quot;,&quot;zweifach&quot;:&quot;2-fach-Verglasung&quot;,&quot;dreifach&quot;:&quot;3-fach-Verglasung&quot;,&quot;mat&quot;:{&quot;pvc&quot;:&quot;Kunststoff&quot;,&quot;holz&quot;:&quot;Holz&quot;,&quot;alu&quot;:&quot;Aluminium&quot;},&quot;uw&quot;:{&quot;2&quot;:&quot;Ug ca. 1,1&quot;,&quot;3&quot;:&quot;Ug ca. 0,6&quot;},&quot;farbe&quot;:{&quot;weiss&quot;:&quot;Weiß&quot;,&quot;anthrazit&quot;:&quot;Anthrazit (RAL 7016)&quot;,&quot;golden_oak&quot;:&quot;Golden Oak&quot;,&quot;nussbaum&quot;:&quot;Nussbaum&quot;,&quot;grau&quot;:&quot;Grau (RAL 7001)&quot;,&quot;dunkelgruen&quot;:&quot;Dunkelgrün (RAL 6009)&quot;},&quot;opis&quot;:{&quot;typ&quot;:{&quot;fenster&quot;:&quot;Fenster&quot;,&quot;balkontuer&quot;:&quot;Balkontür&quot;},&quot;fluegelig&quot;:&quot;flügelig&quot;,&quot;mat&quot;:{&quot;pvc&quot;:&quot;Kunststoff&quot;,&quot;holz&quot;:&quot;Holz&quot;,&quot;alu&quot;:&quot;Aluminium&quot;},&quot;glas&quot;:{&quot;2&quot;:&quot;2-fach-Verglasung&quot;,&quot;3&quot;:&quot;3-fach-Verglasung&quot;},&quot;oeffnung&quot;:{&quot;fest&quot;:&quot;Festverglasung&quot;,&quot;dreh&quot;:&quot;Dreh&quot;,&quot;dk&quot;:&quot;Dreh-Kipp&quot;,&quot;kipp&quot;:&quot;Kipp&quot;},&quot;anschlag&quot;:{&quot;links&quot;:&quot;DIN links&quot;,&quot;rechts&quot;:&quot;DIN rechts&quot;},&quot;farbe_ein&quot;:&quot;Farbe&quot;,&quot;innen&quot;:&quot;innen&quot;,&quot;aussen&quot;:&quot;außen&quot;,&quot;rollladen&quot;:&quot;Aufsatzrollladen&quot;},&quot;stk&quot;:&quot;Stk&quot;,&quot;positionen&quot;:&quot;Positionen&quot;,&quot;leer&quot;:&quot;Bitte fügen Sie mindestens eine Position hinzu.&quot;}'>
+<h1>Fenster anfragen</h1>
+<p class="info">Stellen Sie Ihr Fenster zusammen und sehen Sie jede Änderung sofort in 3D und im Querschnitt. Jede Anfrage bekommt eine eigene Auftragsnummer – wir holen Angebote aus Deutschland und Polen ein.</p>
+
+<form method="post" class="fk-form">
+  <div class="fk-uklad">
+    <div class="fk-podglad">
+      <div class="fk-widok" role="group"><button type="button" class="aktywny" data-widok="3d">3D-Ansicht</button><button type="button" data-widok="innen">Von innen</button><button type="button" data-widok="schnitt">Querschnitt</button></div>
+      <div class="fk-scena-wrap"><div class="fk-scena" aria-label="3D-Ansicht"><div class="fk-okno"></div></div>
+        <div class="fk-anim"><button type="button" id="fk-kipp">Kippen</button><button type="button" id="fk-dreh">Öffnen</button><button type="button" id="fk-roll">Rollladen</button><button type="button" id="fk-reset">Zurücksetzen</button><label><input type="checkbox" id="fk-auto" checked> Drehen</label></div>
+        <p class="fk-podpis"><span>Ziehen zum Drehen</span><span>Die Vorschau ist schematisch. Maße werden vor der Bestellung mit Ihnen geprüft (Aufmaß).</span></p></div>
+      <div class="fk-przekroj-wrap" hidden><div class="fk-przekroj"></div></div>
+      <p class="fk-opis" aria-live="polite"></p>
+    </div>
+    <div class="fk-pola">
+      <div class="fk-grupa"><span>Element</span><div class="fk-opcje"><label><input type="radio" name="fk_typ" value="fenster" checked><span><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 3v18M4 12h16"/></svg>Fenster</span></label><label><input type="radio" name="fk_typ" value="balkontuer"><span><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="1"/><path d="M6 15h12M9 9h1"/></svg>Balkontür</span></label></div></div>
+      <div class="fk-grupa"><span>Flügel</span><div class="fk-opcje"><label><input type="radio" name="fk_fluegel" value="1" checked><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><rect x="7" y="7" width="10" height="10"/></svg>1-flügelig</span></label><label><input type="radio" name="fk_fluegel" value="2"><span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16M5.5 6.5h5v11h-5zM13.5 6.5h5v11h-5z"/></svg>2-flügelig (Stulp)</span></label></div></div>
+      <div class="fk-grupa"><span>Maße (mm)</span><div class="fk-dwa"><label class="pole"><span>Breite</span><input type="number" id="fk_breite" min="400" max="3000" step="10" value="1200" inputmode="numeric"></label><label class="pole"><span>Höhe</span><input type="number" id="fk_hoehe" min="400" max="2600" step="10" value="1400" inputmode="numeric"></label></div></div>
+      <div class="fk-grupa"><span>Öffnungsart</span><div class="fk-opcje"><label><input type="radio" name="fk_oeffnung" value="dk" checked><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 4l12 3v10L4 20M4 20l8-13 8 13"/></svg>Dreh-Kipp</span></label><label><input type="radio" name="fk_oeffnung" value="dreh"><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 4l12 3v10L4 20"/></svg>Dreh</span></label><label><input type="radio" name="fk_oeffnung" value="kipp"><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 20l8-13 8 13"/></svg>Kipp</span></label><label><input type="radio" name="fk_oeffnung" value="fest"><span><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg>Festverglasung</span></label></div></div>
+      <div class="fk-grupa fk-anschlag"><span>Griffseite / Anschlag</span><div class="fk-opcje"><label><input type="radio" name="fk_anschlag" value="links" checked><span>DIN links</span></label><label><input type="radio" name="fk_anschlag" value="rechts"><span>DIN rechts</span></label></div></div>
+      <div class="fk-grupa"><span>Verglasung</span><div class="fk-opcje"><label><input type="radio" name="fk_glas" value="2"><span><svg viewBox="0 0 24 24"><path d="M9 3v18M15 3v18"/></svg>2-fach</span></label><label><input type="radio" name="fk_glas" value="3" checked><span><svg viewBox="0 0 24 24"><path d="M7 3v18M12 3v18M17 3v18"/></svg>3-fach</span></label></div></div>
+      <div class="fk-grupa"><span>Material</span><div class="fk-opcje"><label><input type="radio" name="fk_material" value="pvc" checked><span>Kunststoff (PVC)</span></label><label><input type="radio" name="fk_material" value="holz"><span>Holz</span></label><label><input type="radio" name="fk_material" value="alu"><span>Aluminium</span></label></div></div>
+      <div class="fk-grupa"><span>Farbe</span><div class="fk-farby"><label><span>Innen</span><select id="fk_innen" name="fk_innen"><option value="weiss" selected>Weiß</option><option value="anthrazit">Anthrazit (RAL 7016)</option><option value="golden_oak">Golden Oak</option><option value="nussbaum">Nussbaum</option><option value="grau">Grau (RAL 7001)</option><option value="dunkelgruen">Dunkelgrün (RAL 6009)</option></select></label><label><span>Außen</span><select id="fk_aussen" name="fk_aussen"><option value="weiss">Weiß</option><option value="anthrazit" selected>Anthrazit (RAL 7016)</option><option value="golden_oak">Golden Oak</option><option value="nussbaum">Nussbaum</option><option value="grau">Grau (RAL 7001)</option><option value="dunkelgruen">Dunkelgrün (RAL 6009)</option></select></label></div>
+        <div class="fk-szybkie"><button type="button" id="fk-zweifarbig">Zweifarbig: innen weiß / außen anthrazit</button><button type="button" id="fk-einfarbig">Einfarbig wie innen</button></div>
+        <p class="fk-info"><span class="fk-probka" style="background:#f4f4f1"></span>Weiß &nbsp; <span class="fk-probka" style="background:#3a3d41"></span>Anthrazit &nbsp; <span class="fk-probka" style="background:#9a6a3a"></span>Golden Oak &nbsp; <span class="fk-probka" style="background:#5a3c28"></span>Nussbaum &nbsp; <span class="fk-probka" style="background:#8a8d90"></span>Grau &nbsp; <span class="fk-probka" style="background:#2f4a3a"></span>Dunkelgrün</p></div>
+      <div class="fk-grupa"><label class="fk-przelacznik"><input type="checkbox" id="fk_rollladen"> Mit Aufsatzrollladen</label></div>
+      <div class="fk-dodaj-rzad"><label class="pole"><span>Menge</span><input type="number" id="fk_menge" min="1" max="99" value="1" inputmode="numeric"></label><button type="button" class="przycisk" id="fk-dodaj">Position hinzufügen</button></div>
+    </div>
+  </div>
+
+  <div class="blok"><h2>Ihre Fensterliste</h2>
+    <p class="fk-pusto">Noch keine Position – stellen Sie oben ein Fenster zusammen und klicken Sie „Position hinzufügen“.</p>
+    <ul class="fk-lista"></ul>
+    <p class="fk-razem"></p>
+    <input type="hidden" name="okna" id="fk-json" value="[]">
+  </div>
+
+  <div class="blok">
+    <label class="pole"><span>Hinweise (Einbauort, Fensterbank, Sonderwünsche)</span><textarea name="opis" rows="3" placeholder="z. B. Erdgeschoss Küche, Fensterbank innen gewünscht, Montage durch Partnerbetrieb anfragen"></textarea></label>
+    <label class="pole"><span>Wunsch-Lieferant oder wo suchen (optional)</span><input name="dostawca" value="" placeholder="z. B. bestimmter Großhändler, Marke oder Region – oder leer lassen: bester Preis"></label>
+  </div>
+  <div class="blok"><h2>Lieferung</h2>
+    <div class="siatka"><label class="pole"><span>PLZ *</span><input type="text" name="kod" value="" required autocomplete="postal-code"></label><label class="pole"><span>Ort *</span><input type="text" name="miasto" value="" required autocomplete="address-level2"></label></div>
+    <div class="siatka"><label class="pole"><span>Straße, Nr.</span><input type="text" name="ulica" value="" autocomplete="street-address"></label><label class="pole"><span>Gewünschter Liefertermin</span><input type="date" name="termin" value=""></label></div>
+  </div>
+  <div class="blok"><h2>Ihre Kontaktdaten</h2>
+    <p class="info">Mit einem Konto sehen Sie alle Aufträge an einem Ort. <a href="v11.0.0-de-anmelden.html">Anmelden</a></p>
+    <div class="siatka"><label class="pole"><span>Name *</span><input type="text" name="imie" value="" required autocomplete="name"></label><label class="pole"><span>Firma (optional)</span><input type="text" name="firma" value="" autocomplete="organization"></label></div>
+    <div class="siatka"><label class="pole"><span>E-Mail *</span><input type="email" name="email" value="" required autocomplete="email"></label><label class="pole"><span>Telefon</span><input type="tel" name="telefon" value="" autocomplete="tel"></label></div>
+  </div>
+  <label class="zgoda"><input type="checkbox" name="zgoda" value="1" required> <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden (siehe Datenschutz). <a href="v11.0.0-de-datenschutz.html" target="_blank">Datenschutz</a></span></label>
+  <input type="text" name="www" class="ukryj" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <p class="blad" id="blad-js" hidden></p>
+  <button class="przycisk duzy" type="submit" data-laduje="Wird gesendet …">Anfrage senden</button>
+</form>
+</section>
+<script>document.addEventListener("DOMContentLoaded",function(){'use strict';
+/* Konfigurator okien RaumTreu — podgląd na żywo (bez bibliotek).
+   - widok 3D zbudowany z płaszczyzn CSS (transform-style: preserve-3d), obrót palcem/myszą, autoobrót,
+   - animacje: uchył (Kipp), otwarcie (Dreh), opuszczanie rolety,
+   - przekrój (SVG): 2 albo 3 szyby, komory ramy, kolor wewnątrz / na zewnątrz,
+   - lista pozycji → ukryte pole JSON do formularza. */
+(function () {
+  const F = document.getElementById('fenster-konf');
+  if (!F) return;
+  const T = JSON.parse(F.dataset.teksty);
+  const jez = F.dataset.jez || 'de';
+  const KOLORY = { weiss: '#f4f4f1', anthrazit: '#3a3d41', golden_oak: '#9a6a3a', nussbaum: '#5a3c28', grau: '#8a8d90', dunkelgruen: '#2f4a3a' };
+  const bezRuchu = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ------------------------------------------------ stan */
+  const st = {
+    typ: 'fenster', fluegel: 1, breite: 1200, hoehe: 1400, oeffnung: 'dk', anschlag: 'links',
+    glas: 3, material: 'pvc', innen: 'weiss', aussen: 'anthrazit', rollladen: false, menge: 1,
+    // animacja
+    kipp: 0, dreh: 0, roll: 0, rotY: -28, rotX: 10, auto: true
+  };
+  const pozycje = [];
+
+  const $ = (s, r = F) => r.querySelector(s);
+  const $$ = (s, r = F) => [...r.querySelectorAll(s)];
+
+  /* ------------------------------------------------ widok 3D */
+  const scena = $('.fk-scena');
+  const okno = $('.fk-okno');
+  const SKALA = () => Math.min(300 / Math.max(st.breite, 600), 300 / Math.max(st.hoehe + (st.rollladen ? 220 : 0), 600));
+
+  // pudełko 3D: szerokość w, wysokość h, głębokość d; kolory: przód (zewnątrz), tył (wewnątrz), boki
+  function box(w, h, d, kol, klasa = '') {
+    const b = document.createElement('div');
+    b.className = 'fk-box ' + klasa;
+    b.style.width = w + 'px'; b.style.height = h + 'px';
+    const f = (nazwa, tr, ww, hh, kolor, x = 0, y = 0) => {
+      const e = document.createElement('i'); e.className = 'fk-f fk-' + nazwa;
+      e.style.width = ww + 'px'; e.style.height = hh + 'px'; e.style.left = x + 'px'; e.style.top = y + 'px'; e.style.transform = tr; e.style.background = kolor;
+      b.appendChild(e);
+    };
+    // wszystkie ściany mają transform-origin 0 0 (lewy górny róg)
+    f('przod', `translateZ(${d / 2}px)`, w, h, kol.przod);
+    f('tyl', `translateZ(${-d / 2}px)`, w, h, kol.tyl);
+    f('gora', `translateZ(${d / 2}px) rotateX(-90deg)`, w, d, kol.gora || kol.bok);
+    f('dol', `translateZ(${d / 2}px) rotateX(-90deg)`, w, d, kol.dol || kol.bok, 0, h);
+    f('lewo', `translateZ(${d / 2}px) rotateY(90deg)`, d, h, kol.lewo || kol.bok);
+    f('prawo', `translateZ(${d / 2}px) rotateY(90deg)`, d, h, kol.prawo || kol.bok, w, 0);
+    return b;
+  }
+  const odcien = (hex, p) => { // rozjaśnij/przyciemnij
+    const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => Math.max(0, Math.min(255, Math.round(v + p))));
+    return '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('');
+  };
+
+  function kolory() {
+    const a = KOLORY[st.aussen]; const i = KOLORY[st.innen];
+    return { przod: a, tyl: i, bok: odcien(a, -14), gora: odcien(a, 22), dol: odcien(a, -34), lewo: odcien(a, 8), prawo: odcien(a, -24) };
+  }
+
+  function zbudujOkno() {
+    okno.innerHTML = '';
+    const s = SKALA();
+    const W = st.breite * s; const H = st.hoehe * s;
+    const RAMA = 70 * s; // szerokość profilu ramy (mm)
+    const SKRZ = 60 * s; // profil skrzydła
+    const G = 24; // głębokość ramy w px (ok. 80 mm przy skali)
+    const kol = kolory();
+    okno.style.width = W + 'px'; okno.style.height = H + 'px';
+    okno.style.setProperty('--w', W + 'px'); okno.style.setProperty('--h', H + 'px');
+    okno.style.marginTop = (-(H - (st.rollladen ? 200 * s : 0)) / 2 - 8) + 'px';
+
+    // rama zewnętrzna: 4 belki
+    const rama = document.createElement('div'); rama.className = 'fk-rama';
+    const belka = (w, h, x, y) => { const b = box(w, h, G, kol); b.style.left = x + 'px'; b.style.top = y + 'px'; rama.appendChild(b); };
+    belka(W, RAMA, 0, 0); belka(W, RAMA, 0, H - RAMA); belka(RAMA, H - 2 * RAMA, 0, RAMA); belka(RAMA, H - 2 * RAMA, W - RAMA, RAMA);
+    okno.appendChild(rama);
+
+    // skrzydła
+    const n = st.fluegel;
+    const wew = W - 2 * RAMA; const hew = H - 2 * RAMA;
+    const slupek = n === 2 ? 50 * s : 0;
+    const szerSkrz = (wew - slupek) / n;
+    for (let k = 0; k < n; k++) {
+      const grupa = document.createElement('div'); grupa.className = 'fk-skrzydlo-grupa';
+      const x = RAMA + k * (szerSkrz + slupek);
+      grupa.style.left = x + 'px'; grupa.style.top = RAMA + 'px'; grupa.style.width = szerSkrz + 'px'; grupa.style.height = hew + 'px';
+      // zawias: lewe skrzydło na lewej krawędzi, prawe na prawej (dla 1 skrzydła wg anschlag)
+      const zawiasLewy = n === 2 ? k === 0 : st.anschlag === 'rechts'; // DIN liczy się od wewnątrz, patrzymy od zewnątrz
+      grupa.dataset.zawias = zawiasLewy ? 'lewo' : 'prawo';
+      const stale = st.oeffnung === 'fest';
+      const skrz = document.createElement('div'); skrz.className = 'fk-skrzydlo';
+      skrz.style.width = szerSkrz + 'px'; skrz.style.height = hew + 'px';
+      skrz.style.transformOrigin = zawiasLewy ? `0 100%` : `100% 100%`;
+      if (!stale) {
+        // profil skrzydła
+        const b2 = (w, h, xx, yy) => { const b = box(w, h, G * 0.8, kol); b.style.left = xx + 'px'; b.style.top = yy + 'px'; b.style.transform = `translateZ(${G * 0.15}px)`; skrz.appendChild(b); };
+        b2(szerSkrz, SKRZ, 0, 0); b2(szerSkrz, SKRZ, 0, hew - SKRZ); b2(SKRZ, hew - 2 * SKRZ, 0, SKRZ); b2(SKRZ, hew - 2 * SKRZ, szerSkrz - SKRZ, SKRZ);
+      }
+      // szyba
+      const szyba = document.createElement('div'); szyba.className = 'fk-szyba';
+      const m = stale ? 0 : SKRZ;
+      szyba.style.left = m + 'px'; szyba.style.top = m + 'px'; szyba.style.width = (szerSkrz - 2 * m) + 'px'; szyba.style.height = (hew - 2 * m) + 'px';
+      szyba.style.transform = `translateZ(${G * 0.15}px)`;
+      // 2/3 szyby: dodatkowe lekkie odbicia w głębi
+      for (let g = 0; g < st.glas; g++) { const t = document.createElement('i'); t.className = 'fk-tafla'; t.style.transform = `translateZ(${-g * 5}px)`; szyba.appendChild(t); }
+      skrz.appendChild(szyba);
+      // dolny panel drzwi balkonowych (profil)
+      if (st.typ === 'balkontuer' && !stale) {
+        const panel = box(szerSkrz - 2 * SKRZ, 90 * s, G * 0.8, kol); panel.className += ' fk-panel';
+        panel.style.left = SKRZ + 'px'; panel.style.top = (hew - SKRZ - 90 * s) + 'px'; panel.style.transform = `translateZ(${G * 0.15}px)`; skrz.appendChild(panel);
+      }
+      // klamka po stronie przeciwnej do zawiasu, od wewnątrz (tył)
+      if (!stale) {
+        const kl = document.createElement('div'); kl.className = 'fk-klamka';
+        const wysKl = st.typ === 'balkontuer' ? hew * 0.55 : hew * 0.5;
+        kl.style.top = wysKl + 'px'; kl.style[zawiasLewy ? 'right' : 'left'] = (SKRZ / 2 - 4) + 'px';
+        kl.style.transform = `translateZ(${-G * 0.55}px) rotateY(180deg) ${zawiasLewy ? '' : 'scaleX(-1)'}`;
+        kl.innerHTML = '<i></i><b></b>';
+        skrz.appendChild(kl);
+      }
+      grupa.appendChild(skrz);
+      okno.appendChild(grupa);
+    }
+    // słupek przy 2 skrzydłach
+    if (n === 2) { const sl = box(slupek, hew, G, kol); sl.style.left = (RAMA + szerSkrz) + 'px'; sl.style.top = RAMA + 'px'; okno.appendChild(sl); }
+    // parapet / próg
+    const prog = box(W + 40 * s, 14, G * 1.6, { przod: '#d9d9d6', tyl: '#e8e8e4', bok: '#bdbdb9' }); prog.className += ' fk-prog';
+    prog.style.left = (-20 * s) + 'px'; prog.style.top = H + 'px'; okno.appendChild(prog);
+    // roleta nadstawna
+    if (st.rollladen) {
+      const KAS = 200 * s;
+      const kaseta = box(W, KAS, G * 1.9, { przod: kol.przod, tyl: kol.tyl, bok: kol.bok }); kaseta.className += ' fk-kaseta';
+      kaseta.style.left = '0'; kaseta.style.top = (-KAS) + 'px'; okno.appendChild(kaseta);
+      const prow = (x) => { const p = box(22 * s, H, G * 0.6, kol); p.style.left = x + 'px'; p.style.top = '0'; p.style.transform = `translateZ(${G * 0.9}px)`; okno.appendChild(p); };
+      prow(-22 * s); prow(W);
+      const pancerz = document.createElement('div'); pancerz.className = 'fk-pancerz';
+      pancerz.style.left = '0'; pancerz.style.width = W + 'px'; pancerz.style.setProperty('--pelna', H + 'px');
+      pancerz.style.transform = `translateZ(${G * 0.95}px)`; pancerz.style.background = `repeating-linear-gradient(180deg, ${odcien(kol.przod, 14)} 0 ${Math.max(5, 40 * s * 0.8)}px, ${odcien(kol.przod, -22)} ${Math.max(5, 40 * s * 0.8)}px ${Math.max(6, 40 * s)}px)`;
+      okno.appendChild(pancerz);
+    }
+    zastosujAnimacje();
+  }
+
+  function zastosujAnimacje() {
+    $$('.fk-skrzydlo-grupa').forEach((g) => {
+      const skrz = g.firstElementChild; const lewy = g.dataset.zawias === 'lewo';
+      let tr = '';
+      if (st.oeffnung !== 'fest') {
+        if (st.kipp && (st.oeffnung === 'dk' || st.oeffnung === 'kipp')) { skrz.style.transformOrigin = '50% 100%'; tr = `rotateX(${12 * st.kipp}deg)`; } // góra skrzydła do środka pomieszczenia
+        else if (st.dreh && (st.oeffnung === 'dk' || st.oeffnung === 'dreh')) { skrz.style.transformOrigin = lewy ? '0 50%' : '100% 50%'; tr = `rotateY(${(lewy ? 1 : -1) * 60 * st.dreh}deg)`; } // otwiera się do wewnątrz
+      }
+      skrz.style.transform = tr;
+    });
+    const p = $('.fk-pancerz'); if (p) p.style.height = `calc(var(--pelna) * ${st.roll})`;
+    okno.style.transform = `rotateX(${st.rotX}deg) rotateY(${st.rotY}deg)`;
+  }
+
+  // obrót palcem / myszą
+  let drag = null;
+  scena.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY, ry: st.rotY, rx: st.rotX }; st.auto = false; $('#fk-auto').checked = false; scena.setPointerCapture(e.pointerId); });
+  scena.addEventListener('pointermove', (e) => { if (!drag) return; st.rotY = drag.ry + (e.clientX - drag.x) * 0.5; st.rotX = Math.max(-60, Math.min(60, drag.rx - (e.clientY - drag.y) * 0.4)); zastosujAnimacje(); });
+  scena.addEventListener('pointerup', () => { drag = null; });
+  scena.addEventListener('pointercancel', () => { drag = null; });
+  let ostatni = 0;
+  function petla(ts) {
+    if (st.auto && !drag && !bezRuchu) { st.rotY += (ts - ostatni) * 0.012; if (st.rotY > 180) st.rotY -= 360; zastosujAnimacje(); }
+    ostatni = ts; requestAnimationFrame(petla);
+  }
+  requestAnimationFrame((ts) => { ostatni = ts; petla(ts); });
+
+  // płynne przejścia stanów (kipp/dreh/roll) 0..1
+  function animuj(klucz, cel, ms = 700) {
+    if (bezRuchu) { st[klucz] = cel; zastosujAnimacje(); return; }
+    const od = st[klucz]; const t0 = performance.now();
+    const krok = (t) => { const f = Math.min(1, (t - t0) / ms); const e = 1 - Math.pow(1 - f, 3); st[klucz] = od + (cel - od) * e; zastosujAnimacje(); if (f < 1) requestAnimationFrame(krok); };
+    requestAnimationFrame(krok);
+  }
+
+  /* ------------------------------------------------ przekrój (SVG) */
+  function przekroj() {
+    const svg = $('.fk-przekroj');
+    const a = KOLORY[st.aussen]; const i = KOLORY[st.innen];
+    const glas = st.glas; const szer = 340; const wys = 200;
+    const profilH = 88; // wysokość profilu w rysunku
+    const y0 = 60;
+    const komory = st.material === 'pvc' ? 5 : st.material === 'alu' ? 3 : 0;
+    let s = `<svg viewBox="0 0 ${szer} ${wys + 40}" role="img" aria-label="${T.querschnitt}">`;
+    // etykiety stron
+    s += `<text x="14" y="22" class="fk-et">${T.aussen}</text><text x="${szer - 14}" y="22" class="fk-et" text-anchor="end">${T.innen}</text>`;
+    s += `<path d="M${szer / 2} 8 V${wys + 36}" class="fk-os"/>`;
+    // profil ramy: lewa połowa = zewnątrz (kolor aussen), prawa = wewnątrz (innen). Rysujemy jako przekrój poziomy: lewo = na zewnątrz
+    const px = 30; const pw = szer - 60;
+    const rysujProfil = (y, h) => {
+      // korpus: dwie barwy (okleina zewnętrzna / wewnętrzna) + rdzeń
+      const rdzen = st.material === 'holz' ? '#b98a57' : st.material === 'alu' ? '#b9bcc0' : '#e9e9e6';
+      s += `<rect x="${px}" y="${y}" width="${pw}" height="${h}" rx="3" fill="${rdzen}" stroke="#2a2a2a" stroke-width="1.5"/>`;
+      s += `<rect x="${px}" y="${y}" width="${pw / 2}" height="${h}" fill="${a}" fill-opacity="${st.material === 'holz' ? .55 : 1}" clip-path="inset(0 round 3px)"/>`;
+      s += `<rect x="${px + pw / 2}" y="${y}" width="${pw / 2}" height="${h}" fill="${i}" fill-opacity="${st.material === 'holz' ? .55 : 1}"/>`;
+      // ścianki rdzenia (komory)
+      if (komory) {
+        const kw = (pw - 24) / komory;
+        for (let k = 0; k < komory; k++) s += `<rect x="${px + 12 + k * kw + 2}" y="${y + 10}" width="${kw - 4}" height="${h - 20}" rx="2" fill="${k === 1 && st.material === 'pvc' ? '#9aa3ad' : rdzen}" stroke="#2a2a2a" stroke-width="1"/>`;
+        if (st.material === 'pvc') s += `<text x="${px + 12 + 1.5 * kw}" y="${y + h / 2 + 4}" class="fk-et2" text-anchor="middle">${T.stahl}</text>`;
+      } else {
+        for (let k = 1; k < 5; k++) s += `<path d="M${px + 6} ${y + k * h / 5} Q${px + pw / 2} ${y + k * h / 5 + 4} ${px + pw - 6} ${y + k * h / 5}" stroke="#8a6238" stroke-width=".8" fill="none"/>`;
+      }
+      s += `<rect x="${px}" y="${y}" width="${pw}" height="${h}" rx="3" fill="none" stroke="#2a2a2a" stroke-width="1.5"/>`;
+    };
+    rysujProfil(y0, profilH);
+    // pakiet szybowy nad profilem (szyby pionowe widziane z góry → tu rysujemy je jako pionowe paski w górnej części)
+    const gy = 10; const gh = y0 - 6;
+    const pak = glas === 3 ? 44 : 28; const gx = szer / 2 - pak / 2;
+    s += `<rect x="${gx - 6}" y="${y0 - 2}" width="${pak + 12}" height="10" fill="#1f1f1f"/>`; // uszczelka
+    for (let g = 0; g < glas; g++) {
+      const x = gx + g * (glas === 3 ? 18 : 20);
+      s += `<rect x="${x}" y="${gy}" width="8" height="${gh}" fill="#bfe3ef" stroke="#2a7ea6" stroke-width="1"/>`;
+      if (g < glas - 1) s += `<rect x="${x + 8}" y="${gy + 2}" width="${glas === 3 ? 10 : 12}" height="${gh - 4}" fill="#eef7fb"/><text x="${x + 8 + (glas === 3 ? 5 : 6)}" y="${gy + gh / 2}" class="fk-et3" text-anchor="middle" transform="rotate(-90 ${x + 8 + (glas === 3 ? 5 : 6)} ${gy + gh / 2})">Ar</text>`;
+    }
+    s += `<text x="${szer / 2}" y="${wys + 22}" class="fk-et" text-anchor="middle">${glas === 3 ? T.dreifach : T.zweifach} · ${T.mat[st.material]}</text><text x="${szer / 2}" y="${wys + 38}" class="fk-et2" text-anchor="middle">${T.uw[glas]} W/(m²K)</text>`;
+    // podpisy kolorów
+    s += `<text x="${px + 4}" y="${y0 + profilH + 16}" class="fk-et2">${T.farbe[st.aussen]}</text><text x="${px + pw - 4}" y="${y0 + profilH + 16}" class="fk-et2" text-anchor="end">${T.farbe[st.innen]}</text>`;
+    s += '</svg>';
+    svg.innerHTML = s;
+  }
+
+  /* ------------------------------------------------ opis pozycji */
+  function opisPozycji(p = st) {
+    const T2 = T.opis;
+    const czesci = [
+      `${T2.typ[p.typ]} ${p.breite} × ${p.hoehe} mm`,
+      `${p.fluegel}-${T2.fluegelig}`,
+      T2.mat[p.material],
+      T2.glas[p.glas],
+      T2.oeffnung[p.oeffnung] + (p.oeffnung === 'fest' ? '' : ` ${T2.anschlag[p.anschlag]}`),
+      p.innen === p.aussen ? `${T2.farbe_ein} ${T.farbe[p.innen]}` : `${T2.innen} ${T.farbe[p.innen]} / ${T2.aussen} ${T.farbe[p.aussen]}`,
+      p.rollladen ? T2.rollladen : null
+    ].filter(Boolean);
+    return czesci.join(', ');
+  }
+  function odswiezPodsumowanie() {
+    $('.fk-opis').textContent = opisPozycji();
+    const ul = $('.fk-lista'); ul.innerHTML = '';
+    pozycje.forEach((p, idx) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="fk-nr">${idx + 1}</span><span class="fk-ptekst"></span><span class="fk-pil">${p.menge} ${T.stk}</span><button type="button" class="usun" aria-label="×">×</button>`;
+      li.querySelector('.fk-ptekst').textContent = opisPozycji(p);
+      li.querySelector('.usun').addEventListener('click', () => { pozycje.splice(idx, 1); odswiezPodsumowanie(); });
+      ul.appendChild(li);
+    });
+    $('#fk-json').value = JSON.stringify(pozycje);
+    $('.fk-pusto').hidden = pozycje.length > 0;
+    const razem = pozycje.reduce((a, p) => a + p.menge, 0);
+    $('.fk-razem').textContent = razem ? `${pozycje.length} ${T.positionen} · ${razem} ${T.stk}` : '';
+  }
+
+  /* ------------------------------------------------ sterowanie */
+  function czytajPola() {
+    st.typ = $('input[name=fk_typ]:checked').value;
+    st.fluegel = Number($('input[name=fk_fluegel]:checked').value);
+    st.breite = Math.max(400, Math.min(3000, Number($('#fk_breite').value) || 1200));
+    st.hoehe = Math.max(400, Math.min(2600, Number($('#fk_hoehe').value) || 1400));
+    st.oeffnung = $('input[name=fk_oeffnung]:checked').value;
+    st.anschlag = $('input[name=fk_anschlag]:checked').value;
+    st.glas = Number($('input[name=fk_glas]:checked').value);
+    st.material = $('input[name=fk_material]:checked').value;
+    st.innen = $('#fk_innen').value; st.aussen = $('#fk_aussen').value;
+    st.rollladen = $('#fk_rollladen').checked;
+    st.menge = Math.max(1, Math.min(99, Number($('#fk_menge').value) || 1));
+    // zależności pól
+    $('.fk-anschlag').hidden = st.oeffnung === 'fest' || st.fluegel === 2;
+    $('#fk-kipp').disabled = !(st.oeffnung === 'dk' || st.oeffnung === 'kipp');
+    $('#fk-dreh').disabled = !(st.oeffnung === 'dk' || st.oeffnung === 'dreh');
+    $('#fk-roll').disabled = !st.rollladen;
+    if (!st.rollladen) st.roll = 0;
+    if (st.oeffnung === 'fest') { st.kipp = 0; st.dreh = 0; }
+  }
+  function odswiez() { czytajPola(); zbudujOkno(); przekroj(); odswiezPodsumowanie(); }
+  F.addEventListener('input', (e) => { if (e.target.closest('.fk-pola')) odswiez(); });
+  F.addEventListener('change', (e) => { if (e.target.closest('.fk-pola')) odswiez(); });
+
+  // typ: drzwi balkonowe → domyślne wymiary
+  $$('input[name=fk_typ]').forEach((r) => r.addEventListener('change', () => {
+    if (r.value === 'balkontuer' && r.checked) { $('#fk_breite').value = 900; $('#fk_hoehe').value = 2200; }
+    if (r.value === 'fenster' && r.checked && Number($('#fk_hoehe').value) > 1800) { $('#fk_breite').value = 1200; $('#fk_hoehe').value = 1400; }
+    odswiez();
+  }));
+  // zweifarbig: szybki przełącznik
+  $('#fk-zweifarbig').addEventListener('click', () => { $('#fk_innen').value = 'weiss'; $('#fk_aussen').value = 'anthrazit'; odswiez(); });
+  $('#fk-einfarbig').addEventListener('click', () => { $('#fk_aussen').value = $('#fk_innen').value; odswiez(); });
+
+  // przyciski animacji
+  $('#fk-kipp').addEventListener('click', () => { if (st.dreh) animuj('dreh', 0, 400); animuj('kipp', st.kipp > 0.5 ? 0 : 1); });
+  $('#fk-dreh').addEventListener('click', () => { if (st.kipp) animuj('kipp', 0, 400); animuj('dreh', st.dreh > 0.5 ? 0 : 1, 900); });
+  $('#fk-roll').addEventListener('click', () => animuj('roll', st.roll > 0.5 ? 0 : 0.7, 1400));
+  $('#fk-auto').addEventListener('change', (e) => { st.auto = e.target.checked; });
+  $('#fk-reset').addEventListener('click', () => { st.rotY = -28; st.rotX = 10; st.auto = true; $('#fk-auto').checked = true; animuj('kipp', 0, 300); animuj('dreh', 0, 300); zastosujAnimacje(); });
+  $$('.fk-widok button').forEach((b) => b.addEventListener('click', () => {
+    $$('.fk-widok button').forEach((x) => x.classList.toggle('aktywny', x === b));
+    const w = b.dataset.widok;
+    $('.fk-scena-wrap').hidden = w !== '3d'; $('.fk-przekroj-wrap').hidden = w !== 'schnitt';
+    // widok od wewnątrz = obrót o 180°
+    if (w === 'innen') { $('.fk-scena-wrap').hidden = false; st.auto = false; $('#fk-auto').checked = false; st.rotY = 180; st.rotX = 6; zastosujAnimacje(); }
+    if (w === '3d') { st.auto = true; $('#fk-auto').checked = true; }
+  }));
+
+  // dodanie pozycji
+  $('#fk-dodaj').addEventListener('click', () => {
+    czytajPola();
+    pozycje.push({ typ: st.typ, fluegel: st.fluegel, breite: st.breite, hoehe: st.hoehe, oeffnung: st.oeffnung, anschlag: st.anschlag, glas: st.glas, material: st.material, innen: st.innen, aussen: st.aussen, rollladen: st.rollladen, menge: st.menge });
+    odswiezPodsumowanie();
+    const li = $('.fk-lista').lastElementChild; if (li && !bezRuchu) { li.classList.add('nowa'); setTimeout(() => li.classList.remove('nowa'), 900); }
+  });
+  // wysyłka: wymagana co najmniej jedna pozycja
+  const form = $('form');
+  form.addEventListener('submit', (e) => {
+    if (!pozycje.length) { e.preventDefault(); const b = $('#blad-js'); b.textContent = T.leer; b.hidden = false; b.scrollIntoView({ block: 'center' }); return; }
+    const btn = form.querySelector('button[type=submit]'); if (btn) { btn.disabled = true; btn.textContent = btn.dataset.laduje || btn.textContent; }
+  });
+
+  odswiez();
+  // demonstracja na start: krótki uchył
+  if (!bezRuchu) setTimeout(() => { animuj('kipp', 1, 900); setTimeout(() => animuj('kipp', 0, 900), 2200); }, 1200);
+})();
+});</script></main>
+<footer class="stopka">
+  <div class="stopka-in">
+    <div class="sf">
+      <div class="sf-marka"><a class="marka " href="v11.0.0-de-index.html" aria-label="RaumTreu – Start"><svg class="znak " viewBox="-4 -4 108 108" width="34" height="34" aria-hidden="true">
+  <path class="cz cz-immo" fill="#ee5234" d="M0 34 H12 V88 H22 L10 100 H4 Q0 100 0 96 Z"/>
+  <path class="cz cz-dig" fill="#15a1af" d="M30 88 H57 V100 H18 Z"/>
+  <path class="cz cz-bau" fill="#eaa312" d="M50 0 H96 Q100 0 100 4 V26 H88 V12 H62 Z"/>
+  <path class="cz cz-netz" fill="#be652d" d="M88 55 H100 V96 Q100 100 96 100 H81 V88 H88 Z"/>
+  <path class="cz cz-r" fill="currentColor" d="M0 26 V4 Q0 0 4 0 H30 A18 26 0 0 1 30 52 L50 80 H37 L18 52 V40 H30 A8 14 0 0 0 30 12 H12 V26 Z"/>
+  <path class="cz cz-t" fill="currentColor" d="M55 34 H100 V45 H76 V100 H64 V45 H52 Z"/>
+</svg><span class="wm">RAUM<b>TREU</b></span></a><p>Immobilien, Baumaterialien, Handwerker-Netzwerk und Digitalisierung – lokal aus Pressig.</p><p class="mono maly">Immobilien · Baumaterialien · BauNetzwerk · Digitalisierung</p></div>
+      <div class="sf-kol"><h4>Bereiche</h4><ul><li><a href="v11.0.0-de-immobilien.html" style="--kd:#ee5234"><span class="mono">01</span>Immobilien</a></li><li><a href="v11.0.0-de-baumaterialien.html" style="--kd:#eaa312"><span class="mono">02</span>Baumaterialien</a></li><li><a href="v11.0.0-de-baunetzwerk.html" style="--kd:#be652d"><span class="mono">03</span>BauNetzwerk</a></li><li><a href="v11.0.0-de-digitalisierung.html" style="--kd:#15a1af"><span class="mono">04</span>Digitalisierung</a></li></ul></div>
+      <div class="sf-kol"><h4>Unternehmen</h4><ul><li><a href="v11.0.0-de-ueber-uns.html">Über uns</a></li><li><a href="v11.0.0-de-regionen.html">Regionen</a></li><li><a href="v11.0.0-de-kontakt.html">Kontakt</a></li><li><a href="v11.0.0-de-bestellen.html">Material anfragen</a></li></ul></div>
+      <div class="sf-kol"><h4>Rechtliches</h4><ul><li><a href="v11.0.0-de-impressum.html">Impressum</a></li><li><a href="v11.0.0-de-datenschutz.html">Datenschutz</a></li><li><a href="v11.0.0-de-anmelden.html">Kundenkonto</a></li></ul></div>
+      <div class="sf-adres"><span class="mono">Verfasser</span>Jakub Mateusz Woloszczuk<br>Martin-Luther-Ring 10<br>96332 Pressig</div>
+      <div class="sf-dol"><span>© 2026 RaumTreu · Jakub Mateusz Woloszczuk</span><span class="mono">Transparent und Professionell</span><span class="mono">Projektmappe · DE · PL</span></div>
+    </div>
+  </div>
+  <p class="stopka-wielki" aria-hidden="true" data-przesuw="-0.25">RAUMTREU</p>
+  <span class="belki pozioma" aria-hidden="true"><i class="b-immo"></i><i class="b-bau"></i><i class="b-netz"></i><i class="b-dig"></i></span>
+</footer>
+<div class="rt-podglad" style="position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:999;display:flex;gap:10px;align-items:center;background:#0b2e26;color:#f6f2ea;border:1px solid rgba(246,242,234,.18);font:600 13px/1.2 system-ui,sans-serif;padding:10px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.25);white-space:nowrap"><span>Vorschau v11.0.0 · DE</span><a href="index.html" style="color:#f0b25a;text-decoration:none">&larr; wersje</a></div><script>document.addEventListener("submit",function(e){e.preventDefault();var b=document.createElement("div");b.textContent="Podgląd: formularz działa dopiero w prawdziwej aplikacji (lokalnie albo na Hostingerze).";b.style.cssText="position:fixed;left:16px;right:16px;top:90px;z-index:1000;background:#fff;border-left:4px solid #b8622b;padding:14px 16px;font:500 15px system-ui;box-shadow:0 10px 30px rgba(0,0,0,.2);border-radius:10px";document.body.appendChild(b);setTimeout(function(){b.remove()},4500)},true);</script></body></html>
